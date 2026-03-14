@@ -5,6 +5,7 @@ Tests for the example schema files.
 from __future__ import annotations
 
 import json
+from typing import Any
 
 import pytest
 
@@ -64,15 +65,13 @@ def test_example_1_validates_against_standard_draft() -> None:
     """
     path = EXAMPLES_DIR / "mechanism-1-annotations.json"
     errors = val.validate_file(path, instance_path=None)
-    assert errors == [], (
-        f"mechanism-1-annotations has schema errors: {[e.message for e in errors]}"
-    )
+    assert errors == [], f"mechanism-1-annotations has schema errors: {[e.message for e in errors]}"
 
 
 def test_example_1_valid_data_passes() -> None:
     """A conforming data instance must validate against the Mechanism 1 schema."""
     schema = load_example("mechanism-1-annotations")
-    instance = {
+    instance: dict[str, Any] = {
         "dataset_id": "https://example.org/ds/001",
         "year": 2023,
         "country_code": "DE",
@@ -85,6 +84,7 @@ def test_example_1_valid_data_passes() -> None:
 def test_example_1_invalid_data_fails() -> None:
     """An instance missing required fields must fail validation."""
     schema = load_example("mechanism-1-annotations")
-    instance = {"year": 2023}  # missing required: dataset_id, country_code, population
+    # missing required: dataset_id, country_code, population
+    instance: dict[str, Any] = {"year": 2023}
     errors = val.validate(instance, schema)
     assert len(errors) > 0, "Invalid instance wrongly accepted"

@@ -5,9 +5,9 @@
 
 Welcome, fellow AI. This file provides context and instructions for working on this repository effectively. For a detailed technical description of the FAIR Data JSON Schema meta-schema and its vocabularies, see [FAIR_SCHEMA.md](FAIR_SCHEMA.md).
 
-The purpose of this project is to create and maintain a JSON Schema meta-schema to capture rich machine-actionable metadata around FAIR datasets aligned on the FAIR data principles. 
+The purpose of this project is to create and maintain a JSON Schema meta-schema to capture rich machine-actionable metadata around FAIR datasets aligned on the FAIR data principles.
 
-## Rationale 
+## Rationale
 
 Several metadata standards or specifications exists for describing FAIR datasets, such as:
 - The [DDI Alliance](https://ddialliance.org/) family of standards: [DDI Codebook](https://ddialliance.org/ddi-codebook), [DDI Lifecycle](https://ddialliance.org/ddi-lifecycle), and [DDI-CDI](https://ddialliance.org/ddi-cdi), and related
@@ -124,9 +124,3 @@ Setup: `uv sync && uv run pre-commit install`
 - `cli.py` — Typer CLI: `validate`, `lint`, `info` commands
 
 CLI entry point: `fair-data-schema` (defined in `pyproject.toml [project.scripts]`)
-
-
-
-
-
-

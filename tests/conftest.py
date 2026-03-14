@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any, cast
 
 import pytest
 
@@ -32,19 +33,19 @@ def examples_dir() -> Path:
 
 
 @pytest.fixture(scope="session")
-def fair_meta_schema(schemas_dir: Path) -> dict:  # type: ignore[type-arg]
+def fair_meta_schema(schemas_dir: Path) -> dict[str, Any]:
     """Parse and return the composite FAIR dialect meta-schema."""
-    path = schemas_dir / "meta" / "fair-data-schema.json"
-    return json.loads(path.read_text(encoding="utf-8"))
+    path = schemas_dir / "index.json"
+    return cast(dict[str, Any], json.loads(path.read_text(encoding="utf-8")))
 
 
-def load_schema(name: str) -> dict:  # type: ignore[type-arg]
+def load_schema(name: str) -> dict[str, Any]:
     """Load a vocabulary meta-schema by folder name."""
-    path = SCHEMAS_DIR / "vocabularies" / name / "meta-schema.json"
-    return json.loads(path.read_text(encoding="utf-8"))
+    path = SCHEMAS_DIR / "vocab" / name / "meta-schema.json"
+    return cast(dict[str, Any], json.loads(path.read_text(encoding="utf-8")))
 
 
-def load_example(name: str) -> dict:  # type: ignore[type-arg]
+def load_example(name: str) -> dict[str, Any]:
     """Load an example schema by filename (without .json)."""
     path = EXAMPLES_DIR / f"{name}.json"
-    return json.loads(path.read_text(encoding="utf-8"))
+    return cast(dict[str, Any], json.loads(path.read_text(encoding="utf-8")))

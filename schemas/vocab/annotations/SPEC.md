@@ -67,10 +67,10 @@ FAIR metadata is split into two categories:
 - **`fair:temporalCoverage`** (Object): Container for descriptive name and/or structured dates.
 
 ```json
-"fair:temporalCoverage": { 
-  "description": "Census 2020 Cycle", 
-  "start": "2020-01-01", 
-  "end": "2023-12-31" 
+"fair:temporalCoverage": {
+  "description": "Census 2020 Cycle",
+  "start": "2020-01-01",
+  "end": "2023-12-31"
 },
 "fair:temporalCoverageRef": "https://example.org/periods/census-2020"
 ```

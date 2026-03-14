@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 import jsonschema
 import referencing
@@ -20,27 +21,26 @@ from fair_data_schema.registry import all_schemas
 # ── Build a local referencing Registry ───────────────────────────────────────
 
 
-def _build_registry() -> referencing.Registry:  # type: ignore[type-arg]
+def _build_registry() -> referencing.Registry[Any]:
     """Construct a referencing.Registry pre-loaded with all local FAIR schemas."""
-    resources: list[tuple[str, referencing.Resource]] = []  # type: ignore[type-arg]
+    resources: list[tuple[str, referencing.Resource[Any]]] = []
     for uri, schema in all_schemas().items():
         resource = referencing.Resource.from_contents(
             schema,
             default_specification=referencing.jsonschema.DRAFT202012,
         )
         resources.append((uri, resource))
-    return referencing.Registry().with_resources(resources)
+    registry: referencing.Registry[Any] = referencing.Registry().with_resources(resources)
+    return registry
 
 
-_REGISTRY: referencing.Registry = _build_registry()  # type: ignore[type-arg]
+_REGISTRY: referencing.Registry[Any] = _build_registry()
 
 
 # ── Public API ────────────────────────────────────────────────────────────────
 
 
-def validate(
-    instance: object, schema: dict[str, object]
-) -> list[jsonschema.ValidationError]:
+def validate(instance: object, schema: dict[str, object]) -> list[jsonschema.ValidationError]:
     """
     Validate *instance* against *schema* using the FAIR dialect-aware validator.
 
@@ -66,7 +66,7 @@ def validate_file(
 
     if instance_path is None:
         # Validate the schema document against the 2020-12 meta-meta-schema
-        meta_schema = {"$ref": "https://json-schema.org/draft/2020-12/schema"}
+        meta_schema: dict[str, object] = {"$ref": "https://json-schema.org/draft/2020-12/schema"}
         return validate(schema, meta_schema)
 
     instance = json.loads(instance_path.read_text(encoding="utf-8"))

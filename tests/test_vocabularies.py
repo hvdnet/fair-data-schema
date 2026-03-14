@@ -16,13 +16,13 @@ VOCAB_NAMES = ["annotations", "vocabulary", "dialect", "refinements"]
 
 @pytest.mark.parametrize("name", VOCAB_NAMES)
 def test_vocabulary_meta_schema_exists(name: str) -> None:
-    path = SCHEMAS_DIR / "vocabularies" / name / "meta-schema.json"
+    path = SCHEMAS_DIR / "vocab" / name / "meta-schema.json"
     assert path.exists(), f"Missing vocabulary meta-schema: {path}"
 
 
 @pytest.mark.parametrize("name", VOCAB_NAMES)
 def test_vocabulary_meta_schema_is_valid_json(name: str) -> None:
-    path = SCHEMAS_DIR / "vocabularies" / name / "meta-schema.json"
+    path = SCHEMAS_DIR / "vocab" / name / "meta-schema.json"
     schema = json.loads(path.read_text(encoding="utf-8"))
     assert isinstance(schema, dict)
 
@@ -44,18 +44,16 @@ def test_vocabulary_meta_schema_id_uses_base_uri(name: str) -> None:
 
 @pytest.mark.parametrize("name", VOCAB_NAMES)
 def test_vocabulary_meta_schema_has_spec_file(name: str) -> None:
-    spec = SCHEMAS_DIR / "vocabularies" / name / "SPEC.md"
+    spec = SCHEMAS_DIR / "vocab" / name / "SPEC.md"
     assert spec.exists(), f"Missing SPEC.md for vocabulary: {name}"
 
 
 @pytest.mark.parametrize("name", VOCAB_NAMES)
 def test_vocabulary_meta_schema_self_validates(name: str) -> None:
     """Each vocabulary meta-schema must be a valid JSON Schema 2020-12 document."""
-    path = SCHEMAS_DIR / "vocabularies" / name / "meta-schema.json"
+    path = SCHEMAS_DIR / "vocab" / name / "meta-schema.json"
     errors = val.validate_file(path, instance_path=None)
-    assert errors == [], (
-        f"{name} vocabulary meta-schema has errors: {[e.message for e in errors]}"
-    )
+    assert errors == [], f"{name} vocabulary meta-schema has errors: {[e.message for e in errors]}"
 
 
 # ── Annotations vocabulary specific tests ─────────────────────────────────────
@@ -64,7 +62,17 @@ def test_vocabulary_meta_schema_self_validates(name: str) -> None:
 def test_annotations_vocab_defines_fair_keywords() -> None:
     schema = load_schema("annotations")
     props = schema.get("properties", {})
-    expected = ["fair:concept", "fair:label", "fair:unit", "fair:license", "fair:provider"]
+    expected = [
+        "fair:concept",
+        "fair:conceptRef",
+        "fair:label",
+        "fair:unit",
+        "fair:unitRef",
+        "fair:license",
+        "fair:licenseRef",
+        "fair:provider",
+        "fair:providerRef",
+    ]
     for kw in expected:
         assert kw in props, f"annotations vocab missing keyword: {kw}"
 

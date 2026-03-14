@@ -45,7 +45,7 @@ jobs:
           cd ..
           # Copy to artifact path expected by next step
           cp -r dist site
-      
+
       - name: Upload Downloadable ZIP
         uses: actions/upload-artifact@v4
         with:

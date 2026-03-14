@@ -31,11 +31,7 @@ _URI_TO_PATH: dict[str, Path] = {
     / "vocab"
     / "vocabulary"
     / "meta-schema.json",
-    "vocab/dialect/meta-schema": _REPO_ROOT
-    / "schemas"
-    / "vocab"
-    / "dialect"
-    / "meta-schema.json",
+    "vocab/dialect/meta-schema": _REPO_ROOT / "schemas" / "vocab" / "dialect" / "meta-schema.json",
     "vocab/refinements/meta-schema": _REPO_ROOT
     / "schemas"
     / "vocab"

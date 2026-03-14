@@ -2,7 +2,7 @@
 
 A **dialect** is a uniquely identified version of JSON Schema created by bundling specific vocabularies.
 
-**Dialect URI**: `https://highvaluedata.net/fair-data-schema`  
+**Dialect URI**: `https://highvaluedata.net/fair-data-schema`
 **Meta-schema file**: `schemas/index.json`
 
 ## Rationale

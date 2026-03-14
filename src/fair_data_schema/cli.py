@@ -39,9 +39,7 @@ def validate(
     schema: Annotated[Path, typer.Argument(help="Path to the JSON Schema file.")],
     instance: Annotated[
         Path | None,
-        typer.Argument(
-            help="Path to the JSON instance. If omitted, validates the schema itself."
-        ),
+        typer.Argument(help="Path to the JSON instance. If omitted, validates the schema itself."),
     ] = None,
 ) -> None:
     """Validate a JSON instance against a schema, or a schema against the meta-schema."""

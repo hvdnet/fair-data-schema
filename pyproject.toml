@@ -53,3 +53,8 @@ pythonpath = ["src"]
 
 [tool.coverage.run]
 source = ["src/fair_data_schema"]
+
+[dependency-groups]
+dev = [
+    "types-jsonschema>=4.26.0.20260202",
+]
