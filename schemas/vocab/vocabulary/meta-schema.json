@@ -1,0 +1,22 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://highvaluedata.net/fair-data-schema/vocab/vocabulary/meta-schema",
+    "title": "FAIR Vocabulary Declaration Meta-Schema",
+    "description": "Demonstrates Mechanism 2: declaring a custom $vocabulary in a meta-schema. This file itself is a meta-schema that vocabulary-aware validators can use to understand which FAIR vocabulary keywords are required vs. optional.",
+    "$vocabulary": {
+        "https://json-schema.org/draft/2020-12/vocab/core": true,
+        "https://json-schema.org/draft/2020-12/vocab/applicator": true,
+        "https://json-schema.org/draft/2020-12/vocab/validation": true,
+        "https://json-schema.org/draft/2020-12/vocab/meta-data": true,
+        "https://highvaluedata.net/fair-data-schema/vocab/annotations": false
+    },
+    "allOf": [
+        {
+            "$ref": "https://json-schema.org/draft/2020-12/schema"
+        },
+        {
+            "$ref": "https://highvaluedata.net/fair-data-schema/vocab/annotations/meta-schema"
+        }
+    ],
+    "$comment": "The $vocabulary object above is the key: 'true' means a validator MUST support the vocabulary to process this schema. 'false' means it is optional — validators that don't understand it will silently ignore those keywords."
+}

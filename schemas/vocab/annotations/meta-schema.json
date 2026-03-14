@@ -1,0 +1,194 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://highvaluedata.net/fair-data-schema/vocab/annotations/meta-schema",
+    "title": "FAIR Annotations Vocabulary Meta-Schema",
+    "description": "Defines the syntax of custom FAIR annotation keywords. These keywords are silently ignored by standard validators (Mechanism 1: Custom Annotations) but carry machine-actionable metadata for FAIR-aware tools.",
+    "$defs": {
+        "i18nString": {
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "object",
+                    "description": "Language-tagged string map, keys are BCP-47 language tags.",
+                    "propertyNames": {
+                        "$ref": "#/$defs/languageCode"
+                    },
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "examples": [
+                        {
+                            "en": "Population",
+                            "fr": "Population"
+                        }
+                    ]
+                }
+            ]
+        },
+        "i18nText": {
+            "title": "Text",
+            "description": "A rich text string or a language-tagged map of rich text strings (Markdown supported).",
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/markdownText"
+                },
+                {
+                    "type": "object",
+                    "propertyNames": {
+                        "$ref": "#/$defs/languageCode"
+                    },
+                    "additionalProperties": {
+                        "$ref": "#/$defs/markdownText"
+                    },
+                    "examples": [
+                        {
+                            "en": "### Overview\nThis dataset contains...",
+                            "fr": "### Aperçu\nCe jeu de données contient..."
+                        }
+                    ]
+                }
+            ]
+        },
+        "languageCode": {
+            "type": "string",
+            "description": "A BCP-47 language tag (e.g., 'en', 'en-US', 'fr-CA').",
+            "pattern": "^[a-zA-Z]{2,3}(-[a-zA-Z0-9]{2,8})*$",
+            "examples": [
+                "en",
+                "en-US",
+                "fr-CH"
+            ]
+        },
+        "markdownText": {
+            "type": "string",
+            "contentMediaType": "text/markdown",
+            "description": "A string containing Markdown-formatted rich text."
+        },
+        "nonEmptyString": {
+            "type": "string",
+            "minLength": 1
+        },
+        "uriOrCurie": {
+            "type": "string",
+            "description": "A URI or a CURIE (prefix:localname) referencing a concept in a controlled vocabulary.",
+            "examples": [
+                "https://www.wikidata.org/wiki/Q6534386",
+                "skos:Concept",
+                "sdmx:ObsValue"
+            ]
+        },
+        "uriString": {
+            "type": "string",
+            "format": "uri"
+        }
+    },
+    "properties": {
+        "fair:conceptRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Concept Reference",
+            "description": "URI or CURIE of the statistical or semantic concept this property represents."
+        },
+        "fair:concept": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Concept Literal",
+            "description": "Human-readable name of the semantic concept (e.g. 'Population', 'Gross Domestic Product')."
+        },
+        "fair:description": {
+            "$ref": "#/$defs/i18nText",
+            "title": "Description",
+            "description": "Rich-text description (Markdown supported), optionally i18n."
+        },
+        "fair:label": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Label",
+            "description": "Generic human-readable label for this property in the current context (e.g. 'Total Inhabitants', 'GDP at Market Prices')."
+        },
+        "fair:provider": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Data Provider (Literal)",
+            "description": "Human-readable name of the providing organization or person."
+        },
+        "fair:providerRef": {
+            "$ref": "#/$defs/uriString",
+            "title": "Data Provider Reference",
+            "description": "URI of the organization or person (e.g., ROR, ORCID)."
+        },
+        "fair:license": {
+            "$ref": "#/$defs/i18nString",
+            "title": "License (Literal)",
+            "description": "Human-readable license name or short text."
+        },
+        "fair:licenseRef": {
+            "$ref": "#/$defs/uriString",
+            "title": "License Reference",
+            "description": "URI of the license (e.g., Creative Commons, OGL)."
+        },
+        "fair:unit": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Unit of Measure (Literal)",
+            "description": "Human-readable unit name (e.g. 'Kilograms', 'USD')."
+        },
+        "fair:unitRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Unit of Measure Reference",
+            "description": "URI or CURIE referencing a controlled vocabulary for units (e.g., QUDT)."
+        },
+        "fair:quantity": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Quantity (Literal)",
+            "description": "Human-readable name of the quantity kind (e.g. 'Length', 'Mass', 'Velocity')."
+        },
+        "fair:quantityRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Quantity Reference",
+            "description": "URI or CURIE referencing a metrology ontology for quantities (e.g., VIM, QUDT quantity kinds)."
+        },
+        "fair:temporalCoverage": {
+            "title": "Temporal Coverage",
+            "description": "Time period covered, including a descriptive name and/or structured dates.",
+            "type": "object",
+            "properties": {
+                "description": {
+                    "$ref": "#/$defs/i18nString",
+                    "description": "Human-readable description for the time period (e.g. 'Fiscal Year 2023')."
+                },
+                "start": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Start date of the coverage period."
+                },
+                "end": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "End date of the coverage period."
+                }
+            },
+            "additionalProperties": false
+        },
+        "fair:temporalCoverageRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Temporal Coverage Reference",
+            "description": "URI or CURIE referencing a standardized time period."
+        },
+        "fair:spatialCoverage": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Spatial Coverage (Literal)",
+            "description": "Human-readable geographic area name."
+        },
+        "fair:spatialCoverageRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Spatial Coverage Reference",
+            "description": "URI or CURIE identifying the geographic area in a gazetteer (e.g., GeoNames, Wikidata)."
+        },
+        "fair:classification": {
+            "type": "array",
+            "title": "Classifications",
+            "description": "List of classification system entries that categorize this property.",
+            "items": {
+                "$ref": "#/$defs/uriOrCurie"
+            }
+        }
+    }
+}

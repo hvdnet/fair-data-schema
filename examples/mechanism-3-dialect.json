@@ -1,0 +1,63 @@
+{
+    "$schema": "https://highvaluedata.net/fair-data-schema",
+    "$id": "https://example.org/schemas/mechanism-3-dialect",
+    "title": "Mechanism 3: Custom Dialect ($schema) Example",
+    "description": "Demonstrates opting into the full FAIR dialect with a single $schema declaration. All FAIR annotation keywords are now available and documented in the meta-schema at the dialect URI.",
+    "type": "object",
+    "required": [
+        "id",
+        "title",
+        "variables"
+    ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "format": "uri",
+            "title": "Dataset URI",
+            "fair:concept": "https://www.dublincore.org/specifications/dublin-core/dcmi-terms/identifier",
+            "fair:label": {
+                "en": "Dataset Identifier"
+            }
+        },
+        "title": {
+            "type": "string",
+            "title": "Dataset Title",
+            "fair:label": {
+                "en": "Title",
+                "fr": "Titre"
+            }
+        },
+        "publisher": {
+            "type": "string",
+            "format": "uri",
+            "title": "Publisher URI",
+            "fair:provider": "https://ror.org/02y3ad647"
+        },
+        "license": {
+            "type": "string",
+            "format": "uri",
+            "fair:license": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "variables": {
+            "type": "object",
+            "title": "Variable Definitions",
+            "description": "Map of variable names to their schemas. Each variable may carry full FAIR annotations.",
+            "additionalProperties": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string"
+                    },
+                    "fair:concept": {
+                        "type": "string"
+                    },
+                    "fair:label": {},
+                    "fair:unit": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "$comment": "Notice the $schema field at the top. By pointing to the FAIR dialect URI rather than the standard 2020-12 URI, this schema document opts into all registered FAIR vocabularies. Changing back to 'https://json-schema.org/draft/2020-12/schema' still works — fair: keywords are simply ignored."
+}

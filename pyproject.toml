@@ -1,0 +1,55 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fair-data-schema"
+version = "0.1.0"
+description = "JSON Schema dialect and vocabularies for FAIR datasets"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Pascal Heus", email = "pascal.heus@gmail.com" }]
+requires-python = ">=3.11"
+dependencies = [
+    "jsonschema>=4.23",
+    "referencing>=0.35",
+    "typer>=0.12",
+    "rich>=13",
+]
+
+[project.scripts]
+fair-data-schema = "fair_data_schema.cli:app"
+
+[project.optional-dependencies]
+dev = ["ruff>=0.4", "mypy>=1.10", "pytest>=8", "pytest-cov>=5", "pre-commit>=3"]
+docs = [
+    "sphinx>=7",
+    "myst-parser>=3",
+    "sphinx-rtd-theme>=2",
+    "sphinx-autodoc-typehints>=2",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fair_data_schema"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "N", "ANN"]
+ignore = []
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+pythonpath = ["src"]
+
+[tool.coverage.run]
+source = ["src/fair_data_schema"]
