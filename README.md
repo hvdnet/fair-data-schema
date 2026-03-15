@@ -10,7 +10,20 @@
 
 ## Motivation
 
-JSON Schema is the de facto standard for data description in the IT/API world, but it lacks the semantic richness needed for proper FAIR data stewardship (provenance, concepts, classifications, variable cascades, licensing, etc.). This project bridges the gap — not by replacing existing standards (DDI, DCAT, Croissant…) but by extending JSON Schema so data documentation best practices become accessible to information technologists, and IT tooling becomes available to data stewards.
+While JSON Schema is the de facto standard in the IT and API ecosystem, it often lacks the semantic depth required for comprehensive FAIR high-value data stewardship (e.g., proper data dictionaries, classifications, provenance, concepts, or licensing). This JSON meta-schema project bridges that gap—not by replacing established data community standards (e.g. DDI, DCAT, SKOS, Croissant, etc.), but by extending JSON Schema to bring data documentation best practices to information technologists and modern IT tooling to all involved parties.
+
+JSON and JSON Schema can then serve as a universal language across the technology stack. They are well-established standards in the AI community—inherently understood by Large Language Models (LLMs) and agents, and widely adopted for tool-calling and the Model Context Protocol (MCP).
+
+By anchoring FAIR principles in JSON Schema, we create a "lingua franca" for high-value data that integrates seamlessly with modern APIs. While traditional metadata standards remain vital, they often rely on niche technologies like RDF and triple stores; this project offers a more accessible path forward for the broader developer, data science, and AI communities.
+
+## JSON Meta-Schema
+
+A JSON Schema defines the structure and validation rules for a JSON document (an "instance"). A **JSON Meta-Schema** is a schema that defines the structure and validation rules for *other schemas*. Essentially, it is a "schema for schemas."
+
+In this project, the meta-schema defines the **FAIR Dialect** of JSON Schema. It:
+- **Declares Standards**: Specifies which version of the JSON Schema standard is being used (Draft 2020-12).
+- **Defines Keywords**: Introduces custom FAIR keywords (e.g., `fair:concept`, `fair:unit`) and specifies where they can be used and what values they should hold.
+- **Enables Interoperability**: Bundles various specialized vocabularies into a single cohesive dialect, allowing FAIR-aware tools and AI agents to recognize and act upon the metadata.
 
 ## Extension Mechanisms
 
@@ -67,7 +80,8 @@ uv run pytest -v
 ### Build docs
 
 ```bash
-uv run sphinx-build docs/source docs/build
+cd docs
+uv run make html
 ```
 
 ## Contributing

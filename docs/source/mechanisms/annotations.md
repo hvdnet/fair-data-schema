@@ -13,10 +13,10 @@ The FAIR project uses the `fair:` prefix for all annotation keywords. A dataset 
   "properties": {
     "population": {
       "type": "integer",
-      "fair:concept": "https://www.wikidata.org/wiki/Q1203",
-      "fair:unit": "person",
-      "fair:label": { "en": "Population", "fr": "Population" },
-      "fair:license": "https://creativecommons.org/licenses/by/4.0/"
+      "fair:conceptRef": "https://www.wikidata.org/wiki/Q1203",
+      "fair:concept": { "en": "Population", "fr": "Population" },
+      "fair:unitRef": "http://qudt.org/vocab/unit/UNITS",
+      "fair:licenseRef": "https://creativecommons.org/licenses/by/4.0/"
     }
   }
 }
@@ -24,18 +24,25 @@ The FAIR project uses the `fair:` prefix for all annotation keywords. A dataset 
 
 ## Available Keywords
 
-See {download}`schemas/vocabularies/annotations/SPEC.md <../../../../schemas/vocabularies/annotations/SPEC.md>` for the full list.
+See {download}`schemas/vocab/annotations/SPEC.md <../../../schemas/vocab/annotations/SPEC.md>` for the full list.
 
-| Keyword | Type | Purpose |
+| Keyword | Type | Description |
 |---|---|---|
-| `fair:concept` | URI / CURIE | Semantic concept reference |
-| `fair:label` | string / object | Multilingual label |
-| `fair:unit` | string | Unit of measurement |
-| `fair:temporalCoverage` | object | Date range covered |
-| `fair:spatialCoverage` | URI / CURIE | Geographic area |
-| `fair:provider` | URI | Data provider |
-| `fair:license` | URI | License |
-| `fair:classification` | array of URI/CURIE | Code list classifications |
+| `fair:concept` | string / object | Human-readable name of the semantic concept (Literal) |
+| `fair:conceptRef` | URI / CURIE | URI or CURIE of the semantic concept (Reference) |
+| `fair:label` | string / object | Human-readable label for the property in context |
+| `fair:description` | string / object | Rich-text description (Markdown supported) |
+| `fair:unit` | string / object | Human-readable unit name (Literal) |
+| `fair:unitRef` | URI / CURIE | URI or CURIE for the unit (Reference) |
+| `fair:temporalCoverage` | object | Time period covered (structured) |
+| `fair:temporalCoverageRef`| URI / CURIE | URI or CURIE for a standardized time period |
+| `fair:spatialCoverage` | string / object | Human-readable geographic area name (Literal) |
+| `fair:spatialCoverageRef` | URI / CURIE | URI or CURIE for the geographic area (Reference) |
+| `fair:provider` | string / object | Human-readable name of the providing organization |
+| `fair:providerRef` | URI | URI of the organization or person (e.g. ROR, ORCID) |
+| `fair:license` | string / object | Human-readable license name (Literal) |
+| `fair:licenseRef` | URI | URI of the license (Reference) |
+| `fair:classification` | array | List of classification system entries (URIs/CURIEs) |
 
 ## Working Example File
 

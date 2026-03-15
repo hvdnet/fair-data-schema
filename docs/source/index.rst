@@ -1,7 +1,13 @@
 FAIR JSON Meta-Schema
-====================
+=====================
 
 A custom JSON Schema dialect and vocabularies for FAIR Datasets.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Introduction
+
+   background
 
 .. toctree::
    :maxdepth: 2
@@ -16,7 +22,7 @@ A custom JSON Schema dialect and vocabularies for FAIR Datasets.
    :maxdepth: 1
    :caption: Python Package
 
-   api/fair_schema
+   api/fair_data_schema
 
 .. toctree::
    :maxdepth: 1

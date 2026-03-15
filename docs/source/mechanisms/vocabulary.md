@@ -7,14 +7,18 @@ The `$vocabulary` keyword appears in **meta-schemas** to declare which vocabular
 | `true` | **Required** — validator MUST implement this vocabulary |
 | `false` | **Optional** — validator MUST ignore unknown keywords from this vocabulary |
 
-This is what makes FAIR annotations backward-compatible: all `fair:` vocabularies are declared `false`.
+This is what makes the FAIR project's extension backward-compatible: our custom vocabularies are typically declared as `false` (optional), meaning standard validators will treat them as simple annotations.
+
+## Specification
+
+See {download}`schemas/vocab/vocabulary/SPEC.md <../../../schemas/vocab/vocabulary/SPEC.md>` for details.
 
 ## Example
 
 ```json
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://highvaluedata.net/fair-data-schema/meta/fair-data-schema",
+  "$id": "https://highvaluedata.net/fair-data-schema",
   "$vocabulary": {
     "https://json-schema.org/draft/2020-12/vocab/core": true,
     "https://json-schema.org/draft/2020-12/vocab/validation": true,
