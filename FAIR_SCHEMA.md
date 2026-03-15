@@ -39,7 +39,7 @@ To use the dialect, set the `$schema` keyword in your schema file:
 The FAIR Dialect is composed of several specialized vocabularies.
 
 ### A. Annotations Vocabulary
-**URI**: `https://highvaluedata.net/fair-data-schema/vocab/annotations`
+**URI**: `https://highvaluedata.net/fair-data-schema/vocab/annotations`  
 **Namespace**: `fair:`
 
 This vocabulary adds semantic metadata keywords that standard validators treat as transparent annotations.
