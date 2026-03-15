@@ -61,27 +61,25 @@ docs/             # Sphinx + MyST documentation
 ```bash
 git clone https://github.com/hvdnet/json-meta-schema.git
 cd json-meta-schema
-uv sync
-uv run pre-commit install
+make install
 ```
 
 ### Validate a schema
 
 ```bash
-uv run python -m fair_data_schema validate examples/mechanism-1-annotations.json
+uv run fair-data-schema validate examples/mechanism-1-annotations.json
 ```
 
 ### Run tests
 
 ```bash
-uv run pytest -v
+make test
 ```
 
 ### Build docs
 
 ```bash
-cd docs
-uv run make html
+make html
 ```
 
 ## Contributing
