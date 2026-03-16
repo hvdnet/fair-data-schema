@@ -1,6 +1,6 @@
 # Coded Values: From Enums to FAIR Domains
 
-This narrative explains how to handle categorical data (code lists, classifications, or response domains) using JSON Schema, evolving from simple technical validation to rich FAIR metadata.
+This explains by example how to handle categorical data (code lists, classifications, or response domains) using JSON Schema, evolving from simple technical validation to rich FAIR metadata.
 
 See the companion schema file: [`examples/enum-to-fair-coded-values.json`](examples/enum-to-fair-coded-values.json)
 
@@ -24,7 +24,7 @@ The most basic way to restrict a value in JSON Schema is the [`enum`](https://js
 
 ## 2. The Labeled Enum Pattern (Standard JSON Schema)
 
-To associate a label like "Yes" with a code like `1`, we use the [**`oneOf`**](https://json-schema.org/draft/2020-12/json-schema-core#name-oneof) + [**`const`**](https://json-schema.org/draft/2020-12/json-schema-validation#name-const) pattern. This is **100% standard JSON Schema** and requires no extensions.
+To associate a label like "Yes" with a code like `1`, we use the [**`oneOf`**](https://json-schema.org/draft/2020-12/json-schema-core#name-oneof) + [**`const`**](https://json-schema.org/draft/2020-12/json-schema-validation#name-const) pattern. This is **100% standard JSON Schema**, requires no extensions, and is natively supported by all standard-compliant JSON Schema validators.
 
 ```json
 {
