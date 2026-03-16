@@ -55,4 +55,8 @@ See {download}`schemas/vocab/annotations/SPEC.md <../../../schemas/vocab/annotat
 
 ## Working Example File
 
-`examples/mechanism-1-annotations.json`
+{download}`mechanism-1-annotations.json`
+
+```{literalinclude} mechanism-1-annotations.json
+:language: json
+```

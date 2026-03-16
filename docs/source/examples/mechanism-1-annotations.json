@@ -1,0 +1,66 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://example.org/schemas/mechanism-1-annotations",
+    "title": "Mechanism 1: Custom Annotations Example",
+    "description": "Demonstrates how fair: annotation keywords coexist transparently with standard JSON Schema validation. A standard Draft 2020-12 validator will validate this schema (and data against it) without errors, treating all fair: keywords as annotations.",
+    "type": "object",
+    "required": [
+        "dataset_id",
+        "year",
+        "country_code",
+        "population"
+    ],
+    "properties": {
+        "dataset_id": {
+            "type": "string",
+            "format": "uri",
+            "title": "Dataset Identifier",
+            "description": "Persistent URI identifying this dataset.",
+            "fair:conceptRef": "https://www.dublincore.org/specifications/dublin-core/dcmi-terms/identifier",
+            "fair:concept": "Identifier",
+            "fair:label": "Dataset ID"
+        },
+        "year": {
+            "type": "integer",
+            "minimum": 1900,
+            "maximum": 2100,
+            "title": "Reference Year",
+            "fair:conceptRef": "https://www.wikidata.org/wiki/Q577",
+            "fair:label": "Year"
+        },
+        "country_code": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$",
+            "title": "Country Code (ISO 3166-1 alpha-2)",
+            "fair:conceptRef": "https://www.wikidata.org/wiki/Q6256",
+            "fair:spatialCoverageRef": "https://www.wikidata.org/wiki/Q6256",
+            "fair:spatialCoverage": "Country",
+            "fair:classification": [
+                "https://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=LST_NOM_DTL&StrNom=CL_AREA"
+            ]
+        },
+        "population": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Population Count",
+            "fair:conceptRef": "https://www.wikidata.org/wiki/Q1203",
+            "fair:quantity": "Population",
+            "fair:quantityRef": "https://www.wikidata.org/wiki/Q1203",
+            "fair:unit": "person",
+            "fair:unitRef": "https://www.wikidata.org/wiki/Q1203",
+            "fair:label": "Population",
+            "fair:description": "### Population Count\nThe total number of inhabitants...",
+            "fair:temporalCoverage": {
+                "description": "Census 2020 Cycle",
+                "start": "2020-01-01",
+                "end": "2023-12-31"
+            },
+            "fair:providerRef": "https://ror.org/02y3ad647",
+            "fair:provider": "Example Org",
+            "fair:licenseRef": "https://creativecommons.org/licenses/by/4.0/",
+            "fair:license": "CC-BY-4.0"
+        }
+    },
+    "additionalProperties": false,
+    "$comment": "Try validating {\"dataset_id\": \"https://example.org/ds/001\", \"year\": 2023, \"country_code\": \"DE\", \"population\": 84482267} against this schema using any standard validator. It will pass. The fair: keywords are ignored by the validator but readable by FAIR-aware tools."
+}

@@ -42,4 +42,8 @@ Importing the `FairAnnotated` definition to ensure the property is valid against
 
 ## Working Example File
 
-`examples/mechanism-4-refinements.json`
+{download}`mechanism-4-refinements.json`
+
+```{literalinclude} mechanism-4-refinements.json
+:language: json
+```

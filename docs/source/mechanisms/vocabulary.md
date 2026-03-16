@@ -29,4 +29,8 @@ See {download}`schemas/vocab/vocabulary/SPEC.md <../../../schemas/vocab/vocabula
 
 ## Working Example File
 
-`examples/mechanism-2-vocabulary.json`
+{download}`mechanism-2-vocabulary.json`
+
+```{literalinclude} mechanism-2-vocabulary.json
+:language: json
+```

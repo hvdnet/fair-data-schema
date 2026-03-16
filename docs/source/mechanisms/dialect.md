@@ -30,4 +30,8 @@ graph LR
 
 ## Working Example File
 
-`examples/mechanism-3-dialect.json`
+{download}`mechanism-3-dialect.json`
+
+```{literalinclude} mechanism-3-dialect.json
+:language: json
+```

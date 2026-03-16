@@ -19,6 +19,13 @@ A custom JSON Schema dialect and vocabularies for FAIR Datasets.
    mechanisms/refinements
 
 .. toctree::
+   :maxdepth: 2
+   :caption: Examples & Guides
+
+   examples/variable-cascade
+   examples/enum-to-fair-coded-values
+
+.. toctree::
    :maxdepth: 1
    :caption: Python Package
 
