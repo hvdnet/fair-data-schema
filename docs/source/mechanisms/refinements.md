@@ -8,10 +8,10 @@ The `vocab/refinements` vocabulary provides several core definitions:
 
 | Definition | Purpose |
 |---|---|
-| `FairAnnotated` | Mixin: attach via `allOf` to declare that FAIR annotations are allowed on a property. |
+| `FairAnnotated` | Mixin: attach via `allOf` to enable FAIR annotations on a property. Enforces **exclusivity** for Variable Cascade references (`*VariableRef`). |
 | `FairUri` | A string with `format:uri` plus specific annotations for persistence and identification. |
-| `FairCodedValue` | A structure for handling coded values and classifications. |
-| `FairDatasetDescriptor` | A base object shape for common dataset-level metadata. |
+| `FairCodedValue` | A structure for handling coded values, rich labels, and machine-actionable semantic mappings. |
+| `FairDatasetDescriptor` | A base object shape for common dataset-level metadata, including global Universe/Population binding. |
 
 ## Specification
 

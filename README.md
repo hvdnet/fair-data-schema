@@ -32,6 +32,17 @@ In this project, the meta-schema defines the **FAIR Dialect** of JSON Schema. It
 - **Defines Keywords**: Introduces custom FAIR keywords (e.g., `fair:concept`, `fair:unit`) and specifies where they can be used and what values they should hold.
 - **Enables Interoperability**: Bundles various specialized vocabularies into a single cohesive dialect, allowing FAIR-aware tools and AI agents to recognize and act upon the metadata.
 
+## Core Features
+
+### 1. DDI Variable Cascade
+The dialect implements the DDI variable lineage model (Conceptual → Represented → Instance) using flat annotations. This allows data stewards to trace local columns back to global concepts and shared measurements while strictly distinguishing between Observation Units (`unitType`), Universes, and Populations.
+
+### 2. Semantic Code Lists
+Beyond simple enums, FAIR codes support rich labels, machine-actionable semantic mappings, and versioned classification hierarchies.
+
+### 3. Dynamic Universe/Population Binding
+Support for inheritance and overriding of populations at discovery levels (Dataset vs. Variable), ensuring that data is grounded in its correct temporal and spatial context.
+
 ## Extension Mechanisms
 
 JSON Schema 2020-12 provides four composable extension points used in this project:

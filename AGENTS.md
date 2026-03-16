@@ -44,10 +44,10 @@ To extend JSON Schema without breaking compatibility with existing validators, w
 
 These features will be implemented as JSON Schema vocabularies, one at a time:
 - Strengthen data typing
-- Properly represent code lists or more complex classifications (go beyond the enum)
+- Properly represent code lists or more complex classifications (go beyond the enum) [Early implementation in `refinements`]
 - Ensure proper resource identification (e.g. URIs)
-- Implement the DDI variable cascade
-- Support the reuse of variable and classifications
+- Implement the DDI variable cascade [COMPLETED: instance/represented/conceptual refs]
+- Support the reuse of variable and classifications [COMPLETED: via internal chained cascades]
 - Support controlled vocabularies
 - Add provenance features
 

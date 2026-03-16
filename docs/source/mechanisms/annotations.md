@@ -32,6 +32,15 @@ See {download}`schemas/vocab/annotations/SPEC.md <../../../schemas/vocab/annotat
 | `fair:conceptRef` | URI / CURIE | URI or CURIE of the semantic concept (Reference) |
 | `fair:label` | string / object | Human-readable label for the property in context |
 | `fair:description` | string / object | Rich-text description (Markdown supported) |
+| `fair:instanceVariableRef` | URI / CURIE | Link to a dataset-specific variable implementation |
+| `fair:representedVariableRef` | URI / CURIE | Link to a shared measurement definition |
+| `fair:conceptualVariableRef` | URI / CURIE | Link to a high-level semantic phenomenon |
+| `fair:unitType` | string / object | Observation unit type (e.g. 'Person') |
+| `fair:unitTypeRef` | URI / CURIE | URI of the observation unit type definition |
+| `fair:universe` | string / object | Broad scope or group (e.g. 'Students') |
+| `fair:universeRef` | URI / CURIE | URI of the broad universe definition |
+| `fair:population` | string / object | Specific group bound by time/space |
+| `fair:populationRef` | URI / CURIE | URI of the specific dataset population |
 | `fair:unit` | string / object | Human-readable unit name (Literal) |
 | `fair:unitRef` | URI / CURIE | URI or CURIE for the unit (Reference) |
 | `fair:temporalCoverage` | object | Time period covered (structured) |

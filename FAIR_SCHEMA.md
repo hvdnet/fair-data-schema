@@ -50,6 +50,15 @@ This vocabulary adds semantic metadata keywords that standard validators treat a
 | `fair:concept` | `i18nString` | Formal name of the concept (literal). |
 | `fair:label` | `i18nString` | Contextual human-readable label for the property. |
 | `fair:description` | `i18nText` | Rich-text description (Markdown, i18n). |
+| `fair:instanceVariableRef` | `uri` | Link to a dataset-specific variable implementation (Instance level). |
+| `fair:representedVariableRef` | `uri` | Link to a shared measurement definition (Represented level). |
+| `fair:conceptualVariableRef` | `uri` | Link to a high-level semantic phenomenon (Conceptual level). |
+| `fair:unitType` | `i18nString` | Observation unit type (e.g. 'Person'). Associated with Conceptual level. |
+| `fair:unitTypeRef` | `uri` | URI of the observation unit type definition. |
+| `fair:universe` | `i18nString` | Broad scope or group (e.g. 'Students'). Associated with Represented level. |
+| `fair:universeRef` | `uri` | URI of the broad universe definition. |
+| `fair:population` | `i18nString` | Specific group bound by time/space (e.g. 'Students in 2024'). Associated with Instance level. |
+| `fair:populationRef` | `uri` | URI of the specific dataset population. |
 | `fair:quantityRef` | `uri` | URI referencing a quantity kind (e.g. Mass, Length). |
 | `fair:quantity` | `i18nString` | Human-readable name of the quantity kind. |
 | `fair:unitRef` | `uri` | URI referencing a unit ontology (e.g. QUDT). |
