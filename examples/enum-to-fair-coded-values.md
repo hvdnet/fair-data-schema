@@ -79,7 +79,7 @@ While `title` is great for simple labels, FAIR data requires more depth: multili
     "fr": "Oui",
     "de": "Ja"
   },
-  "fair:conceptRef": "https://www.wikidata.org/wiki/Q149254"
+  "fair:conceptRef": "https://www.wikidata.org/wiki/Q231043"
 }
 ```
 
