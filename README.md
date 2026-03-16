@@ -7,6 +7,7 @@
 > **This project is in an early development and prototyping stage.** The vocabularies and structures are subject to significant changes. It is intended for **prototyping and testing only** and should **not be used in production environments** at this time.
 
 [![CI](https://github.com/hvdnet/json-meta-schema/actions/workflows/ci.yml/badge.svg)](https://github.com/hvdnet/json-meta-schema/actions/workflows/ci.yml)
+[![Documentation](https://img.shields.io/badge/docs-hvdnet.github.io-blue)](https://hvdnet.github.io/fair-data-schema)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ---
@@ -99,6 +100,8 @@ make test
 ```bash
 make html
 ```
+
+The documentation is automatically built and deployed to [hvdnet.github.io/fair-data-schema](https://hvdnet.github.io/fair-data-schema) on every push to the main branch.
 
 ## Contributing
 
