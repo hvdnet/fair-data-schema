@@ -1,5 +1,5 @@
 {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$schema": "https://highvaluedata.net/fair-data-schema",
     "$id": "https://highvaluedata.net/fair-data-schema/vocab/refinements/meta-schema",
     "title": "FAIR Refinements Vocabulary Meta-Schema",
     "description": "Demonstrates Mechanism 4: reusable keyword patterns via $defs. Instead of repeating the same annotation bundle on every property, schema authors can $ref shared definitions from this vocabulary.",
@@ -7,168 +7,93 @@
         "FairAnnotated": {
             "title": "FAIR-Annotated Property Mixin",
             "description": "Attach this mixin (via allOf $ref) to any property to declare the full set of FAIR annotations available on it.",
+            "oneOf": [
+                {
+                    "not": {
+                        "anyOf": [
+                            { "required": ["fair:instanceVariableRef"] },
+                            { "required": ["fair:representedVariableRef"] },
+                            { "required": ["fair:conceptualVariableRef"] }
+                        ]
+                    }
+                },
+                { "required": ["fair:instanceVariableRef"] },
+                { "required": ["fair:representedVariableRef"] },
+                { "required": ["fair:conceptualVariableRef"] }
+            ],
             "properties": {
-                "fair:conceptRef": {
-                    "type": "string"
-                },
-                "fair:concept": {
-                    "type": [
-                        "string",
-                        "object"
-                    ]
-                },
-                "fair:label": {
-                    "type": [
-                        "string",
-                        "object"
-                    ]
-                },
-                "fair:description": {
-                    "type": [
-                        "string",
-                        "object"
-                    ]
-                },
-                "fair:provider": {
-                    "type": [
-                        "string",
-                        "object"
-                    ]
-                },
-                "fair:providerRef": {
-                    "type": "string",
-                    "format": "uri"
-                },
-                "fair:license": {
-                    "type": [
-                        "string",
-                        "object"
-                    ]
-                },
-                "fair:licenseRef": {
-                    "type": "string",
-                    "format": "uri"
-                },
-                "fair:unit": {
-                    "type": [
-                        "string",
-                        "object"
-                    ]
-                },
-                "fair:unitRef": {
-                    "type": "string"
-                },
-                "fair:quantity": {
-                    "type": [
-                        "string",
-                        "object"
-                    ]
-                },
-                "fair:quantityRef": {
-                    "type": "string"
-                },
+                "fair:conceptRef": { "type": "string" },
+                "fair:concept": { "type": ["string", "object"] },
+                "fair:label": { "type": ["string", "object"] },
+                "fair:instanceVariableRef": { "type": "string" },
+                "fair:representedVariableRef": { "type": "string" },
+                "fair:conceptualVariableRef": { "type": "string" },
+                "fair:unitType": { "type": ["string", "object"] },
+                "fair:unitTypeRef": { "type": "string" },
+                "fair:universe": { "type": ["string", "object"] },
+                "fair:universeRef": { "type": "string" },
+                "fair:population": { "type": ["string", "object"] },
+                "fair:populationRef": { "type": "string" },
+                "fair:description": { "type": ["string", "object"] },
+                "fair:provider": { "type": ["string", "object"] },
+                "fair:providerRef": { "type": "string", "format": "uri" },
+                "fair:license": { "type": ["string", "object"] },
+                "fair:licenseRef": { "type": "string", "format": "uri" },
+                "fair:unit": { "type": ["string", "object"] },
+                "fair:unitRef": { "type": "string" },
+                "fair:quantity": { "type": ["string", "object"] },
+                "fair:quantityRef": { "type": "string" },
                 "fair:temporalCoverage": {
                     "type": "object",
                     "properties": {
-                        "description": {
-                            "type": [
-                                "string",
-                                "object"
-                            ]
-                        },
-                        "start": {
-                            "type": "string",
-                            "format": "date"
-                        },
-                        "end": {
-                            "type": "string",
-                            "format": "date"
-                        }
+                        "description": { "type": ["string", "object"] },
+                        "start": { "type": "string", "format": "date" },
+                        "end": { "type": "string", "format": "date" }
                     }
                 },
-                "fair:temporalCoverageRef": {
-                    "type": "string"
-                },
-                "fair:spatialCoverage": {
-                    "type": [
-                        "string",
-                        "object"
-                    ]
-                },
-                "fair:spatialCoverageRef": {
-                    "type": "string"
-                },
+                "fair:temporalCoverageRef": { "type": "string" },
+                "fair:spatialCoverage": { "type": ["string", "object"] },
+                "fair:spatialCoverageRef": { "type": "string" },
                 "fair:classification": {
                     "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
+                    "items": { "type": "string" }
                 }
             }
         },
         "FairUri": {
             "title": "FAIR Persistent URI",
-            "description": "A string that is a URI, additionally annotated as a persistent identifier.",
             "type": "string",
             "format": "uri",
-            "fair:persistent": true,
-            "$comment": "fair:persistent is itself a custom annotation — demonstrating annotations within $defs refinements."
+            "fair:persistent": true
         },
         "FairCodedValue": {
             "title": "FAIR Coded Value",
-            "description": "A value drawn from a code list. Extends the standard enum keyword with FAIR classification metadata.",
             "type": "string",
-            "fair:conceptRef": "https://www.w3.org/2004/02/skos/core#Concept",
-            "$comment": "Full code list support (with labels, versioning etc.) will be a dedicated vocabulary. This is a preview using $defs refinements."
+            "fair:conceptRef": "https://www.w3.org/2004/02/skos/core#Concept"
         },
         "FairDatasetDescriptor": {
             "title": "FAIR Dataset Descriptor",
             "description": "Reusable base object shape for any schema describing an FAIR dataset.",
             "type": "object",
-            "required": [
-                "title"
-            ],
+            "required": ["title"],
             "properties": {
-                "title": {
-                    "type": "string"
-                },
-                "description": {
-                    "type": [
-                        "string",
-                        "object"
-                    ],
-                    "description": "Standard JSON Schema description, supports i18n."
-                },
-                "fair:description": {
-                    "type": [
-                        "string",
-                        "object"
-                    ],
-                    "description": "FAIR rich-text description (Markdown supported), supports i18n."
-                },
-                "fair:provider": {
-                    "$ref": "#/$defs/FairUri"
-                },
-                "fair:license": {
-                    "$ref": "#/$defs/FairUri"
-                },
+                "title": { "type": "string" },
+                "description": { "type": ["string", "object"] },
+                "fair:description": { "type": ["string", "object"] },
+                "fair:unitType": { "type": ["string", "object"] },
+                "fair:unitTypeRef": { "type": "string" },
+                "fair:universe": { "type": ["string", "object"] },
+                "fair:universeRef": { "type": "string" },
+                "fair:population": { "type": ["string", "object"] },
+                "fair:populationRef": { "type": "string" },
+                "fair:provider": { "$ref": "#/$defs/FairUri" },
+                "fair:license": { "$ref": "#/$defs/FairUri" },
                 "fair:temporalCoverage": {
                     "type": "object",
                     "properties": {
-                        "description": {
-                            "type": [
-                                "string",
-                                "object"
-                            ]
-                        },
-                        "start": {
-                            "type": "string",
-                            "format": "date"
-                        },
-                        "end": {
-                            "type": "string",
-                            "format": "date"
-                        }
+                        "description": { "type": ["string", "object"] },
+                        "start": { "type": "string", "format": "date" },
+                        "end": { "type": "string", "format": "date" }
                     }
                 }
             }

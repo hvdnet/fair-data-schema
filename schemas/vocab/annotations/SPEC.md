@@ -8,123 +8,42 @@
 
 ## Overview
 
-Standard JSON Schema validators ignore unknown keywords and pass them through as **annotations** — named metadata attached to a schema location. This vocabulary defines a set of `fair:` prefixed annotation keywords that carry rich, machine-actionable FAIR metadata.
-
-FAIR metadata is split into two categories:
-1. **References (`*Ref`)**: URI or CURIE pointers to controlled vocabularies, ontologies, or external registries.
-2. **Literals (base name)**: Human-readable text (supporting i18n and Markdown where appropriate).
+Standard JSON Schema validators ignore unknown keywords and pass them through as **annotations**. This vocabulary defines a set of `fair:` prefixed annotation keywords that carry rich, machine-actionable FAIR metadata.
 
 ---
 
 ## Keywords
 
-### Concept & Identification
+### Variable Cascade Mapping (DDI Foundation)
 
-- **`fair:conceptRef`** (URI/CURIE): Pointer to the semantic concept (e.g. Wikidata URI).
-- **`fair:concept`** (i18nString): The formal name of the concept (e.g. "Population").
-- **`fair:label`** (i18nString): A human-friendly name for this property in this schema (e.g. "Total Inhabitants").
+The Variable Cascade model organizes data lineage through three technical authority levels. Choose exactly **one** reference per property:
 
-```json
-"fair:conceptRef": "https://www.wikidata.org/wiki/Q1203",
-"fair:concept": "Population",
-"fair:label": { "en": "Total Inhabitants", "fr": "Nombre total d'habitants" }
-```
+- **`fair:conceptualVariableRef`**: The high-level phenomenon (semantic context).
+- **`fair:representedVariableRef`**: The shared measurement definition (coding/representation).
+- **`fair:instanceVariableRef`**: The specific implementation in a dataset.
 
 ---
 
-### Description
+### Unit Type, Universe, & Population
 
-- **`fair:description`** (i18nText): Detailed human-readable explanation. Supports Markdown and i18n.
+Following the DDI standard, we distinguish between the scope of the variable at each level of the cascade:
 
-```json
-"fair:description": {
-  "en": "### Overview\nThis dataset contains...",
-  "fr": "### Aperçu\nCe jeu de données contient..."
-}
-```
+| DDI Object | Variable Level | Scope Keyword | Example |
+| :--- | :--- | :--- | :--- |
+| **Unit Type** | Conceptual | **`fair:unitType`** | Person, Household |
+| **Universe** | Represented | **`fair:universe`** | Students, Employees |
+| **Population**| Instance | **`fair:population`**| Students in District A in 2019 |
 
----
-
-### Unit of Measure & Quantity
-
-- **`fair:quantityRef`** (URI/CURIE): URI referencing a quantity kind (e.g. VIM, QUDT).
-- **`fair:quantity`** (i18nString): Human-readable name of the quantity kind (e.g. "Mass").
-- **`fair:unitRef`** (URI/CURIE): URI referencing a unit ontology (e.g. QUDT).
-- **`fair:unit`** (i18nString): Human-readable unit name.
-
-```json
-"fair:quantityRef": "qudt:Mass",
-"fair:quantity": "Mass",
-"fair:unitRef": "qudt:KiloGram",
-"fair:unit": "kg"
-```
+> [!IMPORTANT]
+> **Observation Unit**: `fair:unitType` refers to the **Observation Unit** (e.g., "Person"), not a unit of measurement (which is handled by `fair:unit`).
 
 ---
 
-### temporalCoverage
+### Description & Identification
 
-- **`fair:temporalCoverageRef`** (URI/CURIE): URI referencing a standardized period.
-- **`fair:temporalCoverage`** (Object): Container for descriptive name and/or structured dates.
-
-```json
-"fair:temporalCoverage": {
-  "description": "Census 2020 Cycle",
-  "start": "2020-01-01",
-  "end": "2023-12-31"
-},
-"fair:temporalCoverageRef": "https://example.org/periods/census-2020"
-```
-
----
-
-### spatialCoverage
-
-- **`fair:spatialCoverageRef`** (URI/CURIE): URI identifying a geographic area (GeoNames, Wikidata).
-- **`fair:spatialCoverage`** (i18nString): Human-readable place name.
-
-```json
-"fair:spatialCoverageRef": "https://sws.geonames.org/6295630/",
-"fair:spatialCoverage": "Earth"
-```
-
----
-
-### Provider
-
-- **`fair:providerRef`** (URI): URI of the organization (ROR, ORCID).
-- **`fair:provider`** (i18nString): Human-readable name of the provider.
-
-```json
-"fair:providerRef": "https://ror.org/02y3ad647",
-"fair:provider": "World Bank"
-```
-
----
-
-### License
-
-- **`fair:licenseRef`** (URI): URI of the license.
-- **`fair:license`** (i18nString): Human-readable name or short-form of the license.
-
-```json
-"fair:licenseRef": "https://creativecommons.org/licenses/by/4.0/",
-"fair:license": "CC-BY-4.0"
-```
-
----
-
-### `fair:classification`
-
-| Field | Value |
-|---|---|
-| Type | `array` of strings (URI or CURIE) |
-| Required | No |
-
-List of code list entries classifying this property.
-
-```json
-"fair:classification": [
-  "https://dd.eionet.europa.eu/vocabulary/eurostat/nuts/DE",
-  "sdmx:refArea"
-]
-```
+- **`fair:conceptRef`**, **`fair:concept`**, **`fair:label`**
+- **`fair:description`** (i18n Markdown)
+- **`fair:quantityRef`**, **`fair:quantity`**, **`fair:unitRef`**, **`fair:unit`**
+- **`fair:temporalCoverage`**, **`fair:spatialCoverage`**
+- **`fair:provider`**, **`fair:license`**
+- **`fair:classification`**
