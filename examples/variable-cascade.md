@@ -39,7 +39,8 @@ Different specifications use different naming conventions, but they all fit into
 | :--- | :--- | :--- | :--- |
 | **DDI** | `InstanceVariable` | Instance | `fair:instanceVariableRef` |
 | **DDI** | `RepresentedVariable`| Represented | `fair:representedVariableRef` |
-| **MLCommons** | `Field` | Instance | `fair:instanceVariableRef` |
+| **DDI** | `ConceptualVariable`| Conceptual | `fair:conceptualVariableRef` |
+| **Croissant** | `Field` | Instance | `fair:instanceVariableRef` |
 | **Schema.org** | `StatisticalVariable`| Instance | `fair:instanceVariableRef` |
 
 ### Industry Comparison & Code Snippets
