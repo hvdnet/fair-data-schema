@@ -41,7 +41,7 @@ def fair_meta_schema(schemas_dir: Path) -> dict[str, Any]:
 
 def load_schema(name: str) -> dict[str, Any]:
     """Load a vocabulary meta-schema by folder name."""
-    path = SCHEMAS_DIR / "vocab" / name / "meta-schema.json"
+    path = SCHEMAS_DIR / "vocab" / name / "index.json"
     return cast(dict[str, Any], json.loads(path.read_text(encoding="utf-8")))
 
 

@@ -16,13 +16,13 @@ VOCAB_NAMES = ["annotations", "vocabulary", "dialect", "refinements"]
 
 @pytest.mark.parametrize("name", VOCAB_NAMES)
 def test_vocabulary_meta_schema_exists(name: str) -> None:
-    path = SCHEMAS_DIR / "vocab" / name / "meta-schema.json"
+    path = SCHEMAS_DIR / "vocab" / name / "index.json"
     assert path.exists(), f"Missing vocabulary meta-schema: {path}"
 
 
 @pytest.mark.parametrize("name", VOCAB_NAMES)
 def test_vocabulary_meta_schema_is_valid_json(name: str) -> None:
-    path = SCHEMAS_DIR / "vocab" / name / "meta-schema.json"
+    path = SCHEMAS_DIR / "vocab" / name / "index.json"
     schema = json.loads(path.read_text(encoding="utf-8"))
     assert isinstance(schema, dict)
 
@@ -51,7 +51,7 @@ def test_vocabulary_meta_schema_has_spec_file(name: str) -> None:
 @pytest.mark.parametrize("name", VOCAB_NAMES)
 def test_vocabulary_meta_schema_self_validates(name: str) -> None:
     """Each vocabulary meta-schema must be a valid JSON Schema 2020-12 document."""
-    path = SCHEMAS_DIR / "vocab" / name / "meta-schema.json"
+    path = SCHEMAS_DIR / "vocab" / name / "index.json"
     errors = val.validate_file(path, instance_path=None)
     assert errors == [], f"{name} vocabulary meta-schema has errors: {[e.message for e in errors]}"
 
