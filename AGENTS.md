@@ -69,7 +69,7 @@ docs/source/             # Sphinx + MyST documentation
 
 ## Building for Publication
 
-To generate a web-ready `/dist` directory that supports clean URIs (renaming `meta-schema.json` to `index.json`):
+To generate a web-ready `/dist` directory that supports clean URIs:
 
 ```bash
 uv run python scripts/build_dist.py
@@ -109,7 +109,7 @@ Setup: `uv sync && uv run pre-commit install`
 
 ## Schema Authoring Conventions
 
-1. All vocabulary meta-schemas live in `schemas/vocab/<name>/meta-schema.json`.
+1. All vocabulary meta-schemas live in `schemas/vocab/<name>/index.json`.
 2. Each vocabulary must have a `SPEC.md` describing every keyword it introduces.
 3. JSON Schema draft **2020-12** is the baseline for all schemas.
 4. New `$id` URIs must use the base URI above and mirror the file path.

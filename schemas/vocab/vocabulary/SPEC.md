@@ -2,7 +2,7 @@
 
 **Mechanism**: 2 — `$vocabulary` keyword
 **Vocabulary ID**: `https://highvaluedata.net/fair-data-schema/vocab/vocabulary`
-**Meta-schema**: `schemas/vocabularies/vocabulary/meta-schema.json`
+**Meta-schema**: `schemas/vocabularies/vocabulary.json`
 
 ---
 

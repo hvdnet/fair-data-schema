@@ -13,7 +13,7 @@
     ],
     "properties": {
         "id": {
-            "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements/meta-schema#/$defs/FairUri",
+            "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements#/$defs/FairUri",
             "title": "Record Identifier",
             "$comment": "FairUri enforces format:uri and adds fair:persistent:true annotation — both standard validation and FAIR annotation from a single $ref."
         },
@@ -26,7 +26,7 @@
             "minimum": 0,
             "allOf": [
                 {
-                    "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements/meta-schema#/$defs/FairAnnotated"
+                    "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements#/$defs/FairAnnotated"
                 }
             ],
             "fair:concept": "https://www.wikidata.org/wiki/Q1203",
@@ -41,7 +41,7 @@
             "minimum": 0,
             "allOf": [
                 {
-                    "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements/meta-schema#/$defs/FairAnnotated"
+                    "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements#/$defs/FairAnnotated"
                 }
             ],
             "fair:concept": "https://www.wikidata.org/wiki/Q132821",
@@ -53,7 +53,7 @@
         "region_code": {
             "allOf": [
                 {
-                    "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements/meta-schema#/$defs/FairCodedValue"
+                    "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements#/$defs/FairCodedValue"
                 }
             ],
             "enum": [

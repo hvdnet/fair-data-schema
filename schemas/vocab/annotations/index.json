@@ -1,6 +1,6 @@
-{
+q{
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://highvaluedata.net/fair-data-schema/vocab/annotations/meta-schema",
+    "$id": "https://highvaluedata.net/fair-data-schema/vocab/annotations",
     "title": "FAIR Annotations Vocabulary Meta-Schema",
     "description": "Defines the syntax of custom FAIR annotation keywords. These keywords are silently ignored by standard validators (Mechanism 1: Custom Annotations) but carry machine-actionable metadata for FAIR-aware tools.",
     "$defs": {
@@ -54,13 +54,27 @@
         }
     },
     "properties": {
-        "fair:conceptRef": { "$ref": "#/$defs/uriOrCurie" },
-        "fair:concept": { "$ref": "#/$defs/i18nString" },
-        "fair:description": { "$ref": "#/$defs/i18nText" },
-        "fair:label": { "$ref": "#/$defs/i18nString" },
-        "fair:instanceVariableRef": { "$ref": "#/$defs/uriOrCurie" },
-        "fair:representedVariableRef": { "$ref": "#/$defs/uriOrCurie" },
-        "fair:conceptualVariableRef": { "$ref": "#/$defs/uriOrCurie" },
+        "fair:conceptRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
+        "fair:concept": {
+            "$ref": "#/$defs/i18nString"
+        },
+        "fair:description": {
+            "$ref": "#/$defs/i18nText"
+        },
+        "fair:label": {
+            "$ref": "#/$defs/i18nString"
+        },
+        "fair:instanceVariableRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
+        "fair:representedVariableRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
+        "fair:conceptualVariableRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
         "fair:unitType": {
             "$ref": "#/$defs/i18nString",
             "title": "Unit Type Literal",
@@ -91,28 +105,60 @@
             "title": "Population Reference",
             "description": "URI of the specific dataset population."
         },
-        "fair:provider": { "$ref": "#/$defs/i18nString" },
-        "fair:providerRef": { "$ref": "#/$defs/uriString" },
-        "fair:license": { "$ref": "#/$defs/i18nString" },
-        "fair:licenseRef": { "$ref": "#/$defs/uriString" },
-        "fair:unit": { "$ref": "#/$defs/i18nString" },
-        "fair:unitRef": { "$ref": "#/$defs/uriOrCurie" },
-        "fair:quantity": { "$ref": "#/$defs/i18nString" },
-        "fair:quantityRef": { "$ref": "#/$defs/uriOrCurie" },
+        "fair:provider": {
+            "$ref": "#/$defs/i18nString"
+        },
+        "fair:providerRef": {
+            "$ref": "#/$defs/uriString"
+        },
+        "fair:license": {
+            "$ref": "#/$defs/i18nString"
+        },
+        "fair:licenseRef": {
+            "$ref": "#/$defs/uriString"
+        },
+        "fair:unit": {
+            "$ref": "#/$defs/i18nString"
+        },
+        "fair:unitRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
+        "fair:quantity": {
+            "$ref": "#/$defs/i18nString"
+        },
+        "fair:quantityRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
         "fair:temporalCoverage": {
             "type": "object",
             "properties": {
-                "description": { "$ref": "#/$defs/i18nString" },
-                "start": { "type": "string", "format": "date" },
-                "end": { "type": "string", "format": "date" }
+                "description": {
+                    "$ref": "#/$defs/i18nString"
+                },
+                "start": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "end": {
+                    "type": "string",
+                    "format": "date"
+                }
             }
         },
-        "fair:temporalCoverageRef": { "$ref": "#/$defs/uriOrCurie" },
-        "fair:spatialCoverage": { "$ref": "#/$defs/i18nString" },
-        "fair:spatialCoverageRef": { "$ref": "#/$defs/uriOrCurie" },
+        "fair:temporalCoverageRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
+        "fair:spatialCoverage": {
+            "$ref": "#/$defs/i18nString"
+        },
+        "fair:spatialCoverageRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
         "fair:classification": {
             "type": "array",
-            "items": { "$ref": "#/$defs/uriOrCurie" }
+            "items": {
+                "$ref": "#/$defs/uriOrCurie"
+            }
         }
     }
 }

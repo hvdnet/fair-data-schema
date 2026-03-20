@@ -30,7 +30,7 @@ uv run pre-commit install
 
 ### 3. JSON Schema Files
 
-- All vocabulary meta-schemas live in `schemas/vocab/<name>/meta-schema.json`.
+- All vocabulary meta-schemas live in `schemas/vocab/<name>.json`.
 - Each vocabulary must have a companion `SPEC.md` describing every keyword.
 - Every new `$id` URI must use the base `https://highvaluedata.net/fair-data-schema/` and must mirror the repository file path.
 - JSON files are validated for syntax on every commit via `pre-commit` (`check-json` hook).

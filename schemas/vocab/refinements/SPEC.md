@@ -2,7 +2,7 @@
 
 **Mechanism**: 4 — `$defs` Keyword Refinements
 **Vocabulary ID**: `https://highvaluedata.net/fair-data-schema/vocab/refinements`
-**Meta-schema**: `schemas/vocabularies/refinements/meta-schema.json`
+**Meta-schema**: `schemas/vocabularies/refinements.json`
 
 ---
 
@@ -27,7 +27,7 @@ A **mixin** — attach via `allOf $ref` to any property to declare all FAIR anno
   "gdp": {
     "type": "number",
     "allOf": [
-      { "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements/meta-schema#/$defs/FairAnnotated" }
+      { "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements#/$defs/FairAnnotated" }
     ],
     "fair:concept": "https://www.wikidata.org/wiki/Q132821",
     "fair:unit": "USD"
@@ -43,7 +43,7 @@ A `string` constrained to `format: uri` plus a `fair:persistent: true` annotatio
 
 ```json
 "dataset_id": {
-  "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements/meta-schema#/$defs/FairUri"
+  "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements#/$defs/FairUri"
 }
 ```
 
@@ -55,7 +55,7 @@ Preview of coded value support — a string annotated with a SKOS concept URI. F
 
 ```json
 "nuts_region": {
-  "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements/meta-schema#/$defs/FairCodedValue",
+  "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements#/$defs/FairCodedValue",
   "enum": ["DE", "FR", "IT"]
 }
 ```
@@ -71,7 +71,7 @@ Reusable base object shape for dataset-level schemas. Provides `title`, `descrip
   "$schema": "...",
   "$id": "https://example.org/schemas/my-dataset",
   "allOf": [
-    { "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements/meta-schema#/$defs/FairDatasetDescriptor" }
+    { "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements#/$defs/FairDatasetDescriptor" }
   ],
   "properties": {
     "records": { "type": "array", "items": { ... } }

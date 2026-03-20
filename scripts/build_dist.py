@@ -33,29 +33,14 @@ def build() -> None:
         for file in files:
             source_file = Path(root) / file
 
-            # Use 'index.json' for the main schema file in each folder
-            if file == "meta-schema.json":
-                target_file = target_root / "index.json"
-            else:
-                target_file = target_root / file
-
+            target_file = target_root / file
             if file.endswith(".json"):
-                # Load and potentially process the schema
+                # Load and write back (to ensure indentation consistency)
                 with open(source_file, encoding="utf-8") as f:
                     content = json.load(f)
-
-                # If we renamed meta-schema.json to index.json,
-                # we should strip the '/meta-schema' suffix from the $id
-                if file == "meta-schema.json" and "$id" in content:
-                    old_id = content["$id"]
-                    if old_id.endswith("/meta-schema"):
-                        content["$id"] = old_id.removesuffix("/meta-schema")
-                        print(f"  Updating $id: {old_id} -> {content['$id']}")
-
-                # Write back to dist/
                 with open(target_file, "w", encoding="utf-8") as f:
                     json.dump(content, f, indent=4)
-                    f.write("\n")  # Add newline at end
+                    f.write("\n")
             else:
                 # Just copy non-json files (like SPEC.md)
                 shutil.copy2(source_file, target_file)

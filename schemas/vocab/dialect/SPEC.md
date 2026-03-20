@@ -41,7 +41,7 @@ The dialect URI resolves to `schemas/index.json`, which:
   },
   "allOf": [
     { "$ref": "https://json-schema.org/draft/2020-12/schema" },
-    { "$ref": "https://highvaluedata.net/fair-data-schema/vocab/annotations/meta-schema" }
+    { "$ref": "https://highvaluedata.net/fair-data-schema/vocab/annotations" }
   ]
 }
 ```

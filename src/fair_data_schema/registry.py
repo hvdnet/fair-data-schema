@@ -21,22 +21,10 @@ BASE_URI = "https://highvaluedata.net/fair-data-schema"
 # Map: URI suffix (after the base) → relative path from repo root
 _URI_TO_PATH: dict[str, Path] = {
     "": _REPO_ROOT / "schemas" / "index.json",
-    "vocab/annotations/meta-schema": _REPO_ROOT
-    / "schemas"
-    / "vocab"
-    / "annotations"
-    / "meta-schema.json",
-    "vocab/vocabulary/meta-schema": _REPO_ROOT
-    / "schemas"
-    / "vocab"
-    / "vocabulary"
-    / "meta-schema.json",
-    "vocab/dialect/meta-schema": _REPO_ROOT / "schemas" / "vocab" / "dialect" / "meta-schema.json",
-    "vocab/refinements/meta-schema": _REPO_ROOT
-    / "schemas"
-    / "vocab"
-    / "refinements"
-    / "meta-schema.json",
+    "vocab/annotations": _REPO_ROOT / "schemas" / "vocab" / "annotations" / "index.json",
+    "vocab/vocabulary": _REPO_ROOT / "schemas" / "vocab" / "vocabulary" / "index.json",
+    "vocab/dialect": _REPO_ROOT / "schemas" / "vocab" / "dialect" / "index.json",
+    "vocab/refinements": _REPO_ROOT / "schemas" / "vocab" / "refinements" / "index.json",
 }
 
 

@@ -2,7 +2,7 @@
 
 **Mechanism**: 1 — Custom Annotations
 **Vocabulary ID**: `https://highvaluedata.net/fair-data-schema/vocab/annotations`
-**Meta-schema**: `schemas/vocabularies/annotations/meta-schema.json`
+**Meta-schema**: `schemas/vocabularies/annotations.json`
 
 ---
 

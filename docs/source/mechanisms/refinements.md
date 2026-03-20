@@ -25,7 +25,7 @@ Importing the `FairAnnotated` definition to ensure the property is valid against
 "population": {
   "type": "integer",
   "allOf": [
-    { "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements/meta-schema#/$defs/FairAnnotated" }
+    { "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements#/$defs/FairAnnotated" }
   ],
   "fair:conceptRef": "https://www.wikidata.org/wiki/Q1203",
   "fair:unitRef": "http://qudt.org/vocab/unit/PERSON"
