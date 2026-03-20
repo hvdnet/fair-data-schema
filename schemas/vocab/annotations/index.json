@@ -1,4 +1,4 @@
-q{
+{
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://highvaluedata.net/fair-data-schema/vocab/annotations",
     "title": "FAIR Annotations Vocabulary Meta-Schema",
