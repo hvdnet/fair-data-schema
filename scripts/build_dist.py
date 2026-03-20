@@ -67,20 +67,10 @@ def build() -> None:
     # 3. Copy docs if built
     build_docs = REPO_ROOT / "docs" / "build"
     if build_docs.exists():
-        print("Copying built documentation...")
+        print("Copying built documentation to dist/docs/...")
         # If sphinx builds into html/ subdirectory, use that
         html_src = build_docs / "html" if (build_docs / "html").exists() else build_docs
         shutil.copytree(html_src, DIST_DIR / "docs", dirs_exist_ok=True)
-
-        # Also copy docs to root dist/ if there is no index.html yet
-        # This makes the docs the landing page of the site
-        if not (DIST_DIR / "index.html").exists():
-            print("  Setting documentation as the root landing page...")
-            for item in html_src.iterdir():
-                if item.is_dir():
-                    shutil.copytree(item, DIST_DIR / item.name, dirs_exist_ok=True)
-                else:
-                    shutil.copy2(item, DIST_DIR / item.name)
     else:
         print("Notice: docs/build/ not found. Skipping documentation copy.")
 
