@@ -51,7 +51,7 @@ def process_directory(src_dir: Path, dest_root: Path, version_tag: str = "dev") 
                     # Replace base/dev/ with base/{version}/
                     content_str = content_str.replace("/dev/", f"/{version_tag}/")
                     # Also handle the trailing slash case for the root dialect ID
-                    content_str = content_str.replace("/dev\"", f"/{version_tag}\"")
+                    content_str = content_str.replace('/dev"', f'/{version_tag}"')
 
                 # Ensure valid JSON and write with indentation
                 content = json.loads(content_str)
@@ -65,17 +65,16 @@ def process_directory(src_dir: Path, dest_root: Path, version_tag: str = "dev") 
 def generate_landing_page(dest_dir: Path, version: str) -> None:
     """Generate a premium landing page at the root of dist/ using a template."""
     template_path = REPO_ROOT / "src" / "fair_data_schema" / "templates" / "landing_page.html"
-    
+
     if not template_path.exists():
         print(f"Warning: Landing page template not found at {template_path}. Using fallback.")
         html_content = (
-            f"<html><body><h1>FAIR Data JSON Schema</h1>"
-            f"<p>Version {version}</p></body></html>"
+            f"<html><body><h1>FAIR Data JSON Schema</h1><p>Version {version}</p></body></html>"
         )
     else:
         with open(template_path, encoding="utf-8") as f:
             html_content = f.read()
-        
+
         # Simple template substitution
         html_content = html_content.replace("{{ version }}", version)
 

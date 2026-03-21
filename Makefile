@@ -12,7 +12,7 @@ help:
 	@echo "  clean      Remove build artifacts"
 
 install:
-	uv sync
+	uv sync --all-extras
 	uv run pre-commit install
 
 test:

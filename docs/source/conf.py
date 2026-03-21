@@ -10,11 +10,13 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
+
 def get_version() -> str:
     """Read version from pyproject.toml."""
     with open(REPO_ROOT / "pyproject.toml", "rb") as f:
         data = tomllib.load(f)
     return str(data["project"]["version"])
+
 
 project = "FAIR JSON Meta-Schema"
 author = "Pascal Heus"
