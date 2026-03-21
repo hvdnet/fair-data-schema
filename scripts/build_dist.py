@@ -13,6 +13,8 @@ import shutil
 import sys
 from pathlib import Path
 
+import markdown
+
 REPO_ROOT = Path(__file__).parent.parent
 SCHEMAS_ROOT = REPO_ROOT / "schemas"
 SRC_DEV = SCHEMAS_ROOT / "dev"
@@ -69,6 +71,39 @@ def process_directory(src_dir: Path, dest_root: Path, version_tag: str = "dev") 
                 with open(target_file, "w", encoding="utf-8") as f:
                     json.dump(content, f, indent=4)
                     f.write("\n")
+            elif file.endswith(".md"):
+                # Convert Markdown to HTML
+                with open(source_file, encoding="utf-8") as f:
+                    md_text = f.read()
+
+                # Basic markdown conversion (using standard extensions)
+                html_body = markdown.markdown(
+                    md_text, extensions=["extra", "admonition", "codehilite"]
+                )
+
+                # Wrap in template
+                template_path = (
+                    REPO_ROOT / "src" / "fair_data_schema" / "templates" / "markdown_page.html"
+                )
+                if template_path.exists():
+                    with open(template_path, encoding="utf-8") as f:
+                        template = f.read()
+
+                    # Very simple title extraction if needed
+                    title_match = re.search(r"^# (.*)", md_text, re.MULTILINE)
+                    title = title_match.group(1) if title_match else file
+
+                    html_full = template.replace("{{ content }}", html_body).replace(
+                        "{{ title }}", title
+                    )
+
+                    target_html = target_file.with_suffix(".html")
+                    with open(target_html, "w", encoding="utf-8") as f:
+                        f.write(html_full)
+                    print(f"  Converted {file} -> {target_html.name}")
+
+                # Also copy original .md file
+                shutil.copy2(source_file, target_file)
             else:
                 shutil.copy2(source_file, target_file)
 
@@ -162,9 +197,8 @@ def build() -> None:
     versions.sort(key=parse_version)
 
     for version in versions:
-        print(f"  Copying {version}/ track...")
-        # Since frozen versions are already URI-stamped in source, we just copy them
-        shutil.copytree(SCHEMAS_ROOT / version, DIST_DIR / version, dirs_exist_ok=True)
+        print(f"  Processing {version}/ track...")
+        process_directory(SCHEMAS_ROOT / version, DIST_DIR / version, version_tag=version)
         # Link example files to version as well
         shutil.copytree(SRC_EXAMPLES, DIST_DIR / version / "examples", dirs_exist_ok=True)
 

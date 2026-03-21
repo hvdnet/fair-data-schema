@@ -28,6 +28,7 @@ docs = [
     "sphinx-rtd-theme>=2",
     "sphinx-autodoc-typehints>=2",
     "sphinxcontrib-mermaid>=1",
+    "markdown>=3.6",
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -58,4 +59,5 @@ source = ["src/fair_data_schema"]
 [dependency-groups]
 dev = [
     "types-jsonschema>=4.26.0.20260202",
+    "types-Markdown>=3.7",
 ]

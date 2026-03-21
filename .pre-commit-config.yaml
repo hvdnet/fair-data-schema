@@ -20,5 +20,5 @@ repos:
     rev: v1.15.0
     hooks:
       - id: mypy
-        additional_dependencies: [jsonschema, referencing, typer, rich, types-jsonschema, pytest]
+        additional_dependencies: [jsonschema, referencing, typer, rich, types-jsonschema, pytest, markdown, types-Markdown]
         args: [--strict]
