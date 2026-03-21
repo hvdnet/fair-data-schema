@@ -1,21 +1,32 @@
 #!/usr/bin/env python3
 """
-FAIR Data JSON Schema Build Script
-Transforms the source /schemas directory into a /dist directory ready for web publication.
-Supports versioned releases (e.g. /0.1.0/) and a development track (/dev/).
+FAIR Data JSON Schema Build & Release Tool
+- freeze: Archives the current 'dev' track into a versioned folder (e.g. schemas/0.1.0/).
+- build: Generates the /dist directory for web publication, including all versions.
 """
 
+import argparse
 import json
 import os
 import re
 import shutil
+import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent
-SRC_SCHEMAS = REPO_ROOT / "schemas"
+SCHEMAS_ROOT = REPO_ROOT / "schemas"
+SRC_DEV = SCHEMAS_ROOT / "dev"
 SRC_EXAMPLES = REPO_ROOT / "examples"
 DIST_DIR = REPO_ROOT / "dist"
 PYPROJECT_TOML = REPO_ROOT / "pyproject.toml"
+
+PROTOTYPE_WARNING = """
+> [!WARNING]
+> **This project is in an early development and prototyping stage.**
+> The vocabularies and structures are subject to significant changes.
+> It is intended for **prototyping and testing only** and should
+> **not be used in production environments** at this time.
+"""
 
 
 def get_version() -> str:
@@ -62,54 +73,113 @@ def process_directory(src_dir: Path, dest_root: Path, version_tag: str = "dev") 
                 shutil.copy2(source_file, target_file)
 
 
-def generate_landing_page(dest_dir: Path, version: str) -> None:
+def parse_version(v: str) -> tuple[int, ...]:
+    """Parse a semantic version string into a tuple of integers."""
+    try:
+        # Handle cases like '0.1.0' -> (0, 1, 0)
+        return tuple(map(int, re.sub(r"[^0-9.]", "", v).split(".")))
+    except ValueError:
+        return (0,)
+
+
+def freeze_version(version: str) -> None:
+    """Freeze the current 'dev' schemas into a versioned folder."""
+    # 1. Semantic Validation: Ensure target is higher than latest existing
+    existing_versions = []
+    for item in SCHEMAS_ROOT.iterdir():
+        if item.is_dir() and item.name != "dev" and not item.name.startswith("."):
+            existing_versions.append(item.name)
+
+    if existing_versions:
+        latest_existing = max(existing_versions, key=parse_version)
+        if parse_version(version) <= parse_version(latest_existing):
+            print(
+                f"Error: Target version '{version}' is not higher than "
+                f"latest version '{latest_existing}'"
+            )
+            sys.exit(1)
+
+    target_dir = SCHEMAS_ROOT / version
+    if target_dir.exists():
+        print(f"Error: Version '{version}' already exists at {target_dir}")
+        sys.exit(1)
+
+    print(f"Freezing 'dev' to '{version}'...")
+    process_directory(SRC_DEV, target_dir, version_tag=version)
+
+    # Generate README for the version
+    readme_path = target_dir / "README.md"
+    with open(readme_path, "w", encoding="utf-8") as f:
+        f.write(f"# FAIR Data JSON Schema - Version {version}\n")
+        f.write(PROTOTYPE_WARNING)
+        f.write("\n## Changelog\n\n- (First frozen release)\n")
+
+    print(f"Successfully created: {target_dir}")
+
+
+def generate_landing_page(dest_dir: Path, latest_version: str, all_versions: list[str]) -> None:
     """Generate a premium landing page at the root of dist/ using a template."""
     template_path = REPO_ROOT / "src" / "fair_data_schema" / "templates" / "landing_page.html"
 
     if not template_path.exists():
         print(f"Warning: Landing page template not found at {template_path}. Using fallback.")
         html_content = (
-            f"<html><body><h1>FAIR Data JSON Schema</h1><p>Version {version}</p></body></html>"
+            f"<html><body><h1>FAIR Data JSON Schema</h1>"
+            f"<p>Latest Version: {latest_version}</p></body></html>"
         )
     else:
         with open(template_path, encoding="utf-8") as f:
             html_content = f.read()
 
         # Simple template substitution
-        html_content = html_content.replace("{{ version }}", version)
+        html_content = html_content.replace("{{ version }}", latest_version)
+        # We can pass more context here if needed
+        # For now, let's keep it simple
 
     with open(dest_dir / "index.html", "w", encoding="utf-8") as f:
         f.write(html_content)
 
 
 def build() -> None:
-    version = get_version()
-    print(f"Building dist/ for version: {version}")
+    print("Building dist/...")
 
     if DIST_DIR.exists():
         shutil.rmtree(DIST_DIR)
     DIST_DIR.mkdir(parents=True, exist_ok=True)
 
     # 1. Build 'dev' track
-    print("Generating dev/ schemas...")
-    process_directory(SRC_SCHEMAS, DIST_DIR / "dev", version_tag="dev")
+    print("  Copying dev/ track...")
+    process_directory(SRC_DEV, DIST_DIR / "dev", version_tag="dev")
     shutil.copytree(SRC_EXAMPLES, DIST_DIR / "dev" / "examples", dirs_exist_ok=True)
 
-    # 2. Build versioned release track
-    print(f"Generating {version}/ schemas...")
-    process_directory(SRC_SCHEMAS, DIST_DIR / version, version_tag=version)
-    shutil.copytree(SRC_EXAMPLES, DIST_DIR / version / "examples", dirs_exist_ok=True)
+    # 2. Build frozen versions
+    versions = []
+    for item in SCHEMAS_ROOT.iterdir():
+        if item.is_dir() and item.name != "dev" and not item.name.startswith("."):
+            versions.append(item.name)
+
+    # Sort versions semantically
+    versions.sort(key=parse_version)
+
+    for version in versions:
+        print(f"  Copying {version}/ track...")
+        # Since frozen versions are already URI-stamped in source, we just copy them
+        shutil.copytree(SCHEMAS_ROOT / version, DIST_DIR / version, dirs_exist_ok=True)
+        # Link example files to version as well
+        shutil.copytree(SRC_EXAMPLES, DIST_DIR / version / "examples", dirs_exist_ok=True)
+
+    latest = versions[-1] if versions else "dev"
 
     # 3. Copy docs
     build_docs = REPO_ROOT / "docs" / "build"
     if build_docs.exists():
-        print("Copying documentation...")
+        print("  Copying documentation...")
         html_src = build_docs / "html" if (build_docs / "html").exists() else build_docs
         shutil.copytree(html_src, DIST_DIR / "docs", dirs_exist_ok=True)
 
     # 4. Generate Landing Page
-    print("Generating landing page...")
-    generate_landing_page(DIST_DIR, version)
+    print(f"  Generating landing page (Latest: {latest})...")
+    generate_landing_page(DIST_DIR, latest, versions)
 
     # 5. Add .nojekyll
     (DIST_DIR / ".nojekyll").touch()
@@ -117,5 +187,29 @@ def build() -> None:
     print(f"\nBuild complete in: {DIST_DIR}")
 
 
+def main() -> None:
+    parser = argparse.ArgumentParser(description="FAIR Data JSON Schema Build & Release Tool")
+    subparsers = parser.add_subparsers(dest="command", help="Commands")
+
+    # Build command
+    subparsers.add_parser("build", help="Build the dist/ directory")
+
+    # Freeze command
+    freeze_parser = subparsers.add_parser("freeze", help="Archive dev into a versioned folder")
+    freeze_parser.add_argument(
+        "--version", help="Version to freeze (e.g. 0.1.0). Defaults to pyproject.toml version."
+    )
+
+    args = parser.parse_args()
+
+    if args.command == "build":
+        build()
+    elif args.command == "freeze":
+        ver = args.version or get_version()
+        freeze_version(ver)
+    else:
+        parser.print_help()
+
+
 if __name__ == "__main__":
-    build()
+    main()

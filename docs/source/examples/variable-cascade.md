@@ -8,7 +8,7 @@ Companion Schema: {download}`variable-cascade.json`
 
 ## 1. Rationale: The "Single Entry Point" Principle
 
-In robust metadata systems, variables form a hierarchy—from high-level phenonmena (Conceptual) down to specific survey questions (Instance). 
+In robust metadata systems, variables form a hierarchy—from high-level phenonmena (Conceptual) down to specific survey questions (Instance).
 
 To avoid redundancy and semantic "noise," a JSON property should only point to its **direct parent** in that hierarchy. Once a link is established (the "Entry Point"), specialized tools can follow the URI to discover the full lineage on the authoritative registry.
 

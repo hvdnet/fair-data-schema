@@ -1,0 +1,164 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://highvaluedata.net/fair-data-schema/0.1.0/vocab/annotations",
+    "title": "FAIR Annotations Vocabulary Meta-Schema",
+    "description": "Defines the syntax of custom FAIR annotation keywords. These keywords are silently ignored by standard validators (Mechanism 1: Custom Annotations) but carry machine-actionable metadata for FAIR-aware tools.",
+    "$defs": {
+        "i18nString": {
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "object",
+                    "description": "Language-tagged string map, keys are BCP-47 language tags.",
+                    "propertyNames": {
+                        "$ref": "#/$defs/languageCode"
+                    },
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "i18nText": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/markdownText"
+                },
+                {
+                    "type": "object",
+                    "propertyNames": {
+                        "$ref": "#/$defs/languageCode"
+                    },
+                    "additionalProperties": {
+                        "$ref": "#/$defs/markdownText"
+                    }
+                }
+            ]
+        },
+        "languageCode": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]{2,3}(-[a-zA-Z0-9]{2,8})*$"
+        },
+        "markdownText": {
+            "type": "string",
+            "contentMediaType": "text/markdown"
+        },
+        "uriOrCurie": {
+            "type": "string"
+        },
+        "uriString": {
+            "type": "string",
+            "format": "uri"
+        }
+    },
+    "properties": {
+        "fair:conceptRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
+        "fair:concept": {
+            "$ref": "#/$defs/i18nString"
+        },
+        "fair:description": {
+            "$ref": "#/$defs/i18nText"
+        },
+        "fair:label": {
+            "$ref": "#/$defs/i18nString"
+        },
+        "fair:instanceVariableRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
+        "fair:representedVariableRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
+        "fair:conceptualVariableRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
+        "fair:unitType": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Unit Type Literal",
+            "description": "The observation unit or unit type (DDI: associated with Conceptual variables, e.g. 'Person')."
+        },
+        "fair:unitTypeRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Unit Type Reference",
+            "description": "URI of the observation unit / unit type definition."
+        },
+        "fair:universe": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Universe Literal",
+            "description": "The broad population or universe (DDI: associated with Represented variables, e.g. 'Students')."
+        },
+        "fair:universeRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Universe Reference",
+            "description": "URI of the broad universe definition."
+        },
+        "fair:population": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Population Literal",
+            "description": "The specific group bound by time and space (DDI: associated with Instance variables, e.g. 'Students in District A in 2019')."
+        },
+        "fair:populationRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Population Reference",
+            "description": "URI of the specific dataset population."
+        },
+        "fair:provider": {
+            "$ref": "#/$defs/i18nString"
+        },
+        "fair:providerRef": {
+            "$ref": "#/$defs/uriString"
+        },
+        "fair:license": {
+            "$ref": "#/$defs/i18nString"
+        },
+        "fair:licenseRef": {
+            "$ref": "#/$defs/uriString"
+        },
+        "fair:unit": {
+            "$ref": "#/$defs/i18nString"
+        },
+        "fair:unitRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
+        "fair:quantity": {
+            "$ref": "#/$defs/i18nString"
+        },
+        "fair:quantityRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
+        "fair:temporalCoverage": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "$ref": "#/$defs/i18nString"
+                },
+                "start": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "end": {
+                    "type": "string",
+                    "format": "date"
+                }
+            }
+        },
+        "fair:temporalCoverageRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
+        "fair:spatialCoverage": {
+            "$ref": "#/$defs/i18nString"
+        },
+        "fair:spatialCoverageRef": {
+            "$ref": "#/$defs/uriOrCurie"
+        },
+        "fair:classification": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/uriOrCurie"
+            }
+        }
+    }
+}

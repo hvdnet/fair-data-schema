@@ -20,7 +20,7 @@ While traditional metadata standards remain vital, they typically requires subje
 
 JSON and JSON Schema can then serve as a universal language across the technology stack. They are well-established standards in the development and AI community, inherently understood by Large Language Models (LLMs) and agents, and widely adopted for tool-calling and the Model Context Protocol (MCP).
 
-By anchoring FAIR principles in JSON Schema, we create a "lingua franca" for high-value data that integrates seamlessly withing the IT ecosystem. 
+By anchoring FAIR principles in JSON Schema, we create a "lingua franca" for high-value data that integrates seamlessly withing the IT ecosystem.
 
 ## JSON Meta-Schema
 
@@ -59,7 +59,7 @@ See [FAIR_SCHEMA.md](FAIR_SCHEMA.md) for a detailed description of the meta-sche
 
 ## Versioning
 
-The project uses a unified versioning strategy controlled via `pyproject.toml`. 
+The project uses a unified versioning strategy controlled via `pyproject.toml`.
 - **Source**: Current development always uses the `/dev/` URI prefix.
 - **Releases**: Build artifacts (in `dist/`) are version-stamped based on the project version.
 
