@@ -191,8 +191,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="FAIR Data JSON Schema Build & Release Tool")
     subparsers = parser.add_subparsers(dest="command", help="Commands")
 
-    # Build command
-    subparsers.add_parser("build", help="Build the dist/ directory")
+    # Dist/Build command
+    subparsers.add_parser("dist", aliases=["build"], help="Build the dist/ directory (default)")
 
     # Freeze command
     freeze_parser = subparsers.add_parser("freeze", help="Archive dev into a versioned folder")
@@ -202,13 +202,11 @@ def main() -> None:
 
     args = parser.parse_args()
 
-    if args.command == "build":
+    if args.command in ["dist", "build"] or not args.command:
         build()
     elif args.command == "freeze":
         ver = args.version or get_version()
         freeze_version(ver)
-    else:
-        parser.print_help()
 
 
 if __name__ == "__main__":
