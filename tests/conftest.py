@@ -13,7 +13,7 @@ import pytest
 # ── Repo path helpers ─────────────────────────────────────────────────────────
 
 REPO_ROOT = Path(__file__).parent.parent
-SCHEMAS_DIR = REPO_ROOT / "schemas"
+SCHEMAS_DIR = REPO_ROOT / "schemas" / "dev"
 EXAMPLES_DIR = REPO_ROOT / "examples"
 
 
