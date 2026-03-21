@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://highvaluedata.net/fair-data-schema/vocab/annotations",
+    "$id": "https://highvaluedata.net/fair-data-schema/dev/vocab/annotations",
     "title": "FAIR Annotations Vocabulary Meta-Schema",
     "description": "Defines the syntax of custom FAIR annotation keywords. These keywords are silently ignored by standard validators (Mechanism 1: Custom Annotations) but carry machine-actionable metadata for FAIR-aware tools.",
     "$defs": {

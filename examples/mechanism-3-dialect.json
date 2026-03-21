@@ -1,5 +1,5 @@
 {
-    "$schema": "https://highvaluedata.net/fair-data-schema",
+    "$schema": "https://highvaluedata.net/fair-data-schema/dev",
     "$id": "https://example.org/schemas/mechanism-3-dialect",
     "title": "Mechanism 3: Custom Dialect ($schema) Example",
     "description": "Demonstrates opting into the full FAIR dialect with a single $schema declaration. All FAIR annotation keywords are now available and documented in the meta-schema at the dialect URI.",

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAIR Data JSON Schema</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.3);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        header {
+            margin-bottom: 4rem;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            font-weight: 400;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 40px -10px var(--accent-glow);
+        }
+
+        .card h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        footer {
+            margin-top: 4rem;
+            color: var(--text-dim);
+            font-size: 0.875rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>FAIR Data JSON Schema</h1>
+            <p class="tagline">Bridging the "technoverse" and the "dataverse" with machine-actionable metadata
+                standards.</p>
+        </header>
+
+        <div class="grid">
+            <a href="docs/" class="card">
+                <span class="version-badge">Guides</span>
+                <h2>Documentation</h2>
+                <p>Comprehensive technical specifications, integration guides, and implementation examples.</p>
+            </a>
+            <a href="{{ version }}/" class="card">
+                <span class="version-badge">Latest: {{ version }}</span>
+                <h2>Release Version</h2>
+                <p>The stable, production-ready schema dialect for high-value datasets.</p>
+            </a>
+            <a href="dev/" class="card">
+                <span class="version-badge">Bleeding Edge</span>
+                <h2>Development</h2>
+                <p>Live development track with the latest vocabulary refinements and experimental features.</p>
+            </a>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 High-Value Data Network. Built with &hearts; for FAIR Data Stewardship community and machine
+                intelligence.</p>
+            <p>Source available on <a href="https://github.com/hvdnet/fair-data-schema">GitHub</a>.</p>
+        </footer>
+    </div>
+</body>
+
+</html>

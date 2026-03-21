@@ -52,7 +52,7 @@ def test_fair_meta_schema_fair_annotations_vocab_is_optional(
 ) -> None:
     """FAIR annotation vocabulary must be optional (False) for backward compat."""
     vocab = fair_meta_schema["$vocabulary"]
-    fair_vocab_uri = "https://highvaluedata.net/fair-data-schema/vocab/annotations"
+    fair_vocab_uri = "https://highvaluedata.net/fair-data-schema/dev/vocab/annotations"
     assert fair_vocab_uri in vocab, "FAIR annotations vocab must be declared in $vocabulary"
     assert vocab[fair_vocab_uri] is False, "FAIR annotations vocab must be optional (false)"
 

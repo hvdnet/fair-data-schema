@@ -49,13 +49,13 @@ def test_example_1_uses_standard_dialect() -> None:
 def test_example_3_uses_fair_dialect() -> None:
     """Mechanism 3 example must declare the FAIR custom dialect."""
     schema = load_example("mechanism-3-dialect")
-    assert schema["$schema"] == "https://highvaluedata.net/fair-data-schema"
+    assert schema["$schema"] == "https://highvaluedata.net/fair-data-schema/dev"
 
 
 def test_example_4_uses_fair_dialect() -> None:
     """Mechanism 4 example must also declare the FAIR custom dialect."""
     schema = load_example("mechanism-4-refinements")
-    assert schema["$schema"] == "https://highvaluedata.net/fair-data-schema"
+    assert schema["$schema"] == "https://highvaluedata.net/fair-data-schema/dev"
 
 
 def test_example_1_validates_against_standard_draft() -> None:

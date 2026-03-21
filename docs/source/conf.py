@@ -3,15 +3,23 @@ Sphinx configuration for fair-data-schema documentation.
 """
 
 import sys
+import tomllib
 from pathlib import Path
 
 # Add src/ to path for autodoc
-sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
+REPO_ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(REPO_ROOT / "src"))
+
+def get_version() -> str:
+    """Read version from pyproject.toml."""
+    with open(REPO_ROOT / "pyproject.toml", "rb") as f:
+        data = tomllib.load(f)
+    return str(data["project"]["version"])
 
 project = "FAIR JSON Meta-Schema"
 author = "Pascal Heus"
 copyright = "2025-2026, Pascal Heus and contributors"
-release = "0.1.0"
+release = get_version()
 
 extensions = [
     "sphinx.ext.autodoc",

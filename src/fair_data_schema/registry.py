@@ -15,16 +15,16 @@ from typing import Any
 # Root of the repository — two levels up from this file (src/fair_data_schema/)
 _REPO_ROOT = Path(__file__).parent.parent.parent
 
-# Base URI used in all schema $id values
-BASE_URI = "https://highvaluedata.net/fair-data-schema"
+# Base URI used in all schema $id values in the source repository
+BASE_URI = "https://highvaluedata.net/fair-data-schema/dev"
 
 # Map: URI suffix (after the base) → relative path from repo root
 _URI_TO_PATH: dict[str, Path] = {
     "": _REPO_ROOT / "schemas" / "index.json",
-    "vocab/annotations": _REPO_ROOT / "schemas" / "vocab" / "annotations" / "index.json",
-    "vocab/vocabulary": _REPO_ROOT / "schemas" / "vocab" / "vocabulary" / "index.json",
-    "vocab/dialect": _REPO_ROOT / "schemas" / "vocab" / "dialect" / "index.json",
-    "vocab/refinements": _REPO_ROOT / "schemas" / "vocab" / "refinements" / "index.json",
+    "/vocab/annotations": _REPO_ROOT / "schemas" / "vocab" / "annotations" / "index.json",
+    "/vocab/vocabulary": _REPO_ROOT / "schemas" / "vocab" / "vocabulary" / "index.json",
+    "/vocab/dialect": _REPO_ROOT / "schemas" / "vocab" / "dialect" / "index.json",
+    "/vocab/refinements": _REPO_ROOT / "schemas" / "vocab" / "refinements" / "index.json",
 }
 
 
@@ -39,6 +39,8 @@ def all_schemas() -> dict[str, Any]:
 
 def resolve_uri(uri: str) -> Path:
     """Resolve a canonical schema URI to a local Path. Raises KeyError if unknown."""
+    if not uri.startswith(BASE_URI):
+        raise KeyError(f"URI does not start with base: {uri}")
     suffix = uri.removeprefix(BASE_URI)
     try:
         return _URI_TO_PATH[suffix]

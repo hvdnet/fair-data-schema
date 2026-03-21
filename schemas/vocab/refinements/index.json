@@ -1,6 +1,6 @@
 {
-    "$schema": "https://highvaluedata.net/fair-data-schema",
-    "$id": "https://highvaluedata.net/fair-data-schema/vocab/refinements",
+    "$schema": "https://highvaluedata.net/fair-data-schema/dev",
+    "$id": "https://highvaluedata.net/fair-data-schema/dev/vocab/refinements",
     "title": "FAIR Refinements Vocabulary Meta-Schema",
     "description": "Demonstrates Mechanism 4: reusable keyword patterns via $defs. Instead of repeating the same annotation bundle on every property, schema authors can $ref shared definitions from this vocabulary.",
     "$defs": {

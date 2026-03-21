@@ -11,14 +11,14 @@
         "https://json-schema.org/draft/2020-12/vocab/meta-data": true,
         "https://json-schema.org/draft/2020-12/vocab/format-annotation": true,
         "https://json-schema.org/draft/2020-12/vocab/content": true,
-        "https://highvaluedata.net/fair-data-schema/vocab/annotations": false
+        "https://highvaluedata.net/fair-data-schema/dev/vocab/annotations": false
     },
     "allOf": [
         {
             "$ref": "https://json-schema.org/draft/2020-12/schema"
         },
         {
-            "$ref": "https://highvaluedata.net/fair-data-schema/vocab/annotations"
+            "$ref": "https://highvaluedata.net/fair-data-schema/dev/vocab/annotations"
         }
     ],
     "$comment": "The $vocabulary map is what transforms an ordinary meta-schema into a dialect. 'true' entries cause validators to refuse validation if they cannot implement that vocabulary. 'false' entries instruct validators to silently ignore unknown keywords from that vocabulary. This is the mechanism that makes FAIR annotations backward-compatible with all standard validators."

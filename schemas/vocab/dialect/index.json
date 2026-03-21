@@ -1,12 +1,12 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://highvaluedata.net/fair-data-schema/vocab/dialect",
+    "$id": "https://highvaluedata.net/fair-data-schema/dev/vocab/dialect",
     "title": "FAIR Data JSON Schema Dialect Declaration Meta-Schema",
     "description": "Demonstrates Mechanism 3: a custom schema dialect. Schemas that set '$schema' to the FAIR dialect URI opt into all FAIR vocabularies at once. This vocabulary illustrates how the dialect acts as a named bundle of vocabularies.",
     "$comment": "Users of the FAIR dialect write '$schema': 'https://highvaluedata.net/fair-data-schema' in their data schemas. The composite meta-schema at that URI applies allOf the vocabulary meta-schemas, so a single $schema declaration brings the whole extension set.",
     "examples": [
         {
-            "$schema": "https://highvaluedata.net/fair-data-schema",
+            "$schema": "https://highvaluedata.net/fair-data-schema/dev",
             "$id": "https://example.org/schemas/my-dataset",
             "title": "My FAIR Dataset Schema",
             "type": "object",

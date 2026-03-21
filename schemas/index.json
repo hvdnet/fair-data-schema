@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://highvaluedata.net/fair-data-schema",
+    "$id": "https://highvaluedata.net/fair-data-schema/dev",
     "title": "FAIR Data JSON Schema Dialect",
     "description": "Composite meta-schema (dialect) for FAIR Data. Combines the standard JSON Schema 2020-12 vocabularies with custom FAIR vocabularies.",
     "$vocabulary": {
@@ -11,14 +11,14 @@
         "https://json-schema.org/draft/2020-12/vocab/meta-data": true,
         "https://json-schema.org/draft/2020-12/vocab/format-annotation": true,
         "https://json-schema.org/draft/2020-12/vocab/content": true,
-        "https://highvaluedata.net/fair-data-schema/vocab/annotations": false
+        "https://highvaluedata.net/fair-data-schema/dev/vocab/annotations": false
     },
     "allOf": [
         {
             "$ref": "https://json-schema.org/draft/2020-12/schema"
         },
         {
-            "$ref": "https://highvaluedata.net/fair-data-schema/vocab/annotations"
+            "$ref": "https://highvaluedata.net/fair-data-schema/dev/vocab/annotations"
         }
     ]
 }

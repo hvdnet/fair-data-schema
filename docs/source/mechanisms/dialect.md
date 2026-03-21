@@ -4,13 +4,17 @@ A **dialect** is a named bundle of vocabularies. Setting `$schema` to the FAIR d
 
 ```json
 {
-  "$schema": "https://highvaluedata.net/fair-data-schema",
+  "$schema": "https://highvaluedata.net/fair-data-schema/0.1.0",
   "$id": "https://example.org/schemas/my-dataset",
   ...
 }
 ```
 
-The dialect URI resolves to the composite meta-schema (served at the project root as `index.json`), which declares all standard JSON Schema 2020-12 vocabularies as required and all FAIR vocabularies as optional.
+The dialect URI resolves to the composite meta-schema. We offer two main tracks:
+* **Stable**: `https://highvaluedata.net/fair-data-schema/0.1.0`
+* **Development**: `https://highvaluedata.net/fair-data-schema/dev`
+
+These URIs serve the `index.json` file at their respective locations.
 
 ## Specification
 
