@@ -7,8 +7,8 @@ Supports versioned releases (e.g. /0.1.0/) and a development track (/dev/).
 
 import json
 import os
-import shutil
 import re
+import shutil
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent
@@ -43,7 +43,7 @@ def process_directory(src_dir: Path, dest_root: Path, version_tag: str = "dev") 
             target_file = target_root / file
 
             if file.endswith(".json"):
-                with open(source_file, "r", encoding="utf-8") as f:
+                with open(source_file, encoding="utf-8") as f:
                     content_str = f.read()
 
                 # Perform version stamping if not dev
@@ -68,9 +68,12 @@ def generate_landing_page(dest_dir: Path, version: str) -> None:
     
     if not template_path.exists():
         print(f"Warning: Landing page template not found at {template_path}. Using fallback.")
-        html_content = f"<html><body><h1>FAIR Data JSON Schema</h1><p>Version {version}</p></body></html>"
+        html_content = (
+            f"<html><body><h1>FAIR Data JSON Schema</h1>"
+            f"<p>Version {version}</p></body></html>"
+        )
     else:
-        with open(template_path, "r", encoding="utf-8") as f:
+        with open(template_path, encoding="utf-8") as f:
             html_content = f.read()
         
         # Simple template substitution

@@ -30,10 +30,11 @@ uv run pre-commit install
 
 ### 3. JSON Schema Files
 
-- All vocabulary meta-schemas live in `schemas/vocab/<name>.json`.
+- All vocabulary meta-schemas live in `schemas/vocab/<name>/index.json`.
 - Each vocabulary must have a companion `SPEC.md` describing every keyword.
-- Every new `$id` URI must use the base `https://highvaluedata.net/fair-data-schema/` and must mirror the repository file path.
+- Every new `$id` URI must use the base `https://highvaluedata.net/fair-data-schema/dev/` for development and must mirror the repository file path.
 - JSON files are validated for syntax on every commit via `pre-commit` (`check-json` hook).
+- Versions are managed in `pyproject.toml`. See [AGENTS.md](AGENTS.md#versioning-and-releases) for release instructions.
 
 ## Contribution Process
 

@@ -57,6 +57,14 @@ JSON Schema 2020-12 provides four composable extension points used in this proje
 
 See [FAIR_SCHEMA.md](FAIR_SCHEMA.md) for a detailed description of the meta-schema and vocabularies. Full specifications for extension mechanisms can be found in [`docs/source/mechanisms/`](docs/source/mechanisms/) and working examples in [`examples/`](examples/).
 
+## Versioning
+
+The project uses a unified versioning strategy controlled via `pyproject.toml`. 
+- **Source**: Current development always uses the `/dev/` URI prefix.
+- **Releases**: Build artifacts (in `dist/`) are version-stamped based on the project version.
+
+See [AGENTS.md](AGENTS.md#versioning-and-releases) for detailed developer instructions on how to set the version and build releases.
+
 ## Repository Layout
 
 ```

@@ -80,15 +80,17 @@ Then simply copy the contents of `dist/` to your web server.
 
 ## Base URI Convention
 
-All schema $id values use the base URI:
+All schema `$id` values use the base URI followed by a version track (e.g., `/dev/` or `/0.1.0/`):
 ```
-https://highvaluedata.net/fair-data-schema/
+https://highvaluedata.net/fair-data-schema/dev/
 ```
-File paths in `schemas/` mirror the URI path segments so schemas are directly resolvable via GitHub Pages.
+File paths in `schemas/` mirror the URI path segments relative to the version track.
 
-Examples:
-- Dialect: `https://highvaluedata.net/fair-data-schema`
-- Vocabulary: `https://highvaluedata.net/fair-data-schema/vocab/annotations`
+**Source Convention**: All source files in the repository MUST use the `/dev/` track in their `$id` and `$ref` URIs. The build process handles version stamping for releases.
+
+Examples (Source):
+- Dialect: `https://highvaluedata.net/fair-data-schema/dev`
+- Vocabulary: `https://highvaluedata.net/fair-data-schema/dev/vocab/annotations`
 
 
 ## Toolchain
@@ -115,6 +117,20 @@ Setup: `uv sync && uv run pre-commit install`
 4. New `$id` URIs must use the base URI above and mirror the file path.
 5. Include a `title` and `description` in every schema file.
 6. Validate JSON syntax with `pre-commit` before committing (`check-json` hook).
+
+## Versioning and Releases
+
+The project version is the single source of truth for all release-related activities (distribution folders, Sphinx documentation, etc.).
+
+1. **Set the Version**: Update the `version` field in `pyproject.toml`.
+2. **Build**: Run `uv run python scripts/build_dist.py`.
+3. **Output**: This generates:
+   - `dist/index.html`: The root landing page.
+   - `dist/dev/`: The current development track.
+   - `dist/$VERSION/`: The versioned release track (where all `/dev/` URIs are swapped for global consistency).
+   - `dist/docs/`: The updated Sphinx documentation.
+
+**Important**: Never manually edit the version strings in `schemas/` or `docs/conf.py`. Always update `pyproject.toml` and run the build script.
 
 
 ## Python Package (`src/fair_data_schema/`)
