@@ -22,40 +22,29 @@ JSON and JSON Schema can then serve as a universal language across the technolog
 
 By anchoring FAIR principles in JSON Schema, we create a "lingua franca" for high-value data that integrates seamlessly withing the IT ecosystem.
 
-## JSON Meta-Schema
+## JSON Meta-Schema Dialect
 
-While anyone can add unofficial or extended properties to a JSON document, good practice dictates that such extensions should be documented and validated. This is where JSON Schema and Meta-Schemas come into play.
+Standard JSON Schema (Draft 2020-12) provides the baseline for structure and validation. This project extends it to support the rich, machine-actionable metadata required for FAIR (Findable, Accessible, Interoperable, and Reusable) data stewardship.
 
-A JSON Schema defines the structure and validation rules for a JSON document (an "instance"). A **JSON Meta-Schema** is a schema that defines the structure and validation rules for *other schemas*. Essentially, it is a "schema for schemas."
+By defining a custom **FAIR Dialect**, we enable keywords for tracing variable lineage (DDI), semantic code lists, and universe/population binding—bridging the gap between low-level data validation and high-level semantic documentation.
 
-In this project, the meta-schema defines the **FAIR Dialect** of JSON Schema. It:
-- **Declares Standards**: Specifies which version of the JSON Schema standard is being used (Draft 2020-12).
-- **Defines Keywords**: Introduces custom FAIR keywords (e.g., `fair:concept`, `fair:unit`) and specifies where they can be used and what values they should hold.
-- **Enables Interoperability**: Bundles various specialized vocabularies into a single cohesive dialect, allowing FAIR-aware tools and AI agents to recognize and act upon the metadata.
+### Extension Mechanisms
 
-## Core Features
+| Mechanism | Purpose |
+|---|---|
+| **Custom Annotations** | Add rich metadata keywords that standard validators treat as annotations |
+| **`$vocabulary`** | Declare which FAIR-specific vocabularies a schema requires or supports |
+| **Custom Dialect** | Bundle vocabularies into a single composite dialect for one-line opt-in |
+| **`$defs` Refinements** | Define reusable keyword patterns (e.g., strengthened data types) |
 
-### 1. DDI Variable Cascade
-The dialect implements the DDI variable lineage model (Conceptual → Represented → Instance) using flat annotations. This allows data stewards to trace local columns back to global concepts and shared measurements while strictly distinguishing between Observation Units (`unitType`), Universes, and Populations.
+## Versioning & Tracks
 
-### 2. Semantic Code Lists
-Beyond simple enums, FAIR codes support rich labels, machine-actionable semantic mappings, and versioned classification hierarchies.
+The project maintains two primary tracks for users and developers:
 
-### 3. Dynamic Universe/Population Binding
-Support for inheritance and overriding of populations at discovery levels (Dataset vs. Variable), ensuring that data is grounded in its correct temporal and spatial context.
+- **[Development Track (Bleeding Edge)](schemas/dev/)**: The latest features, currently in a prototype phase and subject to breaking changes.
+- **[Stable Releases (Archived)](schemas/0.1.0/)**: Documentation and schemas for specific versioned releases.
 
-## Extension Mechanisms
-
-JSON Schema 2020-12 provides four composable extension points used in this project:
-
-| # | Mechanism | What it does do |
-|---|---|---|
-| 1 | **Custom Annotations** | Add rich metadata keywords that standard validators treat as annotations |
-| 2 | **`$vocabulary`** | Declare which vocabularies a meta-schema requires or optionally supports |
-| 3 | **Custom `$schema` Dialect** | Bundle vocabularies into a composite dialect for one-line opt-in |
-| 4 | **`$defs` Refinements** | Define reusable keyword patterns within meta-schemas |
-
-See [FAIR_SCHEMA.md](FAIR_SCHEMA.md) for a detailed description of the meta-schema and vocabularies. Full specifications for extension mechanisms can be found in [`docs/source/mechanisms/`](docs/source/mechanisms/) and working examples in [`examples/`](examples/).
+See [FAIR_SCHEMA.md](FAIR_SCHEMA.md) for a detailed technical description of the meta-schema and vocabularies. Full specifications for extension mechanisms are in [`docs/source/mechanisms/`](docs/source/mechanisms/) and working examples in [`examples/`](examples/).
 
 ## Versioning
 
