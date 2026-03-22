@@ -47,6 +47,10 @@
                 {
                     "relationType": "isContinuedBy",
                     "targetRef": "#/properties/release_2024_02"
+                },
+                {
+                    "relationType": "isPartOf",
+                    "targetRef": "#"
                 }
             ]
         },
