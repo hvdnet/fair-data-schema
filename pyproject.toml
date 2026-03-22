@@ -8,8 +8,8 @@ version = "0.1.0"
 description = "JSON Schema dialect and vocabularies for FAIR datasets"
 readme = "README.md"
 license = { file = "LICENSE" }
-authors = [{ name = "Pascal Heus", email = "pascal.heus@gmail.com" }]
-requires-python = ">=3.11"
+authors = [{ name = "Pascal Heus", email = "pascal@highvaluedata.net" }]
+requires-python = ">=3.12"
 dependencies = [
     "jsonschema>=4.23",
     "referencing>=0.35",
@@ -57,7 +57,4 @@ pythonpath = ["src"]
 source = ["src/fair_data_schema"]
 
 [dependency-groups]
-dev = [
-    "types-jsonschema>=4.26.0.20260202",
-    "types-Markdown>=3.7",
-]
+dev = ["types-jsonschema>=4.26.0.20260202", "types-Markdown>=3.7"]
