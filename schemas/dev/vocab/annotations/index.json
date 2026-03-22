@@ -94,6 +94,54 @@
         },
 
         "// Dataset Scope": { "description": "Keywords that describe a container, resource, or entire dataset (Provenance & Coverage)." },
+        "fair:datasetRelations": {
+            "title": "Dataset Relationships",
+            "description": "Describes relationships between this dataset and other resources (e.g. isPartOf, isVersionOf). Supports joins via source/target variables.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "relationType": {
+                        "description": "The type of relationship (DDI/Dublin Core aligned).",
+                        "enum": [
+                            "isPartOf",
+                            "hasPart",
+                            "isVersionOf",
+                            "isContinuedBy",
+                            "isReferencedBy",
+                            "isRelatedTo"
+                        ]
+                    },
+                    "targetRef": {
+                        "description": "Reference to the target dataset (URI or JSON Pointer).",
+                        "type": "string"
+                    },
+                    "sourceVariables": {
+                        "description": "Property names in the current dataset used in the relationship.",
+                        "type": "array",
+                        "items": { "type": "string" }
+                    },
+                    "targetVariables": {
+                        "description": "Property names in the target dataset.",
+                        "type": "array",
+                        "items": { "type": "string" }
+                    },
+                    "cardinality": {
+                        "description": "Relationship cardinality.",
+                        "enum": [
+                            "one-to-one",
+                            "one-to-many",
+                            "many-to-one",
+                            "many-to-many"
+                        ]
+                    },
+                    "description": {
+                        "$ref": "#/$defs/i18nString"
+                    }
+                },
+                "required": ["relationType", "targetRef"]
+            }
+        },
         "fair:provider": {
             "$ref": "#/$defs/i18nString",
             "title": "Provider Literal",

@@ -34,6 +34,16 @@ Keywords describing the **Provenance and Coverage** of a dataset, table, or reso
 - **`fair:temporalCoverage` / `fair:temporalCoverageRef`**: The time period covered by the data.
 - **`fair:spatialCoverage` / `fair:spatialCoverageRef`**: The geographic area covered (e.g. Gazetteer URI).
 - **`fair:population` / `fair:populationRef`**: The specific group bound by time and space (DDI: Instance level).
+- **`fair:datasetRelations`**: An array of relationships between the current dataset and other resources.
+    - **`relationType`**:
+        - `isPartOf`: The dataset is a component of the target (e.g. a table in a product).
+        - `hasPart`: The current resource contains the target dataset.
+        - `isVersionOf`: A previous or alternative version of the content.
+        - `isContinuedBy`: The next dataset in a series (e.g. next month's release).
+        - `isReferencedBy`: Cited or referred to by the target.
+        - `isRelatedTo`: General relationship.
+    - **`sourceVariables` / `targetVariables`**: Property names used to link/join the datasets.
+    - **`cardinality`**: One-to-one, one-to-many, etc.
 
 ### 3. Property Scope (Variable level)
 Keywords describing the **Representation and Identity** of a leaf variable.

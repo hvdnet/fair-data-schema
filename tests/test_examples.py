@@ -17,6 +17,8 @@ EXAMPLE_NAMES = [
     "mechanism-2-vocabulary",
     "mechanism-3-dialect",
     "mechanism-4-refinements",
+    "time-series-product",
+    "flat-hierarchy-product",
 ]
 
 

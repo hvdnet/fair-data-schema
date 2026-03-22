@@ -66,6 +66,7 @@ Keywords for provenance and broad coverage of a dataset or table.
 | `fair:temporalCoverageRef`| `uri` | URI referencing a standardized time period. |
 | `fair:spatialCoverage` | `i18n`/`uri`| Geographic area or Gazetteer URI (GeoNames). |
 | `fair:population` / `Ref`| `i18n`/`uri`| Specific group bound by time/space (DDI: Instance). |
+| `fair:datasetRelations` | `array` | Relationships between datasets (joins, parts, versions). |
 
 #### 3. Property Scope (Variable level)
 Keywords for representation and semantic identity of a field/variable.

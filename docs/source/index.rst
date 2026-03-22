@@ -32,6 +32,7 @@ The FAIR Data JSON Schema follows a versioned release strategy:
    examples/variable-cascade
    examples/enum-to-fair-coded-values
    examples/complex-data-product
+   examples/data-products
 
 .. toctree::
    :maxdepth: 1
