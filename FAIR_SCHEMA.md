@@ -3,7 +3,11 @@
 > [!CAUTION]
 > **EARLY DEVELOPMENT STAGE**: This meta-schema and its vocabularies are currently for **prototyping and testing only**. Do not use in production.
 
-This document describes the **FAIR Data JSON Schema** dialect and its various vocabularies. The goal of this project is to extend JSON Schema 2020-12 to capture rich, machine-actionable metadata aligned with the FAIR data principles (Findable, Accessible, Interoperable, and Reusable).
+This document describes the **FAIR Data JSON Schema** dialect and its various vocabularies.
+
+The **primary focus** of this project is to enable the straightforward description of **simple, standalone datasets** by attaching semantic annotations (concepts, units, classifications) directly to JSON Schema properties.
+
+While the core usage targets single-resource descriptions, the dialect also provides **advanced support** for complex "Data Products" and cross-dataset relationships for more sophisticated data management scenarios.
 
 ---
 

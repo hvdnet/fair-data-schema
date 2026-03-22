@@ -1,6 +1,7 @@
 # Data Products & Dataset Relationships
 
-While many FAIR data models use hierarchical nesting, real-world data products are often "flat" collections of files or tables that share relationships. This guide explores how to document these structures using the FAIR Data JSON Schema.
+> [!NOTE]
+> **Advanced Feature**: While the primary focus of the FAIR Data JSON Schema is the description of simple, standalone datasets, this guide explores advanced patterns for complex data products and multi-resource packages.
 
 ## Flat Multi-Dataset Structures
 
