@@ -1,0 +1,88 @@
+{
+    "$schema": "https://highvaluedata.net/fair-data-schema/dev",
+    "$id": "https://highvaluedata.net/fair-data-schema/dev/examples/complex-data-product",
+    "title": "National Census 2024 (Data Product)",
+    "description": "A hierarchical data product containing related household and person tables.",
+    "fair:resourceType": "data-product",
+    "fair:description": "This dataset represents a simulated 2024 National Census. It demonstrates the use of Universal, Dataset, and Property scopes in a complex, nested format.",
+    "fair:provider": "National Statistical Office",
+    "fair:providerRef": "https://example.org/nso",
+    "fair:license": "CC-BY-4.0",
+    "fair:licenseRef": "https://spdx.org/licenses/CC-BY-4.0",
+    "fair:temporalCoverage": {
+        "description": "Census Year 2024",
+        "start": "2024-01-01",
+        "end": "2024-12-31"
+    },
+    "type": "object",
+    "required": ["households"],
+    "properties": {
+        "households": {
+            "title": "Household Table",
+            "description": "A list of households in the census.",
+            "fair:resourceType": "dataset",
+            "fair:population": "All private households",
+            "fair:unitType": "Household",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["household_id", "region"],
+                "properties": {
+                    "household_id": {
+                        "title": "Household Identifier",
+                        "type": "string",
+                        "fair:conceptRef": "https://example.org/concepts/household-id"
+                    },
+                    "region": {
+                        "title": "Geographic Region",
+                        "type": "string",
+                        "fair:classification": "Eurostat NUTS",
+                        "fair:classificationRef": ["http://data.europa.eu/nuts"],
+                        "fair:spatialCoverageRef": "http://data.europa.eu/nuts/code/BE",
+                        "oneOf": [
+                            { "const": "BE1", "title": "Brussels" },
+                            { "const": "BE2", "title": "Flanders" },
+                            { "const": "BE3", "title": "Wallonia" }
+                        ]
+                    },
+                    "persons": {
+                        "title": "Person Table (Nested)",
+                        "description": "A list of persons living in this household.",
+                        "fair:resourceType": "dataset",
+                        "fair:population": "All residents in the household",
+                        "fair:unitType": "Person",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": ["person_id", "age", "sex"],
+                            "properties": {
+                                "person_id": {
+                                    "title": "Person Identifier",
+                                    "type": "string",
+                                    "fair:conceptRef": "https://example.org/concepts/person-id"
+                                },
+                                "age": {
+                                    "title": "Age",
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "fair:unit": "years",
+                                    "fair:unitRef": "http://qudt.org/vocab/unit/YEAR"
+                                },
+                                "sex": {
+                                    "title": "Biological Sex",
+                                    "type": "integer",
+                                    "fair:classification": "SDMX Sex",
+                                    "fair:classificationRef": ["https://sdmx.org/sex"],
+                                    "oneOf": [
+                                        { "const": 1, "title": "Male", "fair:conceptRef": "https://www.wikidata.org/wiki/Q6581097" },
+                                        { "const": 2, "title": "Female", "fair:conceptRef": "https://www.wikidata.org/wiki/Q6581072" }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

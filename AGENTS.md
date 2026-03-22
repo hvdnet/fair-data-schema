@@ -39,6 +39,21 @@ To extend JSON Schema without breaking compatibility with existing validators, w
 3. **Meta-schemas**: We provide meta-schemas that describe how the new keywords should be used within a JSON Schema document, ensuring that schemas themselves are valid according to our extensions.
 4. **Custom Annotations**: Standard JSON Schema validators ignore unknown keywords, treating them as annotations. This allows our rich metadata to coexist with standard validation while providing machine-actionable information for specialized tools and agents.
 
+## Annotation Scopes & Philosophy
+
+To support both simple datasets and complex hierarchical data products (e.g., census files with nested tables), we organize all `fair:` keywords into three functional scopes.
+
+### Three-Level Organization
+1.  **Universal Scope**: Core identification keywords (`label`, `description`, `conceptRef`) that can be applied to **any** schema object.
+2.  **Dataset Scope**: Keywords describing a **Container** or resource (`license`, `provider`, `temporalCoverage`, `population`). These usually live at the schema root or a table root.
+3.  **Property Scope**: Keywords describing the **Data Representation** of a leaf variable (`unit`, `classification`, `quantityRef`).
+
+### The "Keep it Loose" Strategy
+During this **early development** phase, we intentionally avoid technical enforcement of these scopes in the meta-schema (e.g., we do not use `unevaluatedProperties: false` to block keywords).
+
+*   **Why?** Data products are fractal. A "Dataset" keyword like `license` might realistically be needed for a sub-table within a larger file.
+*   **The Goal**: We establish **Semantic Conventions** through documentation (`SPEC.md`) and examples, while keeping the **Technical Dialect** flexible enough to support experimental hierarchical structures.
+
 
 ## Planned FAIR Features
 

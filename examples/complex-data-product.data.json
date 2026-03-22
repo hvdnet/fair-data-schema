@@ -1,0 +1,31 @@
+{
+    "households": [
+        {
+            "household_id": "H-2024-001",
+            "region": "BE1",
+            "persons": [
+                {
+                    "person_id": "P-2024-001-A",
+                    "age": 42,
+                    "sex": 1
+                },
+                {
+                    "person_id": "P-2024-001-B",
+                    "age": 38,
+                    "sex": 2
+                }
+            ]
+        },
+        {
+            "household_id": "H-2024-002",
+            "region": "BE2",
+            "persons": [
+                {
+                    "person_id": "P-2024-002-A",
+                    "age": 65,
+                    "sex": 2
+                }
+            ]
+        }
+    ]
+}

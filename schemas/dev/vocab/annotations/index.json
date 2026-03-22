@@ -5,13 +5,14 @@
     "description": "Defines the syntax of custom FAIR annotation keywords. These keywords are silently ignored by standard validators (Mechanism 1: Custom Annotations) but carry machine-actionable metadata for FAIR-aware tools.",
     "$defs": {
         "i18nString": {
+            "title": "Multilingual String",
+            "description": "A string that can be a simple literal OR a language-mapped object (keys are BCP-47 tags). Used for labels.",
             "oneOf": [
                 {
                     "type": "string"
                 },
                 {
                     "type": "object",
-                    "description": "Language-tagged string map, keys are BCP-47 language tags.",
                     "propertyNames": {
                         "$ref": "#/$defs/languageCode"
                     },
@@ -22,6 +23,8 @@
             ]
         },
         "i18nText": {
+            "title": "Multilingual Rich Text",
+            "description": "A Markdown-formatted string that can be a simple literal OR a language-mapped object. Used for descriptions.",
             "oneOf": [
                 {
                     "$ref": "#/$defs/markdownText"
@@ -38,42 +41,156 @@
             ]
         },
         "languageCode": {
+            "title": "Language Code",
+            "description": "A valid BCP-47 language tag (e.g., 'en', 'fr-CA').",
             "type": "string",
             "pattern": "^[a-zA-Z]{2,3}(-[a-zA-Z0-9]{2,8})*$"
         },
         "markdownText": {
+            "title": "Markdown Text",
+            "description": "A string containing text formatted with Markdown syntax.",
             "type": "string",
             "contentMediaType": "text/markdown"
         },
         "uriOrCurie": {
+            "title": "URI or CURIE",
+            "description": "A full URI or a Compact URI (e.g. 'skos:Concept') supported by specialized FAIR engines.",
             "type": "string"
         },
         "uriString": {
+            "title": "Absolute URI",
+            "description": "A string representing a valid absolute URI.",
             "type": "string",
             "format": "uri"
         }
     },
     "properties": {
+        "// Universal Scope": { "description": "Keywords that can be used on any schema object to provide basic semantic identification." },
+        "fair:resourceType": {
+            "type": "string",
+            "enum": ["data-product", "dataset", "variable"],
+            "title": "Resource Architectural Role",
+            "description": "Explicitly declares the structural nature of the schema object. Defaults (when omitted): a root schema is implicitly a 'dataset', while a property/column is implicitly a 'variable'. Use 'data-product' for the complex root of a multi-resource bundle."
+        },
         "fair:conceptRef": {
-            "$ref": "#/$defs/uriOrCurie"
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Concept Reference",
+            "description": "The URI or CURIE of the semantic concept associated with this property or value."
         },
         "fair:concept": {
-            "$ref": "#/$defs/i18nString"
-        },
-        "fair:description": {
-            "$ref": "#/$defs/i18nText"
+            "$ref": "#/$defs/i18nString",
+            "title": "Concept Literal",
+            "description": "The human-readable formal name of the concept."
         },
         "fair:label": {
-            "$ref": "#/$defs/i18nString"
+            "$ref": "#/$defs/i18nString",
+            "title": "Contextual Label",
+            "description": "A short, human-readable label for the property, potentially multilingual."
         },
-        "fair:instanceVariableRef": {
-            "$ref": "#/$defs/uriOrCurie"
+        "fair:description": {
+            "$ref": "#/$defs/i18nText",
+            "title": "Rich Description",
+            "description": "A detailed, potentially multilingual and markdown-formatted description of the property."
         },
-        "fair:representedVariableRef": {
-            "$ref": "#/$defs/uriOrCurie"
+
+        "// Dataset Scope": { "description": "Keywords that describe a container, resource, or entire dataset (Provenance & Coverage)." },
+        "fair:provider": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Provider Literal",
+            "description": "The name of the providing organization or person."
         },
-        "fair:conceptualVariableRef": {
-            "$ref": "#/$defs/uriOrCurie"
+        "fair:providerRef": {
+            "$ref": "#/$defs/uriString",
+            "title": "Provider Reference",
+            "description": "The URI identifying the provider (e.g. ROR or ORCID)."
+        },
+        "fair:license": {
+            "$ref": "#/$defs/i18nString",
+            "title": "License Literal",
+            "description": "The human-readable name of the license."
+        },
+        "fair:licenseRef": {
+            "$ref": "#/$defs/uriString",
+            "title": "License Reference",
+            "description": "The URI of the license (e.g. SPDX URI)."
+        },
+        "fair:temporalCoverage": {
+            "type": "object",
+            "title": "Temporal Coverage Literal",
+            "description": "A description of the time period covered by the data.",
+            "properties": {
+                "description": {
+                    "$ref": "#/$defs/i18nString"
+                },
+                "start": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "end": {
+                    "type": "string",
+                    "format": "date"
+                }
+            }
+        },
+        "fair:temporalCoverageRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Temporal Coverage Reference",
+            "description": "URI referencing a standardized time period."
+        },
+        "fair:spatialCoverage": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Spatial Coverage Literal",
+            "description": "The name of the geographic area covered."
+        },
+        "fair:spatialCoverageRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Spatial Coverage Reference",
+            "description": "URI identifying the area in a gazetteer or geographic database."
+        },
+        "fair:population": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Population Literal",
+            "description": "The specific group bound by time and space (DDI: associated with Instance variables, e.g. 'Students in District A in 2019')."
+        },
+        "fair:populationRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Population Reference",
+            "description": "URI of the specific dataset population."
+        },
+
+        "// Property Scope": { "description": "Keywords describing the data representation and semantic identity of a leaf variable." },
+        "fair:classification": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Classification Literal",
+            "description": "The human-readable name of the classification authority or code list (e.g. 'ISCO-08')."
+        },
+        "fair:classificationRef": {
+            "type": "array",
+            "title": "Classification Authority Reference",
+            "description": "A list of URIs identifying the classification system, ontology, or authority governing this property (e.g. a skos:ConceptScheme).",
+            "items": {
+                "$ref": "#/$defs/uriOrCurie"
+            }
+        },
+        "fair:unit": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Unit Literal",
+            "description": "The human-readable name of the unit of measurement."
+        },
+        "fair:unitRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Unit Reference",
+            "description": "URI of the unit definition (e.g. from QUDT or OM)."
+        },
+        "fair:quantity": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Quantity Kind Literal",
+            "description": "The name of the quantity kind (e.g. 'Mass')."
+        },
+        "fair:quantityRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Quantity Kind Reference",
+            "description": "URI of the quantity kind definition."
         },
         "fair:unitType": {
             "$ref": "#/$defs/i18nString",
@@ -95,70 +212,20 @@
             "title": "Universe Reference",
             "description": "URI of the broad universe definition."
         },
-        "fair:population": {
-            "$ref": "#/$defs/i18nString",
-            "title": "Population Literal",
-            "description": "The specific group bound by time and space (DDI: associated with Instance variables, e.g. 'Students in District A in 2019')."
-        },
-        "fair:populationRef": {
+        "fair:instanceVariableRef": {
             "$ref": "#/$defs/uriOrCurie",
-            "title": "Population Reference",
-            "description": "URI of the specific dataset population."
+            "title": "Instance Variable Reference",
+            "description": "DDI: Link to the specific dataset-level implementation of this variable."
         },
-        "fair:provider": {
-            "$ref": "#/$defs/i18nString"
+        "fair:representedVariableRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Represented Variable Reference",
+            "description": "DDI: Link to the shared measurement or representation definition (e.g. a shared code list)."
         },
-        "fair:providerRef": {
-            "$ref": "#/$defs/uriString"
-        },
-        "fair:license": {
-            "$ref": "#/$defs/i18nString"
-        },
-        "fair:licenseRef": {
-            "$ref": "#/$defs/uriString"
-        },
-        "fair:unit": {
-            "$ref": "#/$defs/i18nString"
-        },
-        "fair:unitRef": {
-            "$ref": "#/$defs/uriOrCurie"
-        },
-        "fair:quantity": {
-            "$ref": "#/$defs/i18nString"
-        },
-        "fair:quantityRef": {
-            "$ref": "#/$defs/uriOrCurie"
-        },
-        "fair:temporalCoverage": {
-            "type": "object",
-            "properties": {
-                "description": {
-                    "$ref": "#/$defs/i18nString"
-                },
-                "start": {
-                    "type": "string",
-                    "format": "date"
-                },
-                "end": {
-                    "type": "string",
-                    "format": "date"
-                }
-            }
-        },
-        "fair:temporalCoverageRef": {
-            "$ref": "#/$defs/uriOrCurie"
-        },
-        "fair:spatialCoverage": {
-            "$ref": "#/$defs/i18nString"
-        },
-        "fair:spatialCoverageRef": {
-            "$ref": "#/$defs/uriOrCurie"
-        },
-        "fair:classification": {
-            "type": "array",
-            "items": {
-                "$ref": "#/$defs/uriOrCurie"
-            }
+        "fair:conceptualVariableRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Conceptual Variable Reference",
+            "description": "DDI: Link to the high-level semantic phenomenon or conceptual definition."
         }
     }
 }
