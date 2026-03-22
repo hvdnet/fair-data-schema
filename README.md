@@ -80,6 +80,28 @@ cd json-meta-schema
 make install
 ```
 
+### Programmatic Authoring (Python SDK)
+
+The project includes Pydantic models for the FAIR Data JSON Schema dialect, allowing you to create, load, and save FAIR schemas programmatically:
+
+```python
+from fair_data_schema.models import DatasetSchema, SchemaNode
+
+# Create a schema
+schema = DatasetSchema(
+    title="My FAIR Dataset",
+    fair_provider="My Org",
+    properties={
+        "age": SchemaNode(type="integer", fair_unit="years")
+    }
+)
+
+# Save to file
+schema.to_file("my-schema.json")
+```
+
+For more details, see the [Python SDK Documentation](https://hvdnet.github.io/fair-data-schema/python-sdk.html).
+
 ### Validate a schema
 
 ```bash

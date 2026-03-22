@@ -33,6 +33,7 @@ The FAIR Data JSON Schema follows a versioned release strategy:
    examples/enum-to-fair-coded-values
    examples/complex-data-product
    examples/data-products
+   python-sdk
 
 .. toctree::
    :maxdepth: 1

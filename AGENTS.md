@@ -61,10 +61,10 @@ These features will be implemented as JSON Schema vocabularies, one at a time:
 - Strengthen data typing
 - Properly represent code lists or more complex classifications (go beyond the enum) [Early implementation in `refinements`]
 - Ensure proper resource identification (e.g. URIs)
-- Implement the DDI variable cascade [COMPLETED: instance/represented/conceptual refs]
-- Support the reuse of variable and classifications [COMPLETED: via internal chained cascades]
-- Support controlled vocabularies
-- Add provenance features
+- [x] Implement the DDI variable cascade [COMPLETED: instance/represented/conceptual refs]
+- [x] Support the reuse of variable and classifications [COMPLETED: via internal chained cascades]
+- [ ] Support controlled vocabularies
+- [ ] Add provenance features
 
 
 ## Repository Layout
@@ -74,8 +74,11 @@ schemas/                 # All JSON Schema files
   vocab/                 # One folder per vocabulary / extension mechanisms
 examples/                # Working demo schemas (one per extension mechanism)
 dist/                    # WEB-READY BUILD (copy this to your server)
-src/fair_data_schema/    # Python tooling (CLI, validator, registry)
-scripts/                 # Build and maintenance scripts
+src/fair_data_schema/    # Python tooling (CLI, validator, registry, models)
+scripts/
+  templates/             # Jinja2 templates for code generation
+  build_dist.py          # Builds the distribution folder
+  generate_models.py     # Generates pydantic models from vocab
 tests/                   # Pytest suite
 docs/source/             # Sphinx + MyST documentation
 .github/workflows/       # CI (lint/test) and schema-publish pipelines
@@ -152,6 +155,19 @@ The project version is the single source of truth for all release-related activi
 
 - `registry.py` — maps canonical URIs to local schema files for offline/dev resolution
 - `validator.py` — `Draft202012Validator` wrapper with the local registry
+- `models.py` — **Auto-generated** Pydantic models for the FAIR dialect
 - `cli.py` — Typer CLI: `validate`, `lint`, `info` commands
 
 CLI entry point: `fair-data-schema` (defined in `pyproject.toml [project.scripts]`)
+
+### Pydantic Models & Generation
+
+To ensure consistency between the JSON Schema vocabularies and Python tooling, `models.py` is auto-generated from the meta-schemas.
+
+**Do not hand-edit `src/fair_data_schema/models.py`.**
+
+To regenerate models (e.g., after changing a vocabulary in `schemas/`):
+
+```bash
+uv run python scripts/generate_models.py --version dev
+```

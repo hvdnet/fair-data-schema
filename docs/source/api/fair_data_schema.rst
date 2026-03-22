@@ -12,3 +12,7 @@ fair_data_schema Python Package
 
 .. automodule:: fair_data_schema.cli
    :members:
+
+.. automodule:: fair_data_schema.models
+   :members:
+   :exclude-members: model_config, model_fields, model_computed_fields
