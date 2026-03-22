@@ -2,6 +2,14 @@
 
 All notable changes to the **FAIR Data JSON Schema** project will be documented in this file.
 
+## [2026-03-21] - Reorganized Annotations & Complex Examples
+
+- **Meta-Schema**: Reorganized the FAIR annotations vocabulary into three scopes: Universal, Dataset, and Property.
+- **Keywords**: Introduced `fair:resourceType` to support `data-product`, `dataset`, and `variable` roles.
+- **Signatures**: Implemented symmetric `fair:classification` and `fair:classificationRef` descriptors.
+- **Documentation**: Added a complex hierarchical data product case study (Census example) to demonstrate multi-level metadata.
+- **Aesthetics**: Updated landing page and documentation styling for a more premium experience.
+
 ## [0.1.0] - 2026-03-14
 
 ### Added

@@ -29,7 +29,8 @@
                     "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements#/$defs/FairAnnotated"
                 }
             ],
-            "fair:concept": "https://www.wikidata.org/wiki/Q1203",
+            "fair:conceptRef": "https://www.wikidata.org/wiki/Q1203",
+            "fair:concept": "Population",
             "fair:unit": "person",
             "fair:label": {
                 "en": "Population"
@@ -44,7 +45,8 @@
                     "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements#/$defs/FairAnnotated"
                 }
             ],
-            "fair:concept": "https://www.wikidata.org/wiki/Q132821",
+            "fair:conceptRef": "https://www.wikidata.org/wiki/Q132821",
+            "fair:concept": "GDP",
             "fair:unit": "USD",
             "fair:label": {
                 "en": "Gross Domestic Product"
@@ -63,7 +65,7 @@
                 "ES",
                 "PL"
             ],
-            "fair:classification": [
+            "fair:classificationRef": [
                 "https://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=LST_NOM_DTL&StrNom=CL_AREA"
             ],
             "$comment": "FairCodedValue provides the SKOS concept annotation. The enum keyword (standard JSON Schema) restricts the allowed values."

@@ -15,7 +15,7 @@ The FAIR project uses the `fair:` prefix for all annotation keywords. A dataset 
       "type": "integer",
       "fair:conceptRef": "https://www.wikidata.org/wiki/Q1203",
       "fair:concept": { "en": "Population", "fr": "Population" },
-      "fair:unitRef": "http://qudt.org/vocab/unit/UNITS",
+      "fair:unitRef": "https://example.org/vocabs/units/persons",
       "fair:licenseRef": "https://creativecommons.org/licenses/by/4.0/"
     }
   }
@@ -24,34 +24,43 @@ The FAIR project uses the `fair:` prefix for all annotation keywords. A dataset 
 
 ## Available Keywords
 
-See {download}`schemas/vocab/annotations/SPEC.md <../../../schemas/vocab/annotations/SPEC.md>` for the full list.
+Keywords are organized into three functional scopes: **Universal**, **Dataset**, and **Property**. See {download}`SPEC.md <../../../schemas/vocab/annotations/SPEC.md>` for the full list.
+
+### 1. Universal Scope (Any level)
+Used for basic semantic identification and resource role definition.
 
 | Keyword | Type | Description |
 |---|---|---|
-| `fair:concept` | string / object | Human-readable name of the semantic concept (Literal) |
+| `fair:resourceType` | string | Role: `data-product`, `dataset`, or `variable`. |
 | `fair:conceptRef` | URI / CURIE | URI or CURIE of the semantic concept (Reference) |
+| `fair:concept` | string / object | Human-readable name of the semantic concept (Literal) |
 | `fair:label` | string / object | Human-readable label for the property in context |
 | `fair:description` | string / object | Rich-text description (Markdown supported) |
+
+### 2. Dataset Scope (Root/Resource level)
+Metadata describing the entire container or resource.
+
+| Keyword | Type | Description |
+|---|---|---|
+| `fair:provider` / `Ref` | string / URI | The providing organization (Literal / ROR) |
+| `fair:license` / `Ref` | string / URI | The usage license (Literal / SPDX) |
+| `fair:temporalCoverage` / `Ref` | object / URI | Time period covered (Structured / URI) |
+| `fair:spatialCoverage` / `Ref` | string / URI | Geographic area (Literal / GeoNames) |
+| `fair:population` / `Ref` | string / URI | Specific group bound by time/space |
+
+### 3. Property Scope (Variable level)
+Keywords describing the data representation of a leaf variable.
+
+| Keyword | Type | Description |
+|---|---|---|
+| `fair:classification` / `Ref` | string / array | The authority or code list governing values. |
+| `fair:unit` / `Ref` | string / URI | Unit of measurement (Literal / QUDT) |
+| `fair:quantity` / `Ref` | string / URI | Quantity kind (Mass, Length) |
+| `fair:unitType` / `Ref` | string / URI | Observation unit type (e.g. 'Person') |
+| `fair:universe` / `Ref` | string / URI | Broad scope or group (e.g. 'Students') |
 | `fair:instanceVariableRef` | URI / CURIE | Link to a dataset-specific variable implementation |
 | `fair:representedVariableRef` | URI / CURIE | Link to a shared measurement definition |
-| `fair:conceptualVariableRef` | URI / CURIE | Link to a high-level semantic phenomenon |
-| `fair:unitType` | string / object | Observation unit type (e.g. 'Person') |
-| `fair:unitTypeRef` | URI / CURIE | URI of the observation unit type definition |
-| `fair:universe` | string / object | Broad scope or group (e.g. 'Students') |
-| `fair:universeRef` | URI / CURIE | URI of the broad universe definition |
-| `fair:population` | string / object | Specific group bound by time/space |
-| `fair:populationRef` | URI / CURIE | URI of the specific dataset population |
-| `fair:unit` | string / object | Human-readable unit name (Literal) |
-| `fair:unitRef` | URI / CURIE | URI or CURIE for the unit (Reference) |
-| `fair:temporalCoverage` | object | Time period covered (structured) |
-| `fair:temporalCoverageRef`| URI / CURIE | URI or CURIE for a standardized time period |
-| `fair:spatialCoverage` | string / object | Human-readable geographic area name (Literal) |
-| `fair:spatialCoverageRef` | URI / CURIE | URI or CURIE for the geographic area (Reference) |
-| `fair:provider` | string / object | Human-readable name of the providing organization |
-| `fair:providerRef` | URI | URI of the organization or person (e.g. ROR, ORCID) |
-| `fair:license` | string / object | Human-readable license name (Literal) |
-| `fair:licenseRef` | URI | URI of the license (Reference) |
-| `fair:classification` | array | List of classification system entries (URIs/CURIEs) |
+| `fair:variableCascade` | object | Hierarchy of measurement references. |
 
 ## Working Example File
 

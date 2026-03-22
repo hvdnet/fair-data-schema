@@ -54,7 +54,8 @@ When documenting a controlled vocabulary, anchor the technical validation to the
 ```json
 "nuts_region": {
   "type": "string",
-  "fair:classification": ["http://data.europa.eu/nuts"],
+  "fair:classification": "NUTS",
+  "fair:classificationRef": ["http://data.europa.eu/nuts"],
   "oneOf": [
     {
       "const": "FR",

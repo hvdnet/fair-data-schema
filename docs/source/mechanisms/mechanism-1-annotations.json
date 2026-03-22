@@ -3,6 +3,7 @@
     "$id": "https://example.org/schemas/mechanism-1-annotations",
     "title": "Mechanism 1: Custom Annotations Example",
     "description": "Demonstrates how fair: annotation keywords coexist transparently with standard JSON Schema validation. A standard Draft 2020-12 validator will validate this schema (and data against it) without errors, treating all fair: keywords as annotations.",
+    "fair:resourceType": "dataset",
     "type": "object",
     "required": [
         "dataset_id",
@@ -35,7 +36,8 @@
             "fair:conceptRef": "https://www.wikidata.org/wiki/Q6256",
             "fair:spatialCoverageRef": "https://www.wikidata.org/wiki/Q6256",
             "fair:spatialCoverage": "Country",
-            "fair:classification": [
+            "fair:classification": "NUTS",
+            "fair:classificationRef": [
                 "https://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=LST_NOM_DTL&StrNom=CL_AREA"
             ]
         },
