@@ -1,0 +1,192 @@
+{# Jinja2 template for src/fair_data_schema/models.py
+   Rendered by scripts/generate_models.py
+   Context variables injected by the generator:
+     - version        : str  – e.g. "dev" or "0.1.0"
+     - dialect_uri    : str  – e.g. "https://highvaluedata.net/fair-data-schema/dev"
+     - vocab_uri      : str  – URI of the annotations vocab
+     - helper_classes : list[HelperClassDef]  – TemporalCoverage, DatasetRelation, etc.
+     - fair_fields    : list[FieldDef]        – generated from vocab properties
+#}
+# AUTO-GENERATED — do not edit manually.
+# Source:  {{ vocab_uri }}
+# Version: {{ version }}
+# Run:     uv run python scripts/generate_models.py --version {{ version }}
+#
+# This module provides Pydantic models for the FAIR Data JSON Schema dialect.
+# It covers the full JSON Schema Draft 2020-12 vocabulary plus all FAIR extension
+# annotations defined in {{ vocab_uri }}.
+"""FAIR Data Schema — Pydantic models (auto-generated)."""
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Any, Literal, cast
+
+from pydantic import BaseModel, ConfigDict, Field
+
+# ---------------------------------------------------------------------------
+# Type aliases
+# ---------------------------------------------------------------------------
+
+#: A string or a BCP-47 language-mapped dict, e.g. {"en": "Age", "fr": "Âge"}.
+I18nString = str | dict[str, str]
+
+#: A Markdown-formatted string or a language-mapped dict of Markdown strings.
+I18nText = str | dict[str, str]
+
+#: Valid JSON Schema ``type`` values.
+JsonType = Literal["string", "integer", "number", "boolean", "array", "object", "null"]
+
+# ---------------------------------------------------------------------------
+# Helper models (generated from inline object definitions in the vocab)
+# ---------------------------------------------------------------------------
+{% for cls in helper_classes %}
+
+class {{ cls.class_name }}(BaseModel):
+    """{{ cls.description }}"""
+
+    model_config = ConfigDict(populate_by_name=True, extra="allow")
+{% for field in cls.fields %}
+    {{ field.py_name }}: {{ field.py_type }} = Field({{ field.field_args }})
+{% endfor %}
+{% endfor %}
+
+# ---------------------------------------------------------------------------
+# SchemaNode — core recursive class
+# ---------------------------------------------------------------------------
+
+
+class SchemaNode(BaseModel):
+    """A node in a FAIR-extended JSON Schema document.
+
+    Covers the full JSON Schema Draft 2020-12 vocabulary (all seven vocabularies
+    declared in the FAIR dialect) plus FAIR annotation extensions.
+
+    All FAIR extension fields use the ``fair_`` prefix to mirror the ``fair:``
+    JSON prefix and to prevent any naming collision with standard JSON Schema
+    keywords, both present and future.
+    """
+
+    model_config = ConfigDict(populate_by_name=True, extra="allow")
+
+    # ── JSON Schema: core ────────────────────────────────────────────────────
+    id: str | None = Field(None, alias="$id")
+    ref: str | None = Field(None, alias="$ref")
+    anchor: str | None = Field(None, alias="$anchor")
+    defs: dict[str, SchemaNode] | None = Field(None, alias="$defs")
+    vocabulary: dict[str, bool] | None = Field(None, alias="$vocabulary")
+    comment: str | None = Field(None, alias="$comment")
+
+    # ── JSON Schema: meta-data ───────────────────────────────────────────────
+    title: str | None = None
+    description: str | None = None
+    default: Any = None
+    deprecated: bool | None = None
+    read_only: bool | None = Field(None, alias="readOnly")
+    write_only: bool | None = Field(None, alias="writeOnly")
+    examples: list[Any] | None = None
+
+    # ── JSON Schema: validation ──────────────────────────────────────────────
+    type: JsonType | list[JsonType] | None = None
+    enum: list[Any] | None = None
+    const: Any = None
+    minimum: int | float | None = None
+    maximum: int | float | None = None
+    exclusive_minimum: int | float | None = Field(None, alias="exclusiveMinimum")
+    exclusive_maximum: int | float | None = Field(None, alias="exclusiveMaximum")
+    multiple_of: int | float | None = Field(None, alias="multipleOf")
+    min_length: int | None = Field(None, alias="minLength")
+    max_length: int | None = Field(None, alias="maxLength")
+    pattern: str | None = None
+    min_items: int | None = Field(None, alias="minItems")
+    max_items: int | None = Field(None, alias="maxItems")
+    unique_items: bool | None = Field(None, alias="uniqueItems")
+    min_contains: int | None = Field(None, alias="minContains")
+    max_contains: int | None = Field(None, alias="maxContains")
+    required: list[str] | None = None
+    dependent_required: dict[str, list[str]] | None = Field(None, alias="dependentRequired")
+    min_properties: int | None = Field(None, alias="minProperties")
+    max_properties: int | None = Field(None, alias="maxProperties")
+
+    # ── JSON Schema: applicator ──────────────────────────────────────────────
+    properties: dict[str, SchemaNode] | None = None
+    pattern_properties: dict[str, SchemaNode] | None = Field(None, alias="patternProperties")
+    additional_properties: SchemaNode | bool | None = Field(None, alias="additionalProperties")
+    items: SchemaNode | None = None
+    prefix_items: list[SchemaNode] | None = Field(None, alias="prefixItems")
+    contains: SchemaNode | None = None
+    all_of: list[SchemaNode] | None = Field(None, alias="allOf")
+    any_of: list[SchemaNode] | None = Field(None, alias="anyOf")
+    one_of: list[SchemaNode] | None = Field(None, alias="oneOf")
+    not_: SchemaNode | None = Field(None, alias="not")
+    if_: SchemaNode | None = Field(None, alias="if")
+    then: SchemaNode | None = None
+    else_: SchemaNode | None = Field(None, alias="else")
+
+    # ── JSON Schema: unevaluated ─────────────────────────────────────────────
+    unevaluated_properties: SchemaNode | bool | None = Field(None, alias="unevaluatedProperties")
+    unevaluated_items: SchemaNode | bool | None = Field(None, alias="unevaluatedItems")
+
+    # ── JSON Schema: format-annotation ──────────────────────────────────────
+    format: str | None = None
+
+    # ── JSON Schema: content ─────────────────────────────────────────────────
+    content_encoding: str | None = Field(None, alias="contentEncoding")
+    content_media_type: str | None = Field(None, alias="contentMediaType")
+    content_schema: SchemaNode | None = Field(None, alias="contentSchema")
+
+    # ── FAIR annotations (generated from vocab/annotations) ──────────────────
+{% for f in fair_fields %}
+    {{ f.py_name }}: {{ f.py_type }} = Field({{ f.field_args }})
+{% endfor %}
+
+    # ── Helpers ──────────────────────────────────────────────────────────────
+
+    def to_dict(self) -> dict[str, Any]:
+        """Serialise to a FAIR JSON Schema dict (``fair:`` prefixed keys, no nulls)."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+    def to_json(self, indent: int = 2) -> str:
+        """Serialise to a FAIR JSON Schema string."""
+        return json.dumps(self.to_dict(), indent=indent, ensure_ascii=False)
+
+
+# Self-referential resolution required after class definition.
+SchemaNode.model_rebuild()
+
+
+# ---------------------------------------------------------------------------
+# DatasetSchema — root-level schema
+# ---------------------------------------------------------------------------
+
+
+class DatasetSchema(SchemaNode):
+    """Root-level FAIR dataset schema.
+
+    Extends :class:`SchemaNode` with a ``$schema`` declaration that defaults
+    to the FAIR dialect URI for version *{{ version }}*.
+    """
+
+    fair_schema: str = Field(
+        default="{{ dialect_uri }}",
+        alias="$schema",
+    )
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> DatasetSchema:
+        """Parse a FAIR schema from a plain dictionary."""
+        return cls.model_validate(data)
+
+    @classmethod
+    def from_json(cls, text: str) -> DatasetSchema:
+        """Parse a FAIR schema from a JSON string."""
+        return cls.from_dict(json.loads(text))
+
+    @classmethod
+    def from_file(cls, path: str | Path) -> DatasetSchema:
+        """Load and parse a FAIR schema from a JSON file."""
+        return cls.from_json(Path(path).read_text(encoding="utf-8"))
+
+    def to_file(self, path: str | Path, indent: int = 2) -> None:
+        """Write this schema to a JSON file."""
+        Path(path).write_text(self.to_json(indent=indent), encoding="utf-8")
