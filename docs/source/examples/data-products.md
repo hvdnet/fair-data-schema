@@ -6,15 +6,15 @@ While many FAIR data models use hierarchical nesting, real-world data products a
 
 A **Data Product** (annotated with `fair:resourceType: "data-product"`) acts as a container. In a flat structure, datasets are listed side-by-side in the root `properties` object rather than nested within each other.
 
-### Use Case: Generic File Package
-A bundle containing a data file and its associated metadata or documentation.
+### Use Case: Primary & Secondary Data
+A bundle containing the core data file and a secondary file for auxiliary or derived variables.
 
 ```json
 {
   "fair:resourceType": "data-product",
   "properties": {
     "primary_data": { "fair:resourceType": "dataset" },
-    "documentation": { "fair:resourceType": "dataset" }
+    "secondary_data": { "fair:resourceType": "dataset" }
   }
 }
 ```
