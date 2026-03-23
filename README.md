@@ -91,7 +91,7 @@ from models import DatasetSchema, SchemaNode
 # Create a schema
 schema = DatasetSchema(
     title="My FAIR Dataset",
-    fair_provider="My Org",
+    fair_entities=[{"name": "My Org", "role": "Producer", "type": "Organization"}],
     properties={
         "age": SchemaNode(type="integer", fair_unit="years")
     }

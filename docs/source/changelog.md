@@ -2,6 +2,13 @@
 
 All notable changes to the **FAIR Data JSON Schema** project will be documented in this file.
 
+## [2026-03-23] - Generic Attribution & Controlled Vocabularies
+
+- **Meta-Schema**: Replaced specific `fair:provider` keywords with a generic `fair:entities` attribution model.
+- **Controlled Vocabularies**: Introduced new CVs for [Entity Types](https://highvaluedata.net/fair-data-schema/dev/cv/entity-types.json) and [Entity Roles](https://highvaluedata.net/fair-data-schema/dev/cv/entity-roles.json).
+- **Interoperability**: Added explicit `sameAs` mappings to the **DDI Alliance ContributorRole CV (v 1.0.2)**.
+- **Python SDK**: Updated the Pydantic models to support the new generic attribution structure.
+
 ## [2026-03-21] - Reorganized Annotations & Complex Examples
 
 - **Meta-Schema**: Reorganized the FAIR annotations vocabulary into three scopes: Universal, Dataset, and Property.

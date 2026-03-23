@@ -23,8 +23,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic Pydantic model regeneration in `scripts/build_dist.py`, keeping source code and specifications in sync.
 - New **Python SDK Documentation** guide in Sphinx.
 - Support for complex round-trip serialization/deserialization with Pydantic v2.
+- Generic attribution model via `fair:entities` following the OAIS Producer/Consumer/Archive pattern.
+- Controlled Vocabularies (CV) for [Entity Types](schemas/dev/cv/entity-types.json) and [Entity Roles](schemas/dev/cv/entity-roles.json).
+- Explicit `sameAs` mappings for entity roles to the DDI Alliance ContributorRole CV (v1.0.2).
 
 ### Changed
+- Deprecated `fair:provider` and `fair:providerRef` in favor of the more flexible and generic `fair:entities` property.
 - Refactored `models.py` to be a **standalone** artifact located in versioned schema directories (e.g., `schemas/dev/python/models.py`).
 - Enhanced `build_dist.py` to exclude `__pycache__`, `.pyc`, and `.DS_Store` from the web publication.
 - Updated `README.md` and `AGENTS.md` to reflect the standalone nature of the Python models.

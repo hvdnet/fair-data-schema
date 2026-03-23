@@ -42,7 +42,8 @@ Metadata describing the entire container or resource.
 
 | Keyword | Type | Description |
 |---|---|---|
-| `fair:provider` / `Ref` | string / URI | The providing organization (Literal / ROR) |
+| `fair:entities` | array | **Recommended**. List of organizations, individuals, or AI agents associated with the resource. |
+| `fair:provider` / `Ref` | string / URI | **Deprecated**. Use `fair:entities` with a 'Producer' role instead. |
 | `fair:license` / `Ref` | string / URI | The usage license (Literal / SPDX) |
 | `fair:temporalCoverage` / `Ref` | object / URI | Time period covered (Structured / URI) |
 | `fair:spatialCoverage` / `Ref` | string / URI | Geographic area (Literal / GeoNames) |
