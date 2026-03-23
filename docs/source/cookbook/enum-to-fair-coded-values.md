@@ -2,7 +2,17 @@
 
 This explains by example how to handle categorical data (code lists, classifications, or response domains) using JSON Schema, evolving from simple technical validation to rich FAIR metadata.
 
-See the companion schema file: {download}`enum-to-fair-coded-values.json`
+See the companion schema file: {download}`../../../examples/enum-to-fair-coded-values.json`
+
+:::{admonition} How-to: Implement Rich Coded Values
+:class: tip
+
+1. **Define the Base Type**: Start with `type: string` or `type: integer`.
+2. **Use `oneOf`**: Instead of `enum`, use `oneOf` to allow for annotations on each value.
+3. **Add Standard Labels**: Use `title` for the default human-readable label.
+4. **Add FAIR Labels**: Use `fair:label` for multilingual support (e.g., `{"en": "Yes", "fr": "Oui"}`).
+5. **Link to Concepts**: Use `fair:conceptRef` to point to a stable URI (e.g., Wikidata, SKOS).
+:::
 
 ---
 
@@ -142,6 +152,6 @@ This mapping allows a FAIR data harvester to:
 
 ## Full Schema Implementation
 
-```{literalinclude} enum-to-fair-coded-values.json
+```{literalinclude} ../../../examples/enum-to-fair-coded-values.json
 :language: json
 ```

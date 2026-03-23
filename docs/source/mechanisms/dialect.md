@@ -17,8 +17,7 @@ The dialect URI resolves to the composite meta-schema. We offer two main tracks:
 These URIs serve the `index.json` file at their respective locations.
 
 ## Specification
-
-See {download}`schemas/vocab/dialect/SPEC.md <../../../schemas/vocab/dialect/SPEC.md>` for details.
+Technical details about dialect identification and resolution are covered in the {download}`SPEC.md <../../../schemas/dev/vocab/dialect/SPEC.md>`.
 
 Schema authors can always replace this `$schema` URI with the standard Draft 2020-12 value to ensure maximum compatibility with any validator; the `fair:` keywords will simply be treated as ignored annotations.
 
@@ -34,8 +33,8 @@ graph LR
 
 ## Working Example File
 
-{download}`mechanism-3-dialect.json`
+{download}`../../../examples/mechanism-3-dialect.json`
 
-```{literalinclude} mechanism-3-dialect.json
+```{literalinclude} ../../../examples/mechanism-3-dialect.json
 :language: json
 ```

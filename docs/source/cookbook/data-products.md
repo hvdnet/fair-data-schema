@@ -3,6 +3,16 @@
 > [!NOTE]
 > **Advanced Feature**: While the primary focus of the FAIR Data JSON Schema is the description of simple, standalone datasets, this guide explores advanced patterns for complex data products and multi-resource packages.
 
+:::{admonition} How-to: Describe Relationships & Joins
+:class: tip
+
+1. **Identify Datasets**: Define each dataset (table) in the product.
+2. **Map Relations**: Use `fair:datasetRelations` to describe how they relate (e.g., `isPartOf`, `isContinuedBy`).
+3. **Specify Mapping**: Define `sourceVariables` and `targetVariables` for the join.
+4. **Define Cardinality**: Specify the relationship type (e.g., `one-to-many`, `many-to-one`).
+5. **Add Variable Links**: Link related variables across datasets using `fair:variableRef`.
+:::
+
 ## Flat Multi-Dataset Structures
 
 A **Data Product** (annotated with `fair:resourceType: "data-product"`) acts as a container. In a flat structure, datasets are listed side-by-side in the root `properties` object rather than nested within each other.
@@ -98,6 +108,16 @@ Time-series products often release new datasets monthly that share an identical 
 
 ---
 
-## Resource Documentation links:
-- [Time Series Product Example](time-series-product.json)
-- [Flat Hierarchy Product Example](flat-hierarchy-product.json)
+## Full Schema Implementations
+
+### Flat Hierarchy Product
+```{literalinclude} ../../../examples/flat-hierarchy-product.json
+:language: json
+:caption: Flat Hierarchy Data Product
+```
+
+### Time Series Product
+```{literalinclude} ../../../examples/time-series-product.json
+:language: json
+:caption: Time Series Data Product
+```

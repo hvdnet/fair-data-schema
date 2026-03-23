@@ -24,7 +24,7 @@ The FAIR project uses the `fair:` prefix for all annotation keywords. A dataset 
 
 ## Available Keywords
 
-Keywords are organized into three functional scopes: **Universal**, **Dataset**, and **Property**. See {download}`SPEC.md <../../../schemas/vocab/annotations/SPEC.md>` for the full list.
+Keywords are organized into three functional scopes: **Universal**, **Dataset**, and **Property**. See {download}`SPEC.md <../../../schemas/dev/vocab/annotations/SPEC.md>` for the full list.
 
 ### 1. Universal Scope (Any level)
 Used for basic semantic identification and resource role definition.
@@ -65,8 +65,8 @@ Keywords describing the data representation of a leaf variable.
 
 ## Working Example File
 
-{download}`mechanism-1-annotations.json`
+{download}`../../../examples/mechanism-1-annotations.json`
 
-```{literalinclude} mechanism-1-annotations.json
+```{literalinclude} ../../../examples/mechanism-1-annotations.json
 :language: json
 ```

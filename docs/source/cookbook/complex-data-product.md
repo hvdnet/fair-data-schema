@@ -2,8 +2,17 @@
 
 This example demonstrates how the **FAIR Data JSON Schema** can describe complex, multi-level data products (like a National Census) while maintaining semantic clarity through its three-level organization: **Universal**, **Dataset**, and **Property** scopes.
 
-- **Schema**: [`examples/complex-data-product.json`](complex-data-product.json)
-- **Data**: [`examples/complex-data-product.data.json`](complex-data-product.data.json)
+- See the companion schema files: {download}`../../../examples/complex-data-product.json` and {download}`../../../examples/complex-data-product.data.json`
+
+:::{admonition} How-to: Describe a Complex Data Product
+:class: tip
+
+1. **Root Metadata**: Add `fair:license`, `fair:provider`, and `fair:provenance` at the schema root.
+2. **Define Tables**: Use `properties` to represent different tables or files within the product.
+3. **Table Metadata**: Add table-specific metadata like `fair:population` or `fair:temporalCoverage`.
+4. **Variable Reuse**: Use `$ref` to pull in shared variable definitions from a central `definitions.json` or regional registry.
+5. **Validation**: Ensure the schema validates both the metadata structure and the actual data structure.
+:::
 
 ---
 
@@ -95,3 +104,19 @@ By using this 3-level organization in a hierarchical schema:
 | **Persons** | Dataset | Unit: Person, Population: Residents |
 | **Sex** | Property | Authority: SDMX, Concept: Wikidata Sex |
 | **Age** | Property | Unit: Years (QUDT) |
+
+---
+
+## Full Schema Implementation
+
+```{literalinclude} ../../../examples/complex-data-product.json
+:language: json
+:caption: The Data Product Schema
+```
+
+### Example Data Instance
+
+```{literalinclude} ../../../examples/complex-data-product.data.json
+:language: json
+:caption: Valid data instance for this product
+```

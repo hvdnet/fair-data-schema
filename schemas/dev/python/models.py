@@ -172,6 +172,7 @@ class SchemaNode(BaseModel):
     fair_instance_variable_ref: str | None = Field(None, alias="fair:instanceVariableRef")
     fair_represented_variable_ref: str | None = Field(None, alias="fair:representedVariableRef")
     fair_conceptual_variable_ref: str | None = Field(None, alias="fair:conceptualVariableRef")
+    fair_sentinel: bool | None = Field(None, alias="fair:sentinel")
 
     # ── Helpers ──────────────────────────────────────────────────────────────
 

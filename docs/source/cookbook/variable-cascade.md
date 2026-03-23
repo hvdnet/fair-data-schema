@@ -1,8 +1,17 @@
 # The Variable Cascade Master Guide
 
 This guide explains how to link local JSON data implementations to global metadata standards (DDI, MLCommons Croissant, Schema.org) using the **Variable Cascade** pattern.
+See the companion schema file: {download}`../../../examples/variable-cascade.json`
 
-Companion Schema: {download}`variable-cascade.json`
+:::{admonition} How-to: Implement the Variable Cascade
+:class: tip
+
+1. **Define Conceptual Variables**: In `$defs`, create abstract definitions (e.g., `Sex`, `Age`).
+2. **Define Represented Variables**: Create specific representations (e.g., `Sex_ISO`, `Age_Years`).
+3. **Reference Internal**: Use `$ref` within `$defs` to chain these definitions.
+4. **Instantiate**: In your `properties`, reference the final representation using `$ref`.
+5. **Override (Optional)**: Add local `title` or `description` to the instance variable while keeping the core definition linked.
+:::
 
 ---
 
@@ -130,6 +139,6 @@ This allows for deep, professional lineage without needing an external registry.
 
 ## Full Schema Implementation
 
-```{literalinclude} variable-cascade.json
+```{literalinclude} ../../../examples/variable-cascade.json
 :language: json
 ```

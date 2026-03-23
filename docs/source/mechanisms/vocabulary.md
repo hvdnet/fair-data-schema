@@ -10,8 +10,7 @@ The `$vocabulary` keyword appears in **meta-schemas** to declare which vocabular
 This is what makes the FAIR project's extension backward-compatible: our custom vocabularies are typically declared as `false` (optional), meaning standard validators will treat them as simple annotations.
 
 ## Specification
-
-See {download}`schemas/vocab/vocabulary/SPEC.md <../../../schemas/vocab/vocabulary/SPEC.md>` for details.
+Detailed documentation of the vocabulary keyword and its implementation can be found in the {download}`SPEC.md <../../../schemas/dev/vocab/vocabulary/SPEC.md>`.
 
 ## Example
 
@@ -29,8 +28,8 @@ See {download}`schemas/vocab/vocabulary/SPEC.md <../../../schemas/vocab/vocabula
 
 ## Working Example File
 
-{download}`mechanism-2-vocabulary.json`
+{download}`../../../examples/mechanism-2-vocabulary.json`
 
-```{literalinclude} mechanism-2-vocabulary.json
+```{literalinclude} ../../../examples/mechanism-2-vocabulary.json
 :language: json
 ```

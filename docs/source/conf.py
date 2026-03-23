@@ -31,6 +31,7 @@ extensions = [
     "sphinx_autodoc_typehints",
     "myst_parser",
     "sphinxcontrib.mermaid",
+    "sphinx_design",
 ]
 
 myst_enable_extensions = ["colon_fence", "deflist", "tasklist"]
@@ -38,8 +39,19 @@ myst_enable_extensions = ["colon_fence", "deflist", "tasklist"]
 templates_path = ["_templates"]
 exclude_patterns: list[str] = []
 
-html_theme = "sphinx_rtd_theme"
+html_theme = "sphinx_book_theme"
 html_static_path = ["_static"]
+
+html_theme_options = {
+    "repository_url": "https://github.com/highvaluedata/fair-data-schema",
+    "use_repository_button": True,
+    "use_issues_button": True,
+    "use_edit_page_button": True,
+    "path_to_docs": "docs/source",
+    "home_page_in_toc": True,
+    "show_navbar_depth": 2,
+    "show_toc_level": 2,
+}
 
 # MyST: allow .md files in toctrees
 source_suffix = {

@@ -18,22 +18,16 @@ The FAIR Data JSON Schema follows a versioned release strategy:
 
 .. toctree::
    :maxdepth: 2
-   :caption: Extension Mechanisms
+   :caption: Cookbook & Guides
 
-   mechanisms/annotations
-   mechanisms/vocabulary
-   mechanisms/dialect
-   mechanisms/refinements
+   cookbook/index
+   python-sdk
 
 .. toctree::
    :maxdepth: 2
-   :caption: Examples & Guides
+   :caption: Extension Mechanisms
 
-   examples/variable-cascade
-   examples/enum-to-fair-coded-values
-   examples/complex-data-product
-   examples/data-products
-   python-sdk
+   mechanisms/index
 
 .. toctree::
    :maxdepth: 1

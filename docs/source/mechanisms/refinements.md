@@ -15,7 +15,7 @@ The `vocab/refinements` vocabulary provides several core definitions:
 
 ## Specification
 
-See {download}`schemas/vocab/refinements/SPEC.md <../../../schemas/vocab/refinements/SPEC.md>` for details.
+For a full list of supported refinement types and their structures, see the {download}`SPEC.md <../../../schemas/dev/vocab/refinements/SPEC.md>`.
 
 ## Example
 
@@ -42,8 +42,8 @@ Importing the `FairAnnotated` definition to ensure the property is valid against
 
 ## Working Example File
 
-{download}`mechanism-4-refinements.json`
+{download}`../../../examples/mechanism-4-refinements.json`
 
-```{literalinclude} mechanism-4-refinements.json
+```{literalinclude} ../../../examples/mechanism-4-refinements.json
 :language: json
 ```
