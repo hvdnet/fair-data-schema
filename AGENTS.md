@@ -148,7 +148,7 @@ The project version is the single source of truth for all release-related activi
    - `dist/$VERSION/`: The versioned release track (where all `/dev/` URIs are swapped for global consistency).
    - `dist/docs/`: The updated Sphinx documentation.
 
-**Important**: Never manually edit the version strings in `schemas/` or `docs/conf.py`. Always update `pyproject.toml` and run the build script.
+**Important**: Never manually edit the version strings in `schemas/` or `docs/conf.py` (use the `freeze` command for these). **Controlled Vocabularies in `/cv`**, however, are versioned independently by filename (e.g., `entity-types-v1.json`) and must be updated manually when releasing a new vocabulary version.
 
 
 ## Python Package (`src/fair_data_schema/`)

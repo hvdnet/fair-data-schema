@@ -21,6 +21,7 @@ SCHEMAS_ROOT = REPO_ROOT / "schemas"
 SRC_DEV = SCHEMAS_ROOT / "dev"
 SRC_EXAMPLES = REPO_ROOT / "examples"
 DIST_DIR = REPO_ROOT / "dist"
+CV_ROOT = REPO_ROOT / "cv"
 PYPROJECT_TOML = REPO_ROOT / "pyproject.toml"
 
 PROTOTYPE_WARNING = """
@@ -147,7 +148,7 @@ def parse_version(v: str) -> tuple[int, ...]:
 
 def freeze_version(version: str) -> None:
     """Freeze the current 'dev' schemas into a versioned folder."""
-    # 1. Semantic Validation: Ensure target is higher than latest existing
+    # 1. Semantic Validation
     existing_versions = []
     for item in SCHEMAS_ROOT.iterdir():
         if item.is_dir() and item.name != "dev" and not item.name.startswith("."):
@@ -167,7 +168,7 @@ def freeze_version(version: str) -> None:
         print(f"Error: Version '{version}' already exists at {target_dir}")
         sys.exit(1)
 
-    print(f"Freezing 'dev' to '{version}'...")
+    print(f"Freezing Schemas 'dev' to '{version}'...")
     process_directory(SRC_DEV, target_dir, version_tag=version)
 
     # Generate README for the version
@@ -214,14 +215,13 @@ def build() -> None:
     print("  Copying dev/ track...")
     ensure_models_updated("dev")
     process_directory(SRC_DEV, DIST_DIR / "dev", version_tag="dev")
-    shutil.copytree(
-        SRC_EXAMPLES,
-        DIST_DIR / "dev" / "examples",
-        dirs_exist_ok=True,
-        ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store"),
-    )
 
-    # 2. Build frozen versions
+    # 2. Build CVs (Independent manually versioned files)
+    if CV_ROOT.exists():
+        print("  Copying cv/ components...")
+        process_directory(CV_ROOT, DIST_DIR / "cv", version_tag="dev")
+
+    # 3. Build frozen versions
     versions = []
     for item in SCHEMAS_ROOT.iterdir():
         if item.is_dir() and item.name != "dev" and not item.name.startswith("."):
@@ -273,7 +273,9 @@ def main() -> None:
     subparsers.add_parser("dist", aliases=["build"], help="Build the dist/ directory (default)")
 
     # Freeze command
-    freeze_parser = subparsers.add_parser("freeze", help="Archive dev into a versioned folder")
+    freeze_parser = subparsers.add_parser(
+        "freeze", help="Archive dev schema into a versioned folder"
+    )
     freeze_parser.add_argument(
         "--version", help="Version to freeze (e.g. 0.1.0). Defaults to pyproject.toml version."
     )

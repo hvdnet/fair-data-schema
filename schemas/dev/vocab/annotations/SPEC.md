@@ -31,8 +31,8 @@ Keywords describing the **Provenance and Coverage** of a dataset, table, or reso
 
 - **`fair:entities`**: A list of entities associated with the resource.
     - **`name` / `entityRef`**: Identification of the entity.
-    - **`type` / `typeRef`**: Category of the entity. [Entity Types CV](https://highvaluedata.net/fair-data-schema/dev/cv/entity-types).
-    - **`role` / `roleRef`**: The role played by the entity. Suggested: [Entity Roles CV](https://highvaluedata.net/fair-data-schema/dev/cv/entity-roles) or [DDI ContributorRole](https://rdf-vocabulary.ddialliance.org/ddi-cv/ContributorRole/1.0.2/ContributorRole.html).
+    - **`type` / `typeRef`**: Category of the entity. [Entity Types CV](https://highvaluedata.net/fair-data-schema/cv/entity-types-v1).
+    - **`role` / `roleRef`**: The role played by the entity. Suggested: [Entity Roles CV](https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1) or [DDI ContributorRole](https://rdf-vocabulary.ddialliance.org/ddi-cv/ContributorRole/1.0.2/ContributorRole.html).
 - **`fair:provider` / `fair:providerRef`**: (DEPRECATED) Use `fair:entities` with a 'Provider' role instead.
 - **`fair:license` / `fair:licenseRef`**: The license governing the data.
 - **`fair:temporalCoverage` / `fair:temporalCoverageRef`**: The time period covered by the data.

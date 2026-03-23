@@ -24,7 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New **Python SDK Documentation** guide in Sphinx.
 - Support for complex round-trip serialization/deserialization with Pydantic v2.
 - Generic attribution model via `fair:entities` following the OAIS Producer/Consumer/Archive pattern.
-- Controlled Vocabularies (CV) for [Entity Types](schemas/dev/cv/entity-types.json) and [Entity Roles](schemas/dev/cv/entity-roles.json).
+- **[New] Independent CVs**: Moved Controlled Vocabularies to the project root (`/cv/`) and decoupled their lifecycles from the core schema versioning.
+- **[New] Entity Vocabularies**: Initial release of [Entity Types v1](cv/entity-types-v1.json) and [Entity Roles v1](cv/entity-roles-v1.json).
 - Explicit `sameAs` mappings for entity roles to the DDI Alliance ContributorRole CV (v1.0.2).
 
 ### Changed

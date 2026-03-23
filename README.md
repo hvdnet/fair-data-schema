@@ -48,17 +48,18 @@ See [FAIR_SCHEMA.md](FAIR_SCHEMA.md) for a detailed technical description of the
 
 ## Versioning
 
-The project uses a unified versioning strategy controlled via `pyproject.toml`.
-- **Source**: Current development always uses the `/dev/` URI prefix.
-- **Releases**: Build artifacts (in `dist/`) are version-stamped based on the project version.
+The project uses a hybrid versioning strategy:
+- **Core Schemas**: Controlled via `pyproject.toml`. Managed through a `/dev/` development track that is frozen into versioned releases (e.g. `/0.1.0/`).
+- **Controlled Vocabularies (CV)**: Maintained independently in the root `/cv/` directory. These use manual versioning via stable filenames (e.g. `entity-types-v1.json`) to ensure long-term stability for schema implementers.
 
-See [AGENTS.md](AGENTS.md#versioning-and-releases) for detailed developer instructions on how to set the version and build releases.
+See [AGENTS.md](AGENTS.md#versioning-and-releases) for detailed developer instructions on how to release new versions.
 
 ## Repository Layout
 
 ```
 schemas/          # JSON Schema files (vocabularies + meta-schema)
   vocab/          # One folder per extension mechanism / FAIR feature
+cv/               # Controlled Vocabularies (independent versioned files)
 examples/         # Working demo schemas
 dist/             # Web-ready build (ready for publication)
 src/fair_data_schema/   # Python tooling (CLI, validator, registry)

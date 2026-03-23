@@ -1,12 +1,12 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-types",
+    "$id": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1",
     "title": "FAIR Data Schema Entity Types CV",
     "description": "A controlled vocabulary for categorizing entities (individuals, organizations, projects, software) that contribute to a resource. Each entry provides a canonical URI for use in 'fair:typeRef'.",
     "terms": {
         "Individual": {
             "$anchor": "Individual",
-            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-types#Individual",
+            "uri": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Individual",
             "label": {
                 "en": "Individual",
                 "fr": "Individu"
@@ -16,7 +16,7 @@
         },
         "Organization": {
             "$anchor": "Organization",
-            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-types#Organization",
+            "uri": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Organization",
             "label": {
                 "en": "Organization",
                 "fr": "Organisation"
@@ -26,7 +26,7 @@
         },
         "Project": {
             "$anchor": "Project",
-            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-types#Project",
+            "uri": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Project",
             "label": {
                 "en": "Project",
                 "fr": "Projet"
@@ -36,7 +36,7 @@
         },
         "Software": {
             "$anchor": "Software",
-            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-types#Software",
+            "uri": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Software",
             "label": {
                 "en": "Software Agent",
                 "fr": "Agent Logiciel"
@@ -46,7 +46,7 @@
         },
         "Agent": {
             "$anchor": "Agent",
-            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-types#Agent",
+            "uri": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Agent",
             "label": {
                 "en": "Agent",
                 "fr": "Agent"
@@ -56,7 +56,7 @@
         },
         "Other": {
             "$anchor": "Other",
-            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-types#Other",
+            "uri": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Other",
             "label": {
                 "en": "Other",
                 "fr": "Autre"
