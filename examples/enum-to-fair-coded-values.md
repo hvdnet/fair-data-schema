@@ -108,7 +108,8 @@ Note that at this stage, we **no longer need `fair:label`** inside the schema. S
 
 ```json
 {
-  "fair:classification": ["http://data.europa.eu/nuts"],
+  "fair:classification": "NUTS Classification",
+  "fair:classificationRef": ["http://data.europa.eu/nuts"],
   "oneOf": [
     {
       "const": "FR",
@@ -134,6 +135,6 @@ This mapping allows a FAIR data harvester to:
 | Human Labels | ❌ | ✅ (`title`) | ✅ (`fair:label`) | ✅ (External) |
 | Shared Definitions | ❌ | ✅ (`$ref`) | ✅ (`$ref`) | ✅ (`$ref`) |
 | Multilingual (i18n) | ❌ | ❌ | ✅ | ✅ (External) |
-| Semantic Mapping | ❌ | ❌ | ✅ | ✅ (`skos:Concept`) |
-| Authority Link | ❌ | ❌ | ❌ | ✅ (`skos:ConceptScheme`) |
+| Semantic Mapping | \u274c | \u274c | \u2705 (`fair:conceptRef`) | \u2705 (`fair:conceptRef`) |
+| Authority Link | ❌ | ❌ | ❌ | ✅ (`fair:classificationRef`) |
 | Standard Compatibility| ✅ | ✅ | ✅ (ignored by defaults) | ✅ |

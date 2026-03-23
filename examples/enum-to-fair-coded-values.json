@@ -51,7 +51,8 @@
             "title": "SKOS Mapped NUTS Domain",
             "description": "A domain mapped to an external SKOS ConceptScheme (NUTS Regions).",
             "type": "string",
-            "fair:classification": [
+            "fair:classification": "NUTS Classification",
+            "fair:classificationRef": [
                 "http://data.europa.eu/nuts"
             ],
             "oneOf": [
