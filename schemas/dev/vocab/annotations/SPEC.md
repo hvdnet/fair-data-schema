@@ -58,6 +58,7 @@ Keywords describing the **Representation and Identity** of a leaf variable.
 - **`fair:unitType` / `fair:unitTypeRef`**: The observation unit (e.g. 'Person'). Associated with Conceptual level.
 - **`fair:universe` / `fair:universeRef`**: The broad population (e.g. 'Students'). Associated with Represented level.
 - **`fair:variableCascade`**: (Hierarchy of `instance`, `represented`, and `conceptual` references).
+- **`fair:sentinel`**: A boolean flag indicating that the value is a sentinel/missing value (e.g. 'Don't know', 'Refused', 'Not applicable'). **Note**: Must be used together with the `const` keyword.
 
 ---
 

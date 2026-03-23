@@ -17,6 +17,11 @@
                 {
                     "const": 2,
                     "title": "No"
+                },
+                {
+                    "const": 9,
+                    "title": "Don't know",
+                    "fair:sentinel": true
                 }
             ]
         },

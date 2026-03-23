@@ -315,6 +315,17 @@
             "$ref": "#/$defs/uriOrCurie",
             "title": "Conceptual Variable Reference",
             "description": "DDI: Link to the high-level semantic phenomenon or conceptual definition."
+        },
+        "fair:sentinel": {
+            "type": "boolean",
+            "title": "Sentinel Flag",
+            "description": "Indicates that this value is a sentinel/missing value (e.g. 'Don't know', 'Refused', 'Not applicable')."
         }
+    },
+    "if": {
+        "required": ["fair:sentinel"]
+    },
+    "then": {
+        "required": ["const"]
     }
 }
