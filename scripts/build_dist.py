@@ -67,12 +67,19 @@ def process_directory(src_dir: Path, dest_root: Path, version_tag: str = "dev") 
     Recursively process a directory, copying files to the destination.
     If version_tag is not 'dev', replaces '/dev/' with '/{version_tag}/' in JSON files.
     """
-    for root, _dirs, files in os.walk(src_dir):
+    for root, dirs, files in os.walk(src_dir):
+        # Skip __pycache__
+        if "__pycache__" in dirs:
+            dirs.remove("__pycache__")
+
         relative_path = Path(root).relative_to(src_dir)
         target_root = dest_root / relative_path
         target_root.mkdir(parents=True, exist_ok=True)
 
         for file in files:
+            if file == ".DS_Store" or file.endswith(".pyc"):
+                continue
+
             source_file = Path(root) / file
             target_file = target_root / file
 
@@ -207,7 +214,12 @@ def build() -> None:
     print("  Copying dev/ track...")
     ensure_models_updated("dev")
     process_directory(SRC_DEV, DIST_DIR / "dev", version_tag="dev")
-    shutil.copytree(SRC_EXAMPLES, DIST_DIR / "dev" / "examples", dirs_exist_ok=True)
+    shutil.copytree(
+        SRC_EXAMPLES,
+        DIST_DIR / "dev" / "examples",
+        dirs_exist_ok=True,
+        ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store"),
+    )
 
     # 2. Build frozen versions
     versions = []
@@ -222,7 +234,12 @@ def build() -> None:
         ensure_models_updated(version)
         process_directory(SCHEMAS_ROOT / version, DIST_DIR / version, version_tag=version)
         # Link example files to version as well
-        shutil.copytree(SRC_EXAMPLES, DIST_DIR / version / "examples", dirs_exist_ok=True)
+        shutil.copytree(
+            SRC_EXAMPLES,
+            DIST_DIR / version / "examples",
+            dirs_exist_ok=True,
+            ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store"),
+        )
 
     latest = versions[-1] if versions else "dev"
 
@@ -231,7 +248,12 @@ def build() -> None:
     if build_docs.exists():
         print("  Copying documentation...")
         html_src = build_docs / "html" if (build_docs / "html").exists() else build_docs
-        shutil.copytree(html_src, DIST_DIR / "docs", dirs_exist_ok=True)
+        shutil.copytree(
+            html_src,
+            DIST_DIR / "docs",
+            dirs_exist_ok=True,
+            ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store"),
+        )
 
     # 4. Generate Landing Page
     print(f"  Generating landing page (Latest: {latest})...")
