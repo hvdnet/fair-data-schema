@@ -1,13 +1,14 @@
-"""Tests for fair_data_schema.models (auto-generated Pydantic models)."""
-
-from __future__ import annotations
-
 import json
+import sys
 from pathlib import Path
 
 import pytest
 
-from fair_data_schema.models import (
+# Add schemas/dev/python to sys.path to import the generated standalone model
+REPO_ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(REPO_ROOT / "schemas" / "dev" / "python"))
+
+from models import (  # noqa: E402
     DatasetRelation,
     DatasetSchema,
     SchemaNode,

@@ -74,7 +74,7 @@ schemas/                 # All JSON Schema files
   vocab/                 # One folder per vocabulary / extension mechanisms
 examples/                # Working demo schemas (one per extension mechanism)
 dist/                    # WEB-READY BUILD (copy this to your server)
-src/fair_data_schema/    # Python tooling (CLI, validator, registry, models)
+src/fair_data_schema/    # Python tooling (CLI, validator, registry)
 scripts/
   templates/             # Jinja2 templates for code generation
   build_dist.py          # Builds the distribution folder
@@ -155,7 +155,6 @@ The project version is the single source of truth for all release-related activi
 
 - `registry.py` — maps canonical URIs to local schema files for offline/dev resolution
 - `validator.py` — `Draft202012Validator` wrapper with the local registry
-- `models.py` — **Auto-generated** Pydantic models for the FAIR dialect
 - `cli.py` — Typer CLI: `validate`, `lint`, `info` commands
 
 CLI entry point: `fair-data-schema` (defined in `pyproject.toml [project.scripts]`)

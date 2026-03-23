@@ -14,6 +14,7 @@ import sys
 from pathlib import Path
 
 import markdown
+from generate_models import generate
 
 REPO_ROOT = Path(__file__).parent.parent
 SCHEMAS_ROOT = REPO_ROOT / "schemas"
@@ -39,6 +40,26 @@ def get_version() -> str:
     if not match:
         raise ValueError("Could not find version in pyproject.toml")
     return match.group(1)
+
+
+def ensure_models_updated(version: str) -> None:
+    """Ensure models.py for the given version exists and is up to date."""
+    version_dir = SCHEMAS_ROOT / version
+    vocab_path = version_dir / "vocab" / "annotations" / "index.json"
+    models_path = version_dir / "python" / "models.py"
+
+    if not vocab_path.exists():
+        return  # No vocab, nothing to generate from (e.g. empty dev track)
+
+    needs_gen = False
+    if not models_path.exists():
+        needs_gen = True
+    elif vocab_path.stat().st_mtime > models_path.stat().st_mtime:
+        needs_gen = True
+
+    if needs_gen:
+        print(f"  Regenerating models for {version}...")
+        generate(version, models_path)
 
 
 def process_directory(src_dir: Path, dest_root: Path, version_tag: str = "dev") -> None:
@@ -184,6 +205,7 @@ def build() -> None:
 
     # 1. Build 'dev' track
     print("  Copying dev/ track...")
+    ensure_models_updated("dev")
     process_directory(SRC_DEV, DIST_DIR / "dev", version_tag="dev")
     shutil.copytree(SRC_EXAMPLES, DIST_DIR / "dev" / "examples", dirs_exist_ok=True)
 
@@ -195,9 +217,9 @@ def build() -> None:
 
     # Sort versions semantically
     versions.sort(key=parse_version)
-
     for version in versions:
         print(f"  Processing {version}/ track...")
+        ensure_models_updated(version)
         process_directory(SCHEMAS_ROOT / version, DIST_DIR / version, version_tag=version)
         # Link example files to version as well
         shutil.copytree(SRC_EXAMPLES, DIST_DIR / version / "examples", dirs_exist_ok=True)

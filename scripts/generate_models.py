@@ -22,7 +22,6 @@ from typing import Any
 REPO_ROOT = Path(__file__).parent.parent
 SCHEMAS_DIR = REPO_ROOT / "schemas"
 TEMPLATES_DIR = Path(__file__).parent / "templates"
-OUTPUT_FILE = REPO_ROOT / "src" / "fair_data_schema" / "models.py"
 
 BASE_URI = "https://highvaluedata.net/fair-data-schema"
 
@@ -201,7 +200,7 @@ def _extract_fair_fields(vocab_props: dict) -> list[FieldDef]:  # type: ignore[t
 # ---------------------------------------------------------------------------
 
 
-def generate(version: str) -> None:  # noqa: ANN001
+def generate(version: str, output: Path | None = None) -> None:
     """Generate models.py for the given schema version."""
     try:
         from jinja2 import Environment, FileSystemLoader, StrictUndefined
@@ -210,10 +209,15 @@ def generate(version: str) -> None:  # noqa: ANN001
         sys.exit(1)
 
     # ── Load annotations vocab ────────────────────────────────────────────
-    vocab_path = SCHEMAS_DIR / version / "vocab" / "annotations" / "index.json"
+    version_dir = SCHEMAS_DIR / version
+    vocab_path = version_dir / "vocab" / "annotations" / "index.json"
     if not vocab_path.exists():
         print(f"ERROR: Vocab not found: {vocab_path}", file=sys.stderr)
         sys.exit(1)
+
+    # Default output: schemas/{version}/python/models.py
+    if output is None:
+        output = version_dir / "python" / "models.py"
 
     vocab = json.loads(vocab_path.read_text(encoding="utf-8"))
     vocab_props: dict[str, Any] = vocab.get("properties", {})
@@ -244,8 +248,10 @@ def generate(version: str) -> None:  # noqa: ANN001
     rendered = template.render(**context)
 
     # ── Write ─────────────────────────────────────────────────────────────
-    OUTPUT_FILE.write_text(rendered, encoding="utf-8")
-    print(f"✓ Generated {OUTPUT_FILE.relative_to(REPO_ROOT)}")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(rendered, encoding="utf-8")
+    rel_output = output.relative_to(REPO_ROOT) if output.is_relative_to(REPO_ROOT) else output
+    print(f"\u2713 Generated {rel_output}")
     print(f"  Version : {version}")
     print(f"  Dialect : {dialect_uri}")
     print(f"  FAIR fields: {len(fair_fields)}")
@@ -260,8 +266,13 @@ def main() -> None:
         default="dev",
         help="Schema version to generate from (e.g. 'dev', '0.1.0'). Default: dev",
     )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        help="Custom output file path. Defaults to schemas/<version>/python/models.py",
+    )
     args = parser.parse_args()
-    generate(args.version)
+    generate(args.version, args.output)
 
 
 if __name__ == "__main__":

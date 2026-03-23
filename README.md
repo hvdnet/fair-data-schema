@@ -82,10 +82,11 @@ make install
 
 ### Programmatic Authoring (Python SDK)
 
-The project includes Pydantic models for the FAIR Data JSON Schema dialect, allowing you to create, load, and save FAIR schemas programmatically:
+The project generates **standalone** Pydantic models for the FAIR Data JSON Schema dialect. You can find them in the versioned schema directories (e.g., `schemas/dev/python/models.py`).
 
 ```python
-from fair_data_schema.models import DatasetSchema, SchemaNode
+# Copy schemas/dev/python/models.py to your project
+from models import DatasetSchema, SchemaNode
 
 # Create a schema
 schema = DatasetSchema(

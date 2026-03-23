@@ -6,9 +6,10 @@ import sys
 import tomllib
 from pathlib import Path
 
-# Add src/ to path for autodoc
+# Add src/ and versioned schemas path to sys.path for autodoc
 REPO_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT / "src"))
+sys.path.insert(0, str(REPO_ROOT / "schemas" / "dev" / "python"))
 
 
 def get_version() -> str:

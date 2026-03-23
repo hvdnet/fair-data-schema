@@ -2,29 +2,27 @@
 
 The `fair_data_schema` Python package includes Pydantic models that represent the FAIR Data JSON Schema vocabulary. This allows you to create, load, serialize, and validate FAIR schemas programmatically with full IDE support and type checking.
 
-## Key Features
+## Standalone Design
 
-- **Typed Schema Authoring**: Create complex FAIR schemas using Python classes.
-- **Bi-directional Serialization**: Round-trip schemas between JSON and Python objects.
-- **Naming Conflict Prevention**: All FAIR-specific keywords are prefixed with `fair_` (e.g., `fair_unit`).
-- **Validation**: Leverages Pydantic's powerful validation engine to ensure schema consistency.
+The models are designed to be **completely standalone**. Unlike the rest of the `fair_data_schema` Python package, they do not have any internal dependencies. You can simply copy `models.py` into your own project and start using it immediately.
 
 ## Installation
 
-The Pydantic models are an optional feature. Install with the `[models]` extra:
+The only requirement for the generated models is **Pydantic 2.x**.
 
 ```bash
-pip install fair-data-schema[models]
-# or with uv
-uv add fair-data-schema --extra models
+pip install pydantic
 ```
 
 ## Basic Usage
 
 ### Authoring a Schema
 
+1.  **Obtain the models**: Copy `schemas/dev/python/models.py` (or a specific version) to your project.
+2.  **Import**:
+
 ```python
-from fair_data_schema.models import DatasetSchema, SchemaNode
+from models import DatasetSchema, SchemaNode
 
 schema = DatasetSchema(
     id="https://example.org/my-dataset",
@@ -55,7 +53,7 @@ schema.to_file("my-dataset-schema.json")
 ### Loading a Schema
 
 ```python
-from fair_data_schema.models import DatasetSchema
+from models import DatasetSchema
 
 # Load from a JSON file
 schema = DatasetSchema.from_file("my-dataset-schema.json")

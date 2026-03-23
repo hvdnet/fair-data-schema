@@ -45,14 +45,15 @@ select = ["E", "F", "I", "UP", "B", "N", "ANN"]
 ignore = []
 
 [tool.ruff.lint.per-file-ignores]
-# Auto-generated file — alias strings can exceed line-length limit
-"src/fair_data_schema/models.py" = ["E501"]
+# Auto-generated files — alias strings can exceed line-length limit
+"schemas/**/models.py" = ["E501"]
 
 [tool.mypy]
 python_version = "3.11"
 strict = true
 plugins = ["pydantic.mypy"]
-files = ["src"]
+files = ["src", "tests", "scripts"]
+exclude = ["schemas/.*/python/models.py"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
