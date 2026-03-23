@@ -142,15 +142,56 @@
                 "required": ["relationType", "targetRef"]
             }
         },
+        "fair:entities": {
+            "title": "Attributed Entities",
+            "description": "A list of entities (individuals, organizations, projects, software) associated with the resource, including their roles.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "$ref": "#/$defs/i18nString",
+                        "title": "Entity Name",
+                        "description": "The human-readable name of the entity."
+                    },
+                    "entityRef": {
+                        "$ref": "#/$defs/uriString",
+                        "title": "Entity Reference",
+                        "description": "The URI identifying the entity (e.g. ROR, ORCID, or Project URI)."
+                    },
+                    "type": {
+                        "$ref": "#/$defs/i18nString",
+                        "title": "Entity Type Literal",
+                        "description": "The human-readable category of the entity. Suggested: 'Individual', 'Organization', 'Project', 'Software', 'Agent' (AI powered), 'Other'. See CV: https://highvaluedata.net/fair-data-schema/dev/cv/entity-types"
+                    },
+                    "typeRef": {
+                        "$ref": "#/$defs/uriOrCurie",
+                        "title": "Entity Type Reference",
+                        "description": "The URI or CURIE identifying the entity category in a controlled vocabulary (e.g. PROV-O or Schema.org)."
+                    },
+                    "role": {
+                        "$ref": "#/$defs/i18nString",
+                        "title": "Role Literal",
+                        "description": "The human-readable name of the role (e.g. 'Provider', 'Producer', 'Data Curator', 'Data Archive'). See CV: https://highvaluedata.net/fair-data-schema/dev/cv/entity-roles"
+                    },
+                    "roleRef": {
+                        "$ref": "#/$defs/uriOrCurie",
+                        "title": "Role Reference",
+                        "description": "The URI or CURIE of the role definition. Suggested: FAIR Data Schema Roles (https://highvaluedata.net/fair-data-schema/dev/cv/entity-roles) or DDI ContributorRole (https://rdf-vocabulary.ddialliance.org/ddi-cv/ContributorRole/1.0.2/ContributorRole.html)."
+                    }
+                },
+                "required": ["name"]
+            }
+        },
         "fair:provider": {
             "$ref": "#/$defs/i18nString",
-            "title": "Provider Literal",
-            "description": "The name of the providing organization or person."
+            "title": "Provider Literal (DEPRECATED)",
+            "description": "DEPRECATED: Use fair:entities with role 'Provider' instead. The name of the providing organization or person."
         },
         "fair:providerRef": {
             "$ref": "#/$defs/uriString",
-            "title": "Provider Reference",
-            "description": "The URI identifying the provider (e.g. ROR or ORCID)."
+            "title": "Provider Reference (DEPRECATED)",
+            "description": "DEPRECATED: Use fair:entities with roleRef pointing to a provider role instead. The URI identifying the provider (e.g. ROR or ORCID)."
         },
         "fair:license": {
             "$ref": "#/$defs/i18nString",

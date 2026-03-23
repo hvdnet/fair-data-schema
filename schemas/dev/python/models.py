@@ -148,6 +148,7 @@ class SchemaNode(BaseModel):
     fair_dataset_relations: list[DatasetRelation] | None = Field(
         None, alias="fair:datasetRelations"
     )
+    fair_entities: list[dict] | None = Field(None, alias="fair:entities")
     fair_provider: I18nString | None = Field(None, alias="fair:provider")
     fair_provider_ref: str | None = Field(None, alias="fair:providerRef")
     fair_license: I18nString | None = Field(None, alias="fair:license")

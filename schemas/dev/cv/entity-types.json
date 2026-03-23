@@ -1,0 +1,67 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-types",
+    "title": "FAIR Data Schema Entity Types CV",
+    "description": "A controlled vocabulary for categorizing entities (individuals, organizations, projects, software) that contribute to a resource. Each entry provides a canonical URI for use in 'fair:typeRef'.",
+    "terms": {
+        "Individual": {
+            "$anchor": "Individual",
+            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-types#Individual",
+            "label": {
+                "en": "Individual",
+                "fr": "Individu"
+            },
+            "description": "A single person or individual. Aligned with 'prov:Person' and 'schema:Person'.",
+            "sameAs": ["http://www.w3.org/ns/prov#Person", "https://schema.org/Person"]
+        },
+        "Organization": {
+            "$anchor": "Organization",
+            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-types#Organization",
+            "label": {
+                "en": "Organization",
+                "fr": "Organisation"
+            },
+            "description": "An organized body of people with a particular purpose, such as a business, government agency, or NGO. Aligned with 'prov:Organization' and 'schema:Organization'.",
+            "sameAs": ["http://www.w3.org/ns/prov#Organization", "https://schema.org/Organization"]
+        },
+        "Project": {
+            "$anchor": "Project",
+            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-types#Project",
+            "label": {
+                "en": "Project",
+                "fr": "Projet"
+            },
+            "description": "A specific organized effort or initiative within or across organizations. Aligned with 'schema:Project' and DDI concept of 'Project'.",
+            "sameAs": ["https://schema.org/Project"]
+        },
+        "Software": {
+            "$anchor": "Software",
+            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-types#Software",
+            "label": {
+                "en": "Software Agent",
+                "fr": "Agent Logiciel"
+            },
+            "description": "A running software process, script, or automated agent. Aligned with 'prov:SoftwareAgent' and 'schema:SoftwareApplication'.",
+            "sameAs": ["http://www.w3.org/ns/prov#SoftwareAgent", "https://schema.org/SoftwareApplication"]
+        },
+        "Agent": {
+            "$anchor": "Agent",
+            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-types#Agent",
+            "label": {
+                "en": "Agent",
+                "fr": "Agent"
+            },
+            "description": "An autonomous AI-powered agent, tool, or large language model (LLM) acting as a contributor. Aligned with 'prov:SoftwareAgent'.",
+            "sameAs": ["http://www.w3.org/ns/prov#SoftwareAgent"]
+        },
+        "Other": {
+            "$anchor": "Other",
+            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-types#Other",
+            "label": {
+                "en": "Other",
+                "fr": "Autre"
+            },
+            "description": "Any other type of entity not covered by the standard categories."
+        }
+    }
+}

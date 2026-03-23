@@ -1,0 +1,49 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-roles",
+    "title": "FAIR Data Schema Entity Roles CV",
+    "description": "A simple controlled vocabulary for roles played by entities in the FAIR Data Schema. For more complex use cases, use the DDI ContributorRole CV.",
+    "terms": {
+        "Provider": {
+            "$anchor": "Provider",
+            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-roles#Provider",
+            "label": { "en": "Provider", "fr": "Fournisseur" },
+            "description": "The entity providing the technical infrastructure, platform, or hosting to access the resource.",
+            "sameAs": ["https://vocabularies.cessda.eu/vocabulary/ContributorRole?v=1.0.2#HostingInstitution"]
+        },
+        "Producer": {
+            "$anchor": "Producer",
+            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-roles#Producer",
+            "label": { "en": "Producer", "fr": "Producteur" },
+            "description": "The entity primarily responsible for making or producing the resource.",
+            "sameAs": ["https://vocabularies.cessda.eu/vocabulary/ContributorRole?v=1.0.2#ProjectOrStudyDesign.Conceptualization"]
+        },
+        "Contributor": {
+            "$anchor": "Contributor",
+            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-roles#Contributor",
+            "label": { "en": "Contributor", "fr": "Contributeur" },
+            "description": "An entity responsible for making contributions to the resource.",
+            "sameAs": ["https://vocabularies.cessda.eu/vocabulary/ContributorRole?v=1.0.2#Other"]
+        },
+        "Curator": {
+            "$anchor": "Curator",
+            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-roles#Curator",
+            "label": { "en": "Data Curator", "fr": "Conservateur de données" },
+            "description": "The entity responsible for active data management, metadata enhancement, and quality assurance during the data creation and ingest process.",
+            "sameAs": ["https://vocabularies.cessda.eu/vocabulary/ContributorRole?v=1.0.2#DataManagement"]
+        },
+        "Distributor": {
+            "$anchor": "Distributor",
+            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-roles#Distributor",
+            "label": { "en": "Distributor", "fr": "Distributeur" },
+            "description": "The entity responsible for the dissemination and administrative availability of the resource to users.",
+            "sameAs": ["https://vocabularies.cessda.eu/vocabulary/ContributorRole?v=1.0.2#DataDistribution"]
+        },
+        "Archive": {
+            "$anchor": "Archive",
+            "uri": "https://highvaluedata.net/fair-data-schema/dev/cv/entity-roles#Archive",
+            "label": { "en": "Data Archive", "fr": "Archive de données" },
+            "description": "The entity responsible for bit-level preservation, persistent integrity, and long-term accessibility of the digital resource."
+        }
+    }
+}

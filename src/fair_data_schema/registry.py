@@ -25,6 +25,8 @@ _URI_TO_PATH: dict[str, Path] = {
     "/vocab/vocabulary": _REPO_ROOT / "schemas" / "dev" / "vocab" / "vocabulary" / "index.json",
     "/vocab/dialect": _REPO_ROOT / "schemas" / "dev" / "vocab" / "dialect" / "index.json",
     "/vocab/refinements": _REPO_ROOT / "schemas" / "dev" / "vocab" / "refinements" / "index.json",
+    "/cv/entity-types": _REPO_ROOT / "schemas" / "dev" / "cv" / "entity-types.json",
+    "/cv/entity-roles": _REPO_ROOT / "schemas" / "dev" / "cv" / "entity-roles.json",
 }
 
 

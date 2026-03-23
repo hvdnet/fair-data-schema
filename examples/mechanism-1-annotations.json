@@ -55,8 +55,14 @@
                 "start": "2020-01-01",
                 "end": "2023-12-31"
             },
-            "fair:providerRef": "https://ror.org/02y3ad647",
-            "fair:provider": "Example Org",
+            "fair:entities": [
+                {
+                    "name": "Example Org",
+                    "entityRef": "https://ror.org/02y3ad647",
+                    "type": "Organization",
+                    "role": "Provider"
+                }
+            ],
             "fair:licenseRef": "https://creativecommons.org/licenses/by/4.0/",
             "fair:license": "CC-BY-4.0"
         }
