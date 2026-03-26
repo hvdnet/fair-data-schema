@@ -8,7 +8,7 @@ Versioning
 The FAIR Data JSON Schema follows a versioned release strategy:
 * **Release Versions** (e.g., ``/0.1.0/``): Stable points documented in the changelog.
 * **Development Track** (``/dev/``): The bleeding edge where new features are prototyped.
-* **Landing Page**: The root URL serves the interactive project overview.
+* **Landing Page**: The root URL (`https://highvaluedata.net/fair-data-schema/`) serves the interactive project overview.
 
 .. toctree::
    :maxdepth: 2

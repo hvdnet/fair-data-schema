@@ -17,6 +17,11 @@ dependencies = [
     "rich>=13",
 ]
 
+[project.urls]
+Homepage = "https://highvaluedata.net/fair-data-schema/"
+Documentation = "https://highvaluedata.net/fair-data-schema/docs/"
+Repository = "https://github.com/hvdnet/fair-data-schema"
+
 [project.scripts]
 fair-data-schema = "fair_data_schema.cli:app"
 
