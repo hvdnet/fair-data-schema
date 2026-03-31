@@ -26,7 +26,7 @@ Repository = "https://github.com/hvdnet/fair-data-schema"
 fair-data-schema = "fair_data_schema.cli:app"
 
 [project.optional-dependencies]
-dev = ["ruff>=0.4", "mypy>=1.10", "pytest>=8", "pytest-cov>=5", "pre-commit>=3"]
+dev = ["ruff>=0.6", "mypy>=1.10", "pytest>=8", "pytest-cov>=5", "pre-commit>=3"]
 models = ["pydantic>=2"]
 docs = [
     "sphinx==7.4.7",
@@ -45,7 +45,7 @@ packages = ["src/fair_data_schema"]
 
 [tool.ruff]
 line-length = 100
-target-version = "py311"
+target-version = "py312"
 src = ["src", "tests"]
 
 [tool.ruff.lint]
@@ -57,7 +57,7 @@ ignore = []
 "schemas/**/models.py" = ["E501"]
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 strict = true
 plugins = ["pydantic.mypy"]
 files = ["src", "tests", "scripts"]

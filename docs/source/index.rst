@@ -15,6 +15,7 @@ The FAIR Data JSON Schema follows a versioned release strategy:
    :caption: Introduction
 
    background
+   cdif_comparison
 
 .. toctree::
    :maxdepth: 2

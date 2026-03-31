@@ -325,7 +325,7 @@ requires-dist = [
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=5" },
     { name = "referencing", specifier = ">=0.35" },
     { name = "rich", specifier = ">=13" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.4" },
+    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.6" },
     { name = "sphinx", marker = "extra == 'docs'", specifier = "==7.4.7" },
     { name = "sphinx-autodoc-typehints", marker = "extra == 'docs'", specifier = ">=2" },
     { name = "sphinx-book-theme", marker = "extra == 'docs'", specifier = ">=1.1" },

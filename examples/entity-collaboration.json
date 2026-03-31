@@ -1,0 +1,62 @@
+{
+  "$schema": "https://highvaluedata.net/fair-data-schema/dev",
+  "$id": "https://highvaluedata.net/fair-data-schema/dev/examples/entity-collaboration.json",
+  "title": "Global Climate Research Dataset",
+  "description": "A high-fidelity climate dataset with rich entity metadata demonstrating the collaboration between humans, organizations, and AI agents.",
+  "type": "object",
+  "fair:resourceType": "dataset",
+  "fair:entities": [
+    {
+      "name": "Data Artifex",
+      "entityRef": "https://data-artifex.org",
+      "type": "Organization",
+      "typeRef": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Organization",
+      "role": "Producer",
+      "roleRef": "https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1#Producer"
+    },
+    {
+      "name": "Dr. Alice Smith",
+      "entityRef": "https://orcid.org/0000-0000-0000-0000",
+      "type": "Individual",
+      "typeRef": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Individual",
+      "role": "Curator",
+      "roleRef": "https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1#Curator"
+    },
+    {
+      "name": "ClimateAI Agent",
+      "type": "Agent",
+      "typeRef": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Agent",
+      "role": "Contributor",
+      "roleRef": "https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1#Contributor",
+      "description": "Autonomous agent responsible for automated anomaly detection and metadata enrichment."
+    },
+    {
+      "name": "Croissant Maker CLI",
+      "entityRef": "https://github.com/hvdnet/croissant-maker",
+      "type": "Software",
+      "typeRef": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Software",
+      "role": "Distributor",
+      "roleRef": "https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1#Distributor"
+    },
+    {
+      "name": "Global Open Data Archive",
+      "type": "Organization",
+      "typeRef": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Organization",
+      "role": "Archive",
+      "roleRef": "https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1#Archive"
+    }
+  ],
+  "properties": {
+    "temperature": {
+      "type": "number",
+      "fair:label": "Mean Surface Temperature",
+      "fair:unit": "Celsius",
+      "fair:unitRef": "http://qudt.org/vocab/unit/DEG_C"
+    },
+    "metadata_quality_score": {
+      "type": "number",
+      "fair:label": "AI-Generated Quality Score",
+      "description": "Computed by ClinicalAI Agent during the curation phase."
+    }
+  }
+}
