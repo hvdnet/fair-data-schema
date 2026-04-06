@@ -56,7 +56,7 @@ See [FAIR_SCHEMA.md](FAIR_SCHEMA.md) for a detailed technical description of the
 
 The project uses a hybrid versioning strategy:
 - **Core Schemas**: Controlled via `pyproject.toml`. Managed through a `/dev/` development track that is frozen into versioned releases (e.g. `/0.1.0/`).
-- **Controlled Vocabularies (CV)**: Maintained independently in the root `/cv/` directory. These use manual versioning via stable filenames (e.g. `entity-types-v1.json`) to ensure long-term stability for schema implementers.
+- **Controlled Vocabularies (CV)**: Maintained independently in the root `/cv/` directory. These use manual versioning via stable filenames (e.g. `contributor-types-v1.json`) to ensure long-term stability for schema implementers.
 
 See [AGENTS.md](AGENTS.md#versioning-and-releases) for detailed developer instructions on how to release new versions.
 

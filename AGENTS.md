@@ -63,6 +63,7 @@ These features will be implemented as JSON Schema vocabularies, one at a time:
 - Ensure proper resource identification (e.g. URIs)
 - [x] Implement the DDI variable cascade [COMPLETED: instance/represented/conceptual refs]
 - [x] Support the reuse of variable and classifications [COMPLETED: via internal chained cascades]
+- [x] Implement a generic attribution model [COMPLETED: `fair:contributors` replacing `fair:provider`]
 - [ ] Support controlled vocabularies
 - [ ] Add provenance features
 
@@ -148,7 +149,7 @@ The project version is the single source of truth for all release-related activi
    - `dist/$VERSION/`: The versioned release track (where all `/dev/` URIs are swapped for global consistency).
    - `dist/docs/`: The updated Sphinx documentation.
 
-**Important**: Never manually edit the version strings in `schemas/` or `docs/conf.py` (use the `freeze` command for these). **Controlled Vocabularies in `/cv`**, however, are versioned independently by filename (e.g., `entity-types-v1.json`) and must be updated manually when releasing a new vocabulary version.
+**Important**: Never manually edit the version strings in `schemas/` or `docs/conf.py` (use the `freeze` command for these). **Controlled Vocabularies in `/cv`**, however, are versioned independently by filename (e.g., `contributor-types-v1.json`) and must be updated manually when releasing a new vocabulary version.
 
 
 ## Python Package (`src/fair_data_schema/`)

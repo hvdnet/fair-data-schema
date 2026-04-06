@@ -42,8 +42,8 @@ Metadata describing the entire container or resource.
 
 | Keyword | Type | Description |
 |---|---|---|
-| `fair:entities` | array | **Recommended**. List of organizations, individuals, or AI agents associated with the resource. Supports [Entity Types v1](https://highvaluedata.net/fair-data-schema/cv/entity-types-v1) and [Entity Roles v1](https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1). |
-| `fair:provider` / `Ref` | string / URI | **Deprecated**. Use `fair:entities` with a 'Producer' role instead. |
+| `fair:contributors` | array | **Recommended**. List of organizations, individuals, or AI agents associated with the resource. Supports [Contributor Types v1](https://highvaluedata.net/fair-data-schema/cv/contributor-types-v1) and [Contributor Roles v1](https://highvaluedata.net/fair-data-schema/cv/contributor-roles-v1). |
+| `fair:provider` / `Ref` | string / URI | **Deprecated**. Use `fair:contributors` with a 'Provider' role instead. |
 | `fair:license` / `Ref` | string / URI | The usage license (Literal / SPDX) |
 | `fair:temporalCoverage` / `Ref` | object / URI | Time period covered (Structured / URI) |
 | `fair:spatialCoverage` / `Ref` | string / URI | Geographic area (Literal / GeoNames) |
@@ -62,6 +62,10 @@ Keywords describing the data representation of a leaf variable.
 | `fair:instanceVariableRef` | URI / CURIE | Link to a dataset-specific variable implementation |
 | `fair:representedVariableRef` | URI / CURIE | Link to a shared measurement definition |
 | `fair:variableCascade` | object | Hierarchy of measurement references. |
+
+## PROV-O Persistence
+
+The `fair:contributors` keyword maintains a lightweight data model that can be programmatically expanded into a full **W3C PROV-O** graph. Instead of structural duplication, **Contributor Roles** (e.g., `Producer`, `Curator`) function as the semantic bridge to a PROV-O activity. This allows for detailed provenance tracking (including temporal windows via `startDate`/`endDate`) without breaking JSON Schema's core focus on data structure.
 
 ## Working Example File
 

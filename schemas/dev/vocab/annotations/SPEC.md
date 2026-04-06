@@ -29,12 +29,12 @@ Keywords that provide basic semantic identification and can be applied to **any*
 ### 2. Dataset Scope (Container/Resource level)
 Keywords describing the **Provenance and Coverage** of a dataset, table, or resource.
 
-- **`fair:entities`**: A list of entities associated with the resource.
-    - **`name` / `entityRef`**: Identification of the entity.
-    - **`type` / `typeRef`**: Category of the entity. [Entity Types CV](https://highvaluedata.net/fair-data-schema/cv/entity-types-v1).
-    - **`role` / `roleRef`**: The role played by the entity. Suggested: [Entity Roles CV](https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1) or [DDI ContributorRole](https://rdf-vocabulary.ddialliance.org/ddi-cv/ContributorRole/1.0.2/ContributorRole.html).
-    - **`startDate` / `endDate`**: Optional. The date/time when the role started or ended (ISO 8601).
-- **`fair:provider` / `fair:providerRef`**: (DEPRECATED) Use `fair:entities` with a 'Provider' role instead.
+- **`fair:contributors`**: A list of contributors (agents) associated with the resource.
+    - **`name` / `contributorRef`**: Identification of the contributor.
+    - **`type` / `typeRef`**: Category of the contributor. [Contributor Types CV](https://highvaluedata.net/fair-data-schema/cv/contributor-types-v1).
+    - **`role` / `roleRef`**: The role played by the contributor. Suggested: [Contributor Roles CV](https://highvaluedata.net/fair-data-schema/cv/contributor-roles-v1) or [DDI ContributorRole](https://rdf-vocabulary.ddialliance.org/ddi-cv/ContributorRole/1.0.2/ContributorRole.html).
+    - **`startDate` / `endDate`**: Optional. The date/time when the role started or ended (ISO 8601 date, e.g. YYYY-MM-DD).
+- **`fair:provider` / `fair:providerRef`**: (DEPRECATED) Use `fair:contributors` with a 'Provider' role instead.
 - **`fair:license` / `fair:licenseRef`**: The license governing the data.
 - **`fair:temporalCoverage` / `fair:temporalCoverageRef`**: The time period covered by the data.
 - **`fair:spatialCoverage` / `fair:spatialCoverageRef`**: The geographic area covered (e.g. Gazetteer URI).
@@ -60,6 +60,21 @@ Keywords describing the **Representation and Identity** of a leaf variable.
 - **`fair:universe` / `fair:universeRef`**: The broad population (e.g. 'Students'). Associated with Represented level.
 - **`fair:variableCascade`**: (Hierarchy of `instance`, `represented`, and `conceptual` references).
 - **`fair:sentinel`**: A boolean flag indicating that the value is a sentinel/missing value (e.g. 'Don't know', 'Refused', 'Not applicable'). **Note**: Must be used together with the `const` keyword.
+
+---
+
+## Provenance and W3C PROV-O Alignment
+
+The `fair:contributors` keyword is designed to support rich provenance tracking while remaining functionally simple. It aligns with the **W3C PROV-O** ontology by mapping the metadata into a **role-based activity model**:
+
+1.  **Agents**: Each entry in the `fair:contributors` array corresponds to a `prov:Agent` (Individual, Organization, Software, or Autonomous Agent).
+2.  **Roles as Activities**: Instead of defining separate "Activities" in the JSON Schema (which would add significant structural complexity), we treat the `role` (and `roleRef`) as the **semantic bridge** to a PROV activity. For example:
+    *   A `Producer` role maps to a data production activity.
+    *   A `Curator` role maps to a data curation/validation activity.
+3.  **Entity Association**: The dataset using the schema is the `prov:Entity`. The `fair:contributors` block documents the **Attribution** and **Association** relationships (`prov:wasAttributedTo` or `prov:wasAssociatedWith`).
+4.  **Temporal Precision**: The `startDate` and `endDate` properties allow for precise mapping to a `prov:Activity` timeline, enabling tools to visualize the sequence of contributions over time.
+
+By standardizing on a limited set of **Contributor Roles** (see `/cv/contributor-roles-v1.json`), we ensure that simple JSON annotations can be programmatically expanded into a full PROV graph for advanced interoperability.
 
 ---
 

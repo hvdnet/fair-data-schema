@@ -35,8 +35,8 @@ _URI_TO_PATH: dict[str, Path] = {
     / "vocab"
     / "refinements"
     / "index.json",
-    "/cv/entity-types-v1": _REPO_ROOT / "cv" / "entity-types-v1.json",
-    "/cv/entity-roles-v1": _REPO_ROOT / "cv" / "entity-roles-v1.json",
+    "/cv/contributor-types-v1": _REPO_ROOT / "cv" / "contributor-types-v1.json",
+    "/cv/contributor-roles-v1": _REPO_ROOT / "cv" / "contributor-roles-v1.json",
 }
 
 

@@ -142,54 +142,54 @@
                 "required": ["relationType", "targetRef"]
             }
         },
-        "fair:entities": {
-            "title": "Attributed Entities",
-            "description": "A list of entities (individuals, organizations, projects, software) associated with the resource, including their roles.",
+        "fair:contributors": {
+            "title": "Resource Contributors",
+            "description": "A list of agents (individuals, organizations, projects, software, AI) associated with the resource, identifying who was involved and what their role was.",
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
                     "name": {
                         "$ref": "#/$defs/i18nString",
-                        "title": "Entity Name",
-                        "description": "The human-readable name of the entity."
+                        "title": "Contributor Name",
+                        "description": "The human-readable name of the contributor."
                     },
-                    "entityRef": {
+                    "contributorRef": {
                         "$ref": "#/$defs/uriString",
-                        "title": "Entity Reference",
-                        "description": "The URI identifying the entity (e.g. ROR, ORCID, or Project URI)."
+                        "title": "Contributor Reference",
+                        "description": "The URI identifying the contributor (e.g. ROR, ORCID, or Project URI)."
                     },
                     "type": {
                         "$ref": "#/$defs/i18nString",
-                        "title": "Entity Type Literal",
-                        "description": "The human-readable category of the entity. Suggested: 'Individual', 'Organization', 'Project', 'Software', 'Agent' (AI powered), 'Other'. See CV: https://highvaluedata.net/fair-data-schema/cv/entity-types-v1"
+                        "title": "Contributor Type Literal",
+                        "description": "The human-readable category of the contributor. Suggested: 'Individual', 'Organization', 'Project', 'Software', 'Agent' (AI powered), 'Other'. See CV: https://highvaluedata.net/fair-data-schema/cv/contributor-types-v1"
                     },
                     "typeRef": {
                         "$ref": "#/$defs/uriOrCurie",
-                        "title": "Entity Type Reference",
-                        "description": "The URI or CURIE identifying the entity category in a controlled vocabulary (e.g. PROV-O or Schema.org)."
+                        "title": "Contributor Type Reference",
+                        "description": "The URI or CURIE identifying the contributor category in a controlled vocabulary (e.g. PROV-O or Schema.org)."
                     },
                     "role": {
                         "$ref": "#/$defs/i18nString",
                         "title": "Role Literal",
-                        "description": "The human-readable name of the role (e.g. 'Provider', 'Producer', 'Data Curator', 'Data Archive'). See CV: https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1"
+                        "description": "The human-readable name of the role (e.g. 'Provider', 'Producer', 'Data Curator', 'Data Archive'). See CV: https://highvaluedata.net/fair-data-schema/cv/contributor-roles-v1"
                     },
                     "roleRef": {
                         "$ref": "#/$defs/uriOrCurie",
                         "title": "Role Reference",
-                        "description": "The URI or CURIE of the role definition. Suggested: FAIR Data Schema Roles (https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1) or DDI ContributorRole (https://rdf-vocabulary.ddialliance.org/ddi-cv/ContributorRole/1.0.2/ContributorRole.html)."
+                        "description": "The URI or CURIE of the role definition. Suggested: FAIR Data Schema Roles (https://highvaluedata.net/fair-data-schema/cv/contributor-roles-v1) or DDI ContributorRole (https://rdf-vocabulary.ddialliance.org/ddi-cv/ContributorRole/1.0.2/ContributorRole.html)."
                     },
                     "startDate": {
                         "type": "string",
-                        "format": "date-time",
+                        "format": "date",
                         "title": "Start Date",
-                        "description": "The date and time when the agent began their role."
+                        "description": "The date when the agent began their role."
                     },
                     "endDate": {
                         "type": "string",
-                        "format": "date-time",
+                        "format": "date",
                         "title": "End Date",
-                        "description": "The date and time when the agent ended their role."
+                        "description": "The date when the agent ended their role."
                     }
                 },
                 "required": ["name"]
