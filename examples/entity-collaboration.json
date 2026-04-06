@@ -20,7 +20,9 @@
       "type": "Individual",
       "typeRef": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Individual",
       "role": "Curator",
-      "roleRef": "https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1#Curator"
+      "roleRef": "https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1#Curator",
+      "startDate": "2024-01-01T09:00:00Z",
+      "endDate": "2024-06-30T17:00:00Z"
     },
     {
       "name": "ClimateAI Agent",

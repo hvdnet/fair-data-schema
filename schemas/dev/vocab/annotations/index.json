@@ -178,6 +178,18 @@
                         "$ref": "#/$defs/uriOrCurie",
                         "title": "Role Reference",
                         "description": "The URI or CURIE of the role definition. Suggested: FAIR Data Schema Roles (https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1) or DDI ContributorRole (https://rdf-vocabulary.ddialliance.org/ddi-cv/ContributorRole/1.0.2/ContributorRole.html)."
+                    },
+                    "startDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Start Date",
+                        "description": "The date and time when the agent began their role."
+                    },
+                    "endDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "End Date",
+                        "description": "The date and time when the agent ended their role."
                     }
                 },
                 "required": ["name"]
