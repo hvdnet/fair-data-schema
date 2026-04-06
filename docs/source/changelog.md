@@ -2,17 +2,10 @@
 
 All notable changes to the **FAIR Data JSON Schema** project will be documented in this file.
 
-## [2026-04-06] - PROV-O Alignment & Provenance Activities
-
-- **Meta-Schema**: Renamed `fair:entities` to `fair:agents` (Agent, Individual, Software) to align with **W3C PROV-O**.
-- **Activities**: Introduced the `fair:activities` keyword for process-oriented provenance, supporting structured documentation of dataset history.
-- **Python SDK**: Regenerated Pydantic models to support the new `FairAgent` and `FairActivity` structures.
-- **Interoperability**: Strengthened alignment with global provenance standards, moving beyond static attribution.
-
 ## [2026-03-23] - Generic Attribution & Controlled Vocabularies
 
-- **Meta-Schema**: Replaced specific `fair:provider` keywords with a generic `fair:agents` attribution model.
-- **Controlled Vocabularies**: Moved CVs to root `/cv/` with independent versioning. Released [Agent Types v1](https://highvaluedata.net/fair-data-schema/cv/entity-types-v1).
+- **Meta-Schema**: Replaced specific `fair:provider` keywords with a generic `fair:entities` attribution model.
+- **Controlled Vocabularies**: Moved CVs to root `/cv/` with independent versioning. Released [Entity Types v1](https://highvaluedata.net/fair-data-schema/cv/entity-types-v1) and [Entity Roles v1](https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1).
 - **Interoperability**: Added explicit `sameAs` mappings to the **DDI Alliance ContributorRole CV (v 1.0.2)**.
 - **Python SDK**: Updated the Pydantic models to support the new generic attribution structure.
 

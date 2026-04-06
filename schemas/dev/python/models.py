@@ -55,34 +55,6 @@ class DatasetRelation(BaseModel):
     description: I18nString | None = Field(None)
 
 
-class FairAgent(BaseModel):
-    """An agent (individual or organization) with responsibility for the resource (``fair:agents``)."""
-
-    model_config = ConfigDict(populate_by_name=True, extra="allow")
-    name: I18nString = Field(None)
-    agent_ref: str | None = Field(None, alias="agentRef")
-    type: I18nString | None = Field(None)
-    type_ref: str | None = Field(None, alias="typeRef")
-    role: I18nString | None = Field(None)
-    role_ref: str | None = Field(None, alias="roleRef")
-
-
-class FairActivity(BaseModel):
-    """A provenance activity (process) associated with the resource (``fair:activities``)."""
-
-    model_config = ConfigDict(populate_by_name=True, extra="allow")
-    name: I18nString | None = Field(None)
-    activity_ref: str | None = Field(None, alias="activityRef")
-    activity_type: I18nString | None = Field(None, alias="activityType")
-    activity_type_ref: str | None = Field(None, alias="activityTypeRef")
-    start_time: str | None = Field(None, alias="startTime")
-    end_time: str | None = Field(None, alias="endTime")
-    agent_ref: str | None = Field(None, alias="agentRef")
-    role: I18nString | None = Field(None)
-    role_ref: str | None = Field(None, alias="roleRef")
-    description: I18nText | None = Field(None)
-
-
 # ---------------------------------------------------------------------------
 # SchemaNode — core recursive class
 # ---------------------------------------------------------------------------
@@ -176,8 +148,7 @@ class SchemaNode(BaseModel):
     fair_dataset_relations: list[DatasetRelation] | None = Field(
         None, alias="fair:datasetRelations"
     )
-    fair_agents: list[FairAgent] | None = Field(None, alias="fair:agents")
-    fair_activities: list[FairActivity] | None = Field(None, alias="fair:activities")
+    fair_entities: list[dict] | None = Field(None, alias="fair:entities")
     fair_provider: I18nString | None = Field(None, alias="fair:provider")
     fair_provider_ref: str | None = Field(None, alias="fair:providerRef")
     fair_license: I18nString | None = Field(None, alias="fair:license")

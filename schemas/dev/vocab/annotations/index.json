@@ -142,32 +142,32 @@
                 "required": ["relationType", "targetRef"]
             }
         },
-        "fair:agents": {
-            "title": "Attributed Agents",
-            "description": "A list of agents (individuals, organizations, projects, software) that bear responsibility for the resource, including their roles.",
+        "fair:entities": {
+            "title": "Attributed Entities",
+            "description": "A list of entities (individuals, organizations, projects, software) associated with the resource, including their roles.",
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
                     "name": {
                         "$ref": "#/$defs/i18nString",
-                        "title": "Agent Name",
-                        "description": "The human-readable name of the agent."
+                        "title": "Entity Name",
+                        "description": "The human-readable name of the entity."
                     },
-                    "agentRef": {
+                    "entityRef": {
                         "$ref": "#/$defs/uriString",
-                        "title": "Agent Reference",
-                        "description": "The URI identifying the agent (e.g. ROR, ORCID, or Project URI)."
+                        "title": "Entity Reference",
+                        "description": "The URI identifying the entity (e.g. ROR, ORCID, or Project URI)."
                     },
                     "type": {
                         "$ref": "#/$defs/i18nString",
-                        "title": "Agent Type Literal",
-                        "description": "The human-readable category of the agent. Suggested: 'Individual', 'Organization', 'Project', 'Software', 'Agent' (AI powered), 'Other'. See CV: https://highvaluedata.net/fair-data-schema/cv/entity-types-v1"
+                        "title": "Entity Type Literal",
+                        "description": "The human-readable category of the entity. Suggested: 'Individual', 'Organization', 'Project', 'Software', 'Agent' (AI powered), 'Other'. See CV: https://highvaluedata.net/fair-data-schema/cv/entity-types-v1"
                     },
                     "typeRef": {
                         "$ref": "#/$defs/uriOrCurie",
-                        "title": "Agent Type Reference",
-                        "description": "The URI or CURIE identifying the agent category in a controlled vocabulary (e.g. PROV-O or Schema.org)."
+                        "title": "Entity Type Reference",
+                        "description": "The URI or CURIE identifying the entity category in a controlled vocabulary (e.g. PROV-O or Schema.org)."
                     },
                     "role": {
                         "$ref": "#/$defs/i18nString",
@@ -183,78 +183,15 @@
                 "required": ["name"]
             }
         },
-        "fair:activities": {
-            "title": "Provenance Activities",
-            "description": "A list of activities (processes) associated with the resource, identifying what was done and by whom.",
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "$ref": "#/$defs/i18nString",
-                        "title": "Activity Name",
-                        "description": "The human-readable name of the activity instance."
-                    },
-                    "activityRef": {
-                        "$ref": "#/$defs/uriString",
-                        "title": "Activity Reference",
-                        "description": "The URI identifying the specific activity instance."
-                    },
-                    "activityType": {
-                        "$ref": "#/$defs/i18nString",
-                        "title": "Activity Type Literal",
-                        "description": "The human-readable category of the activity (e.g. 'Collection', 'Curation')."
-                    },
-                    "activityTypeRef": {
-                        "$ref": "#/$defs/uriOrCurie",
-                        "title": "Activity Type Reference",
-                        "description": "The URI or CURIE identifying the activity category (e.g. from PROV-O)."
-                    },
-                    "startTime": {
-                        "type": "string",
-                        "format": "date-time",
-                        "title": "Start Time",
-                        "description": "The timestamp when the activity started."
-                    },
-                    "endTime": {
-                        "type": "string",
-                        "format": "date-time",
-                        "title": "End Time",
-                        "description": "The timestamp when the activity ended."
-                    },
-                    "agentRef": {
-                        "$ref": "#/$defs/uriString",
-                        "title": "Agent Reference",
-                        "description": "Reference to the agent (in fair:agents) who was associated with this activity."
-                    },
-                    "role": {
-                        "$ref": "#/$defs/i18nString",
-                        "title": "Role Literal",
-                        "description": "The specific role played by the agent in this activity (implies the capacity in which the agent acted)."
-                    },
-                    "roleRef": {
-                        "$ref": "#/$defs/uriOrCurie",
-                        "title": "Role Reference",
-                        "description": "The URI or CURIE of the role definition."
-                    },
-                    "description": {
-                        "$ref": "#/$defs/i18nText",
-                        "title": "Activity Description",
-                        "description": "Detailed description of the activity."
-                    }
-                },
-                "required": ["activityType"]
-            }
-        },
         "fair:provider": {
             "$ref": "#/$defs/i18nString",
             "title": "Provider Literal (DEPRECATED)",
-            "description": "DEPRECATED: Use fair:agents with role 'Provider' instead. The name of the providing organization or person."
+            "description": "DEPRECATED: Use fair:entities with role 'Provider' instead. The name of the providing organization or person."
         },
         "fair:providerRef": {
             "$ref": "#/$defs/uriString",
             "title": "Provider Reference (DEPRECATED)",
-            "description": "DEPRECATED: Use fair:agents with roleRef pointing to a provider role instead. The URI identifying the provider (e.g. ROR or ORCID)."
+            "description": "DEPRECATED: Use fair:entities with roleRef pointing to a provider role instead. The URI identifying the provider (e.g. ROR or ORCID)."
         },
         "fair:license": {
             "$ref": "#/$defs/i18nString",

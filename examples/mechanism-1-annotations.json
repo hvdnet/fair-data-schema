@@ -55,10 +55,10 @@
                 "start": "2020-01-01",
                 "end": "2023-12-31"
             },
-            "fair:agents": [
+            "fair:entities": [
                 {
                     "name": "Example Org",
-                    "agentRef": "https://ror.org/02y3ad647",
+                    "entityRef": "https://ror.org/02y3ad647",
                     "type": "Organization",
                     "role": "Provider"
                 }

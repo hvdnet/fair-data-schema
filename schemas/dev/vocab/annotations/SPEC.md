@@ -29,17 +29,11 @@ Keywords that provide basic semantic identification and can be applied to **any*
 ### 2. Dataset Scope (Container/Resource level)
 Keywords describing the **Provenance and Coverage** of a dataset, table, or resource.
 
-- **`fair:agents`**: A list of agents associated with the resource.
-    - **`name` / `agentRef`**: Identification of the agent (e.g. ORCID, ROR).
-    - **`type` / `typeRef`**: Category of the agent. [Agent Types CV](https://highvaluedata.net/fair-data-schema/cv/entity-types-v1).
-    - **`role` / `roleRef`**: (Optional) The default role played by the agent. Suggested: [Entity Roles CV](https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1).
-- **`fair:activities`**: A list of provenace activities (processes) that generated or influenced the resource.
-    - **`name` / `activityRef`**: Identification of the activity instance.
-    - **`activityType` / `activityTypeRef`**: Category of the activity (e.g. 'Collection', 'Curation').
-    - **`startTime` / `endTime`**: The execution period.
-    - **`agentRef`**: Reference to the agent responsible.
-    - **`role` / `roleRef`**: The specific capacity of the agent in this activity.
-- **`fair:provider` / `fair:providerRef`**: (DEPRECATED) Use `fair:agents` with a 'Provider' role instead.
+- **`fair:entities`**: A list of entities associated with the resource.
+    - **`name` / `entityRef`**: Identification of the entity.
+    - **`type` / `typeRef`**: Category of the entity. [Entity Types CV](https://highvaluedata.net/fair-data-schema/cv/entity-types-v1).
+    - **`role` / `roleRef`**: The role played by the entity. Suggested: [Entity Roles CV](https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1) or [DDI ContributorRole](https://rdf-vocabulary.ddialliance.org/ddi-cv/ContributorRole/1.0.2/ContributorRole.html).
+- **`fair:provider` / `fair:providerRef`**: (DEPRECATED) Use `fair:entities` with a 'Provider' role instead.
 - **`fair:license` / `fair:licenseRef`**: The license governing the data.
 - **`fair:temporalCoverage` / `fair:temporalCoverageRef`**: The time period covered by the data.
 - **`fair:spatialCoverage` / `fair:spatialCoverageRef`**: The geographic area covered (e.g. Gazetteer URI).
