@@ -5,45 +5,61 @@
   "description": "A high-fidelity climate dataset with rich entity metadata demonstrating the collaboration between humans, organizations, and AI agents.",
   "type": "object",
   "fair:resourceType": "dataset",
-  "fair:entities": [
+  "fair:agents": [
     {
       "name": "Data Artifex",
-      "entityRef": "https://data-artifex.org",
+      "agentRef": "https://data-artifex.org",
       "type": "Organization",
-      "typeRef": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Organization",
-      "role": "Producer",
-      "roleRef": "https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1#Producer"
+      "typeRef": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Organization"
     },
     {
       "name": "Dr. Alice Smith",
-      "entityRef": "https://orcid.org/0000-0000-0000-0000",
+      "agentRef": "https://orcid.org/0000-0000-0000-0000",
       "type": "Individual",
-      "typeRef": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Individual",
-      "role": "Curator",
-      "roleRef": "https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1#Curator"
+      "typeRef": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Individual"
     },
     {
       "name": "ClimateAI Agent",
+      "agentRef": "https://highvaluedata.net/agents/climate-ai",
       "type": "Agent",
       "typeRef": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Agent",
-      "role": "Contributor",
-      "roleRef": "https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1#Contributor",
       "description": "Autonomous agent responsible for automated anomaly detection and metadata enrichment."
     },
     {
       "name": "Croissant Maker CLI",
-      "entityRef": "https://github.com/hvdnet/croissant-maker",
+      "agentRef": "https://github.com/hvdnet/croissant-maker",
       "type": "Software",
-      "typeRef": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Software",
-      "role": "Distributor",
-      "roleRef": "https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1#Distributor"
+      "typeRef": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Software"
     },
     {
       "name": "Global Open Data Archive",
+      "agentRef": "https://archive.example.org",
       "type": "Organization",
-      "typeRef": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Organization",
-      "role": "Archive",
-      "roleRef": "https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1#Archive"
+      "typeRef": "https://highvaluedata.net/fair-data-schema/cv/entity-types-v1#Organization"
+    }
+  ],
+  "fair:activities": [
+    {
+      "name": "Dataset Production",
+      "activityType": "Production",
+      "agentRef": "https://data-artifex.org",
+      "role": "Producer",
+      "startTime": "2023-01-01T09:00:00Z",
+      "endTime": "2023-01-15T17:00:00Z"
+    },
+    {
+      "name": "Expert Curation",
+      "activityType": "Curation",
+      "agentRef": "https://orcid.org/0000-0000-0000-0000",
+      "role": "Curator",
+      "startTime": "2023-01-16T10:00:00Z"
+    },
+    {
+      "name": "AI Enrichment",
+      "activityType": "Enrichment",
+      "agentRef": "https://highvaluedata.net/agents/climate-ai",
+      "role": "Contributor",
+      "description": "Automated quality scoring and anomaly detection."
     }
   ],
   "properties": {

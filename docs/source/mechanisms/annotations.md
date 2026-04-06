@@ -42,8 +42,9 @@ Metadata describing the entire container or resource.
 
 | Keyword | Type | Description |
 |---|---|---|
-| `fair:entities` | array | **Recommended**. List of organizations, individuals, or AI agents associated with the resource. Supports [Entity Types v1](https://highvaluedata.net/fair-data-schema/cv/entity-types-v1) and [Entity Roles v1](https://highvaluedata.net/fair-data-schema/cv/entity-roles-v1). |
-| `fair:provider` / `Ref` | string / URI | **Deprecated**. Use `fair:entities` with a 'Producer' role instead. |
+| `fair:agents` | array | **Recommended**. List of organizations, individuals, or AI agents associated with the resource. Supports [Agent Types v1](https://highvaluedata.net/fair-data-schema/cv/entity-types-v1). |
+| `fair:activities` | array | **New**. Process-oriented provenance (Activities) performed by Agents. [PROV-O Aligned]. |
+| `fair:provider` / `Ref` | string / URI | **Deprecated**. Use `fair:agents` instead. |
 | `fair:license` / `Ref` | string / URI | The usage license (Literal / SPDX) |
 | `fair:temporalCoverage` / `Ref` | object / URI | Time period covered (Structured / URI) |
 | `fair:spatialCoverage` / `Ref` | string / URI | Geographic area (Literal / GeoNames) |

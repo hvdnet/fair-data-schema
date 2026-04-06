@@ -23,13 +23,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic Pydantic model regeneration in `scripts/build_dist.py`, keeping source code and specifications in sync.
 - New **Python SDK Documentation** guide in Sphinx.
 - Support for complex round-trip serialization/deserialization with Pydantic v2.
-- Generic attribution model via `fair:entities` following the OAIS Producer/Consumer/Archive pattern.
+- Generic attribution model via `fair:agents` (Renamed from `fair:entities`).
+- New **PROV-O Aligned Provenance**: Introduced `fair:activities` keyword for structured process documentation.
 - **[New] Independent CVs**: Moved Controlled Vocabularies to the project root (`/cv/`) and decoupled their lifecycles from the core schema versioning.
-- **[New] Entity Vocabularies**: Initial release of [Entity Types v1](cv/entity-types-v1.json) and [Entity Roles v1](cv/entity-roles-v1.json).
-- Explicit `sameAs` mappings for entity roles to the DDI Alliance ContributorRole CV (v1.0.2).
+- **[New] Agent Vocabularies**: Initial release of [Agent Types v1](cv/entity-types-v1.json) (Renamed from Entity Types).
+- Explicit `sameAs` mappings for agent roles to the DDI Alliance ContributorRole CV (v1.0.2).
 
 ### Changed
-- Deprecated `fair:provider` and `fair:providerRef` in favor of the more flexible and generic `fair:entities` property.
+- Deprecated `fair:provider` and `fair:providerRef` in favor of the more flexible and generic `fair:agents` property.
+- Renamed `fair:entities` to `fair:agents` and `entityRef` to `agentRef` to align with W3C PROV-O.
 - Refactored `models.py` to be a **standalone** artifact located in versioned schema directories (e.g., `schemas/dev/python/models.py`).
 - Enhanced `build_dist.py` to exclude `__pycache__`, `.pyc`, and `.DS_Store` from the web publication.
 - Updated `README.md` and `AGENTS.md` to reflect the standalone nature of the Python models.

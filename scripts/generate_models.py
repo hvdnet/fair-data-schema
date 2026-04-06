@@ -114,6 +114,8 @@ def _js_type_to_py(schema: dict) -> str:  # type: ignore[type-arg]
 _INLINE_CLASS_MAP: dict[str, str] = {
     "fair:temporalCoverage": "TemporalCoverage",
     "fair:datasetRelations": "DatasetRelation",
+    "fair:agents": "FairAgent",
+    "fair:activities": "FairActivity",
 }
 
 _CARDINALITY_TYPE = "str | None"  # "one-to-one" | "one-to-many" | "many-to-one" | "many-to-many"
@@ -133,6 +135,28 @@ _TEMPORAL_FIELDS: list[FieldDef] = [
     FieldDef("end", "str | None", 'None, description="ISO date string"'),
 ]
 
+_AGENT_FIELDS: list[FieldDef] = [
+    FieldDef("name", "I18nString", "None"),
+    FieldDef("agent_ref", "str | None", 'None, alias="agentRef"'),
+    FieldDef("type", "I18nString | None", "None"),
+    FieldDef("type_ref", "str | None", 'None, alias="typeRef"'),
+    FieldDef("role", "I18nString | None", "None"),
+    FieldDef("role_ref", "str | None", 'None, alias="roleRef"'),
+]
+
+_ACTIVITY_FIELDS: list[FieldDef] = [
+    FieldDef("name", "I18nString | None", "None"),
+    FieldDef("activity_ref", "str | None", 'None, alias="activityRef"'),
+    FieldDef("activity_type", "I18nString | None", 'None, alias="activityType"'),
+    FieldDef("activity_type_ref", "str | None", 'None, alias="activityTypeRef"'),
+    FieldDef("start_time", "str | None", 'None, alias="startTime"'),
+    FieldDef("end_time", "str | None", 'None, alias="endTime"'),
+    FieldDef("agent_ref", "str | None", 'None, alias="agentRef"'),
+    FieldDef("role", "I18nString | None", "None"),
+    FieldDef("role_ref", "str | None", 'None, alias="roleRef"'),
+    FieldDef("description", "I18nText | None", "None"),
+]
+
 
 def _build_helper_classes() -> list[HelperClassDef]:
     return [
@@ -145,6 +169,16 @@ def _build_helper_classes() -> list[HelperClassDef]:
             class_name="DatasetRelation",
             description="One relationship entry within ``fair:datasetRelations``.",
             fields=_RELATION_FIELDS,
+        ),
+        HelperClassDef(
+            class_name="FairAgent",
+            description="An agent with responsibility for the resource (``fair:agents``).",
+            fields=_AGENT_FIELDS,
+        ),
+        HelperClassDef(
+            class_name="FairActivity",
+            description="A provenance activity associated with the resource (``fair:activities``).",
+            fields=_ACTIVITY_FIELDS,
         ),
     ]
 
@@ -172,6 +206,12 @@ def _extract_fair_fields(vocab_props: dict) -> list[FieldDef]:  # type: ignore[t
             field_args = f'None, alias="{alias}"'
         elif key == "fair:datasetRelations":
             py_type = "list[DatasetRelation] | None"
+            field_args = f'None, alias="{alias}"'
+        elif key == "fair:agents":
+            py_type = "list[FairAgent] | None"
+            field_args = f'None, alias="{alias}"'
+        elif key == "fair:activities":
+            py_type = "list[FairActivity] | None"
             field_args = f'None, alias="{alias}"'
         else:
             # Check if it's a $ref to a $def
