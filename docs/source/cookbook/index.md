@@ -10,7 +10,7 @@ Each recipe addresses a specific task—from basic identification to advanced se
 
 Get started in minutes using simple, intuitive annotations for everyday datasets:
 
-::::{grid} 1 2 2 3
+::::{grid} 1 2 2 4
 :gutter: 3
 
 :::{grid-item-card} 📊 Tier 1 Simple Dataset
@@ -18,6 +18,13 @@ Get started in minutes using simple, intuitive annotations for everyday datasets
 :link-type: doc
 
 Annotate a simple, single-table dataset with title, license, unit type, measurement units, and self-documenting codes.
+:::
+
+:::{grid-item-card} ✅ Validating Data
+:link: validation
+:link-type: doc
+
+Validate JSON data against FAIR schemas using common tools (Python `jsonschema`, Node.js `ajv`, CLI, Go, Java).
 :::
 
 :::{grid-item-card} 🏷️ Coded Values & Enums
@@ -37,7 +44,7 @@ Learn how to annotate basic dataset schemas and describe tables and resources wi
 
 ---
 
-## 🔵 Tier 2: Advanced & Extended Recipes (Optional Deep-Dive)
+## 2. Advanced & Extended Recipes (Optional Deep-Dive)
 
 For users who want to dig deeper into formal data stewardship, these advanced recipes explore deep provenance, population bounds, and complex data lineage:
 
@@ -75,6 +82,7 @@ Explore the four core mechanisms used to extend JSON Schema: Annotations, Vocabu
 :hidden:
 
 simple-dataset
+validation
 enum-to-fair-coded-values
 data-products
 complex-data-product

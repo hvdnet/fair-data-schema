@@ -186,11 +186,48 @@ schema.to_file("my-schema.json")
 
 For more details, see the [Python SDK Documentation](https://highvaluedata.net/fair-data-schema/docs/python-sdk.html).
 
-### Validate a schema
+### Validate a Schema & Instance (CLI)
 
 ```bash
-uv run fair-data-schema validate examples/enum-to-fair-coded-values.json
+# Using fair-data-schema CLI
+uv run fair-data-schema validate examples/simple-dataset.json examples/simple-dataset.data.json
+
+# Using standard check-jsonschema CLI
+uv run check-jsonschema --schemafile examples/simple-dataset.json examples/simple-dataset.data.json
 ```
+
+### Validate in Python (`jsonschema`)
+
+```python
+import json
+from jsonschema import validate
+
+schema = json.load(open("examples/simple-dataset.json"))
+data = json.load(open("examples/simple-dataset.data.json"))
+
+# Standard Draft 2020-12 validation works out of the box!
+validate(instance=data, schema=schema)
+print("✓ Data is valid!")
+```
+
+### Validate in Node.js / JavaScript (`ajv`)
+
+```javascript
+const Ajv2020 = require("ajv/dist/2020");
+const ajv = new Ajv2020();
+
+const schema = require("./examples/simple-dataset.json");
+const data = require("./examples/simple-dataset.data.json");
+
+const validate = ajv.compile(schema);
+if (validate(data)) {
+  console.log("✓ Data is valid!");
+} else {
+  console.error("✗ Errors:", validate.errors);
+}
+```
+
+For more details, see the [Validation Guide](docs/source/cookbook/validation.md).
 
 ### Run tests
 
