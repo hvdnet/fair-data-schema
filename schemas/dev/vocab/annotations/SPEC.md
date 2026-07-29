@@ -51,14 +51,19 @@ Keywords describing the **Provenance and Coverage** of a dataset, table, or reso
     - **`cardinality`**: One-to-one, one-to-many, etc.
 
 ### 3. Property Scope (Variable level)
-Keywords describing the **Representation and Identity** of a leaf variable.
+Keywords describing the **Representation, Lineage, and Identity** of a leaf variable.
 
-- **`fair:unit` / `fair:unitRef`**: Reference to a specific unit of measurement.
+The FAIR Data Schema uses a **Unified Variable Model** with progressive disclosure: a variable is described as a single entity, and its functional scope (concept, representation, instance) is inferred naturally from its property annotations or external references.
+
+- **`fair:variableRef`**: Generic link to a shared variable definition or external schema variable (e.g. in `$defs` or an external registry).
+- **`fair:instanceVariableRef`**: Standards-specific link to a dataset-level implementation (DDI `InstanceVariable`, MLCommons Croissant `Field`, Schema.org `StatisticalVariable`).
+- **`fair:representedVariableRef`**: Standards-specific link to a shared measurement or representation definition (DDI `RepresentedVariable`).
+- **`fair:conceptualVariableRef`**: Standards-specific link to a high-level phenomenon or conceptual definition (DDI `ConceptualVariable`).
+- **`fair:measurementUnit` / `fair:measurementUnitRef`**: Reference to a specific unit of measurement.
 - **`fair:quantity` / `fair:quantityRef`**: Reference to a quantity kind (e.g. Mass, Length).
 - **`fair:classification` / `fair:classificationRef`**: The **Classification Authority** or Code List. Use the literal for the name (e.g. 'NUTS') and the Ref (array of URIs) for the authoritative scheme or system.
 - **`fair:unitType` / `fair:unitTypeRef`**: The observation unit (e.g. 'Person'). Associated with Conceptual level.
 - **`fair:universe` / `fair:universeRef`**: The broad population (e.g. 'Students'). Associated with Represented level.
-- **`fair:variableCascade`**: (Hierarchy of `instance`, `represented`, and `conceptual` references).
 - **`fair:sentinel`**: A boolean flag indicating that the value is a sentinel/missing value (e.g. 'Don't know', 'Refused', 'Not applicable'). **Note**: Must be used together with the `const` keyword.
 
 ---

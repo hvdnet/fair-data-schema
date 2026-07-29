@@ -59,7 +59,7 @@ The **Dataset** scope keywords describe the "Container." What makes this example
 Finally, at the "leaves" of the data tree, we use **Property** scope keywords to define how the data is stored and what it maps to in the real world.
 
 *   **Category Mapping**: The `sex` variable uses the [**Hybrid Pattern**](enum-to-fair-coded-values.md), anchoring technical codes (`1`, `2`) to global semantic URIs (`fair:conceptRef`) and an authority (`fair:classification`).
-*   **Measurement Units**: The `age` property is explicitly mapped to the `QUDT` unit for "Years" using `fair:unitRef`.
+*   **Measurement Units**: The `age` property is explicitly mapped to the `QUDT` unit for "Years" using `fair:measurementUnitRef`.
 
 ```json
 "sex": {

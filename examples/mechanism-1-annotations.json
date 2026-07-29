@@ -46,8 +46,8 @@
             "fair:conceptRef": "https://www.wikidata.org/wiki/Q1203",
             "fair:quantity": "Population",
             "fair:quantityRef": "https://www.wikidata.org/wiki/Q1203",
-            "fair:unit": "person",
-            "fair:unitRef": "https://www.wikidata.org/wiki/Q1203",
+            "fair:measurementUnit": "person",
+            "fair:measurementUnitRef": "https://www.wikidata.org/wiki/Q1203",
             "fair:label": "Population",
             "fair:description": "### Population Count\nThe total number of inhabitants...",
             "fair:temporalCoverage": {

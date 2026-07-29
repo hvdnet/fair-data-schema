@@ -89,7 +89,7 @@ Time-series products often release new datasets monthly that share an identical 
   "$defs": {
     "ValueVar": {
       "type": "number",
-      "fair:unit": "USD"
+      "fair:measurementUnit": "USD"
     },
     "BaseRelease": {
       "properties": {

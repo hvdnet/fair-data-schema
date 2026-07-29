@@ -31,7 +31,7 @@ def test_schema_node_json_schema_fields() -> None:
     assert d["type"] == "integer"
     assert d["minimum"] == 0
     assert d["title"] == "Age"
-    assert "fair:unit" not in d
+    assert "fair:measurementUnit" not in d
 
 
 def test_schema_node_camel_aliases() -> None:
@@ -70,13 +70,15 @@ def test_schema_node_dollar_aliases() -> None:
 
 def test_fair_prefix_in_output() -> None:
     """FAIR fields are serialised with 'fair:' prefix, NOT 'fair_' or bare name."""
-    node = SchemaNode(fair_unit="years", fair_unit_ref="https://example.org/units/year")
+    node = SchemaNode(
+        fair_measurement_unit="years", fair_measurement_unit_ref="https://example.org/units/year"
+    )
     d = node.to_dict()
-    assert "fair:unit" in d
-    assert "fair:unitRef" in d
+    assert "fair:measurementUnit" in d
+    assert "fair:measurementUnitRef" in d
     # Python attribute names must NOT appear
-    assert "fair_unit" not in d
-    assert "unit" not in d
+    assert "fair_measurement_unit" not in d
+    assert "measurement_unit" not in d
 
 
 def test_no_conflict_description() -> None:
@@ -184,8 +186,8 @@ def test_dataset_schema_python_authoring() -> None:
                 type="integer",
                 title="Age",
                 minimum=0,
-                fair_unit="years",
-                fair_unit_ref="https://example.org/units/year",
+                fair_measurement_unit="years",
+                fair_measurement_unit_ref="https://example.org/units/year",
             )
         },
     )
@@ -193,7 +195,7 @@ def test_dataset_schema_python_authoring() -> None:
     assert d["$schema"] == "https://highvaluedata.net/fair-data-schema/dev"
     assert d["$id"] == "https://example.org/my-dataset"
     assert d["fair:provider"] == "Test Org"
-    assert d["properties"]["age"]["fair:unit"] == "years"
+    assert d["properties"]["age"]["fair:measurementUnit"] == "years"
     assert d["properties"]["age"]["minimum"] == 0
 
 
@@ -230,7 +232,7 @@ def test_roundtrip_complex_example_nested() -> None:
     assert persons_node.items is not None
     assert persons_node.items.properties is not None
     age_node = persons_node.items.properties["age"]
-    assert age_node.fair_unit == "years"
+    assert age_node.fair_measurement_unit == "years"
     assert age_node.minimum == 0
 
 

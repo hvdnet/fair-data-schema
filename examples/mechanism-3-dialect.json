@@ -52,7 +52,7 @@
                         "type": "string"
                     },
                     "fair:label": {},
-                    "fair:unit": {
+                    "fair:measurementUnit": {
                         "type": "string"
                     }
                 }

@@ -15,7 +15,7 @@ The FAIR project uses the `fair:` prefix for all annotation keywords. A dataset 
       "type": "integer",
       "fair:conceptRef": "https://www.wikidata.org/wiki/Q1203",
       "fair:concept": { "en": "Population", "fr": "Population" },
-      "fair:unitRef": "https://example.org/vocabs/units/persons",
+      "fair:measurementUnitRef": "https://example.org/vocabs/units/persons",
       "fair:licenseRef": "https://creativecommons.org/licenses/by/4.0/"
     }
   }
@@ -55,13 +55,14 @@ Keywords describing the data representation of a leaf variable.
 | Keyword | Type | Description |
 |---|---|---|
 | `fair:classification` / `Ref` | string / array | The authority or code list governing values. |
-| `fair:unit` / `Ref` | string / URI | Unit of measurement (Literal / QUDT) |
+| `fair:measurementUnit` / `Ref` | string / URI | Unit of measurement (Literal / QUDT) |
 | `fair:quantity` / `Ref` | string / URI | Quantity kind (Mass, Length) |
 | `fair:unitType` / `Ref` | string / URI | Observation unit type (e.g. 'Person') |
 | `fair:universe` / `Ref` | string / URI | Broad scope or group (e.g. 'Students') |
+| `fair:variableRef` | URI / CURIE | Generic link to a shared or external variable definition |
 | `fair:instanceVariableRef` | URI / CURIE | Link to a dataset-specific variable implementation |
 | `fair:representedVariableRef` | URI / CURIE | Link to a shared measurement definition |
-| `fair:variableCascade` | object | Hierarchy of measurement references. |
+| `fair:conceptualVariableRef` | URI / CURIE | Link to a high-level semantic phenomenon |
 
 ## PROV-O Persistence
 

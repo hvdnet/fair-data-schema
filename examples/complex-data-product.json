@@ -65,8 +65,8 @@
                                     "title": "Age",
                                     "type": "integer",
                                     "minimum": 0,
-                                    "fair:unit": "years",
-                                    "fair:unitRef": "https://example.org/vocabs/units/year"
+                                    "fair:measurementUnit": "years",
+                                    "fair:measurementUnitRef": "https://example.org/vocabs/units/year"
                                 },
                                 "sex": {
                                     "title": "Biological Sex",

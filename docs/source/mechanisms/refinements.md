@@ -28,7 +28,7 @@ Importing the `FairAnnotated` definition to ensure the property is valid against
     { "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements#/$defs/FairAnnotated" }
   ],
   "fair:conceptRef": "https://www.wikidata.org/wiki/Q1203",
-  "fair:unitRef": "https://example.org/vocabs/units/persons"
+  "fair:measurementUnitRef": "https://example.org/vocabs/units/persons"
 }
 ```
 

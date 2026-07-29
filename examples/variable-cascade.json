@@ -1,20 +1,27 @@
 {
     "$schema": "https://highvaluedata.net/fair-data-schema/dev",
     "$id": "https://highvaluedata.net/fair-data-schema/dev/examples/variable-cascade",
-    "title": "Comprehensive Variable Cascade Example",
-    "description": "A 'Master Example' showcasing all aspects of the Variable Cascade: internal chaining, external authority mapping (DDI, Croissant, Schema.org), and the hierarchy of Unit Type, Universe, and Population.",
+    "title": "Comprehensive Variable Model & Cascade Example",
+    "description": "A 'Master Example' showcasing progressive disclosure in the FAIR Variable Model: flat property annotations, generic variable references (fair:variableRef), and external standard-specific references (instance, represented, and conceptual levels).",
     "type": "object",
     "fair:universe": "General population of Iceland",
-    "fair:universeRef": "https://wikidata.org/wiki/Q189",
+    "fair:universeRef": "https://example.org/vocabs/iceland-pop",
     "fair:temporalCoverage": { "start": "2024-01-01", "end": "2024-12-31" },
     "fair:spatialCoverage": "Iceland",
     "$defs": {
+        "SHARED_INCOME_VAR": {
+            "title": "Shared Variable: Gross Annual Income",
+            "description": "A reusable definition of annual gross income before tax.",
+            "fair:measurementUnit": "EUR",
+            "fair:unitType": "Person",
+            "fair:conceptRef": "https://example.org/concepts/gross-income"
+        },
         "CONCEPT_EMPLOYMENT": {
             "title": "Conceptual: Occupational Status",
             "description": "The phenomenon of economic activity.",
-            "fair:conceptRef": "https://www.wikidata.org/wiki/Q156371",
+            "fair:conceptRef": "https://example.org/concepts/employment-status",
             "fair:unitType": "Person",
-            "fair:unitTypeRef": "https://www.wikidata.org/wiki/Q5"
+            "fair:unitTypeRef": "https://example.org/vocabs/person"
         },
         "REPRESENTED_EMPLOYMENT_BINARY": {
             "title": "Represented: Active/Inactive Binary",
@@ -24,12 +31,19 @@
         }
     },
     "properties": {
+        "q0_income": {
+            "title": "Income (Generic Variable Ref)",
+            "description": "Generic reference linking to a shared variable definition via fair:variableRef.",
+            "type": "number",
+            "fair:variableRef": "#/$defs/SHARED_INCOME_VAR",
+            "fair:population": "Employed adults in Iceland in 2024"
+        },
         "q1_age": {
-            "title": "Age (External DDI Instance)",
-            "description": "Full formal mapping where a dataset-specific variable points to an external registry.",
+            "title": "Age (External Instance Variable)",
+            "description": "Full formal mapping where a dataset-specific variable points to an external registry entry.",
             "type": "integer",
-            "fair:instanceVariableRef": "https://agency.is/vars/q10_a",
-            "fair:conceptRef": "https://www.wikidata.org/wiki/Q185836",
+            "fair:instanceVariableRef": "https://example.org/variables/q10_a",
+            "fair:conceptRef": "https://example.org/concepts/age",
             "$comment": "Tools find 'Person' (Unit Type) and 'General Pop' (Universe) by traversing the external URI."
         },
         "q2_employment": {
@@ -38,28 +52,28 @@
             "type": "integer",
             "fair:representedVariableRef": "#/$defs/REPRESENTED_EMPLOYMENT_BINARY",
             "fair:population": "Adult residents of Iceland",
-            "fair:populationRef": "https://agency.is/vocabs/pop/Iceland-Adult-2024"
+            "fair:populationRef": "https://example.org/vocabs/pop/Iceland-Adult-2024"
         },
         "q3_satisfaction": {
-            "title": "Satisfaction (MLCommons Croissant)",
-            "description": "Mapping to a Croissant 'Field' definition (treated as an Instance level definition).",
+            "title": "Satisfaction (External Instance Variable)",
+            "description": "Mapping to an external dataset field definition.",
             "type": "integer",
-            "fair:instanceVariableRef": "https://croissant-registry.org/datasets/feedback/fields/satisfaction",
+            "fair:instanceVariableRef": "https://example.org/variables/satisfaction",
             "fair:label": "Overall life satisfaction"
         },
         "q4_pop_count": {
-            "title": "Population (Schema.org StatVar)",
-            "description": "Mapping to a Schema.org 'StatisticalVariable'.",
+            "title": "Population Count (External Statistical Variable)",
+            "description": "Mapping to an external statistical variable definition.",
             "type": "integer",
-            "fair:instanceVariableRef": "https://schema-registry.org/statvars/PopulationCount",
-            "fair:universeRef": "https://schema-registry.org/places/World"
+            "fair:instanceVariableRef": "https://example.org/variables/population-count",
+            "fair:universeRef": "https://example.org/places/world"
         },
         "q5_voter_status": {
-            "title": "Voter Status (Standalone Annotation)",
-            "description": "No variable record; just flat annotations for population and phenomenon.",
+            "title": "Voter Status (Standalone Flat Annotation)",
+            "description": "No external variable record; just direct flat annotations for population and phenomenon.",
             "type": "boolean",
             "fair:universe": "Registered voters in Iceland",
-            "fair:conceptRef": "https://www.wikidata.org/wiki/Q110609353"
+            "fair:conceptRef": "https://example.org/concepts/voter-status"
         }
     }
 }

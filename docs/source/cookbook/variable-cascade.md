@@ -1,42 +1,41 @@
-# The Variable Cascade Master Guide
+# The Variable Model & Cascade Master Guide
 
-This guide explains how to link local JSON data implementations to global metadata standards (DDI, MLCommons Croissant, Schema.org) using the **Variable Cascade** pattern.
+This guide explains how to document variables in the FAIR Data Schema—from simple standalone property annotations up to formal external standard mappings (DDI, MLCommons Croissant, Schema.org) using **Progressive Disclosure**.
 See the companion schema file: {download}`../../../examples/variable-cascade.json`
 
-:::{admonition} How-to: Implement the Variable Cascade
+:::{admonition} How-to: Choose Your Variable Annotation Tier
 :class: tip
 
-1. **Define Conceptual Variables**: In `$defs`, create abstract definitions (e.g., `Sex`, `Age`).
-2. **Define Represented Variables**: Create specific representations (e.g., `Sex_ISO`, `Age_Years`).
-3. **Reference Internal**: Use `$ref` within `$defs` to chain these definitions.
-4. **Instantiate**: In your `properties`, reference the final representation using `$ref`.
-5. **Override (Optional)**: Add local `title` or `description` to the instance variable while keeping the core definition linked.
+1. **Tier 1 (Standalone Annotations)**: For simple flat schemas, attach metadata directly to your properties (`fair:measurementUnit`, `fair:universe`, `fair:conceptRef`).
+2. **Tier 2 (Generic Variable Reuse)**: Use `fair:variableRef` to point to a shared, reusable variable definition in `$defs` or an internal schema registry.
+3. **Tier 3 (External Standards & DDI Cascade)**: Use standard-specific references (`fair:instanceVariableRef`, `fair:representedVariableRef`, `fair:conceptualVariableRef`) when integrating with DDI-CDI, CODATA CDIF, MLCommons Croissant, or Schema.org.
 :::
 
 ---
 
-## 1. Rationale: The "Single Entry Point" Principle
+## 1. Rationale: Unified Model with Progressive Disclosure
 
-In robust metadata systems, variables form a hierarchy—from high-level phenonmena (Conceptual) down to specific survey questions (Instance).
+Rather than forcing every schema author to construct a 3-tiered entity cascade (`InstanceVariable` $\rightarrow$ `RepresentedVariable` $\rightarrow$ `ConceptualVariable`), FAIR Data Schema uses a **Unified Variable Model**.
 
-To avoid redundancy and semantic "noise," a JSON property should only point to its **direct parent** in that hierarchy. Once a link is established (the "Entry Point"), specialized tools can follow the URI to discover the full lineage on the authoritative registry.
+A variable is represented as a single entity type (`fair:resourceType: "variable"`). Its scope (conceptual, represented, or instance) is indicated naturally by its metadata properties or external reference URIs.
 
-### Technical Authority Keywords
-Choose exactly **one** of these reference types per property:
+### Reference Keywords
+Choose the reference keyword appropriate for your level of integration:
 
-- **`fair:instanceVariableRef`**: Points to a unique definition for this specific dataset.
-- **`fair:representedVariableRef`**: Points to a shared, reusable measurement definition (e.g., "Age in 5-year categories").
-- **`fair:conceptualVariableRef`**: Points directly to a high-level phenomenon, skipping representational details.
+- **`fair:variableRef`**: Generic link to a shared variable definition or internal schema component.
+- **`fair:instanceVariableRef`**: Points to a dataset-specific variable implementation (e.g. DDI `InstanceVariable`, Croissant `Field`, Schema.org `StatisticalVariable`).
+- **`fair:representedVariableRef`**: Points to a shared, reusable measurement definition (e.g. DDI `RepresentedVariable`, "Age in 5-year categories").
+- **`fair:conceptualVariableRef`**: Points directly to a high-level phenomenon, skipping representational details (e.g. DDI `ConceptualVariable`).
 
 ### Visualizing the Hierarchy: Employment Status
 
-A typical cascade allows a researcher to trace a data point from a specific survey question back to a global concept:
+A full DDI cascade allows a researcher to trace a data point from a specific survey question back to a global concept:
 
 1.  **Conceptual Variable**: Measures **Employment Status** for a **Person** (Unit Type).
 2.  **Represented Variable**: Defines the measurement as a **Binary (Active/Inactive)** coding scheme for **Adult residents** (Universe).
 3.  **Instance Variable**: Represents the specific column in the **2024 Labor Survey** for **Residents of Iceland** (Population).
 
-By only pointing to the **Instance Variable**, the property inherits the entire lineage above it.
+By pointing to a higher-level or standard-specific reference, specialized tools can follow URIs to discover full semantic lineage.
 
 ---
 
@@ -61,7 +60,7 @@ In Croissant, a `Field` describes a column in a `RecordSet`. This is a direct im
 ```json
 "satisfaction": {
   "type": "integer",
-  "fair:instanceVariableRef": "https://croissant-registry.org/datasets/v1/fields/satisfaction",
+  "fair:instanceVariableRef": "https://example.org/fields/satisfaction",
   "fair:label": "Overall life satisfaction"
 }
 ```
@@ -72,8 +71,8 @@ A Schema.org `StatisticalVariable` represents a specific measurement (e.g., "Pop
 ```json
 "pop_count": {
   "type": "integer",
-  "fair:instanceVariableRef": "https://schema-registry.org/statvars/PopulationCount",
-  "fair:universeRef": "https://schema-registry.org/places/World"
+  "fair:instanceVariableRef": "https://example.org/statvars/population-count",
+  "fair:universeRef": "https://example.org/places/world"
 }
 ```
 
@@ -91,7 +90,7 @@ The cascade is also where we define the **scope** of the study. Each level of th
     - *Example*: **Students in School District A in 2019**. (Keyword: `fair:population`)
 
 > [!IMPORTANT]
-> **Observation Unit vs. Measurement Unit**: `fair:unitType` identifies the subject (e.g., "Person"), while `fair:unit` identifies the scale (e.g., "Kilograms").
+> **Observation Unit vs. Measurement Unit**: `fair:unitType` identifies the subject (e.g., "Person"), while `fair:measurementUnit` identifies the scale (e.g., "Kilograms").
 
 ---
 
@@ -101,13 +100,13 @@ You can build a full variable cascade entirely within one JSON Schema by chainin
 
 1.  **Property** points to **`#/$defs/REPRESENTED_VAR`** via `fair:representedVariableRef`.
 2.  **`REPRESENTED_VAR`** points to **`#/$defs/CONCEPT_VAR`** via `fair:conceptualVariableRef`.
-3.  **`CONCEPT_VAR`** grounds the chain in a global semantic (e.g., a Wikidata URI via `fair:conceptRef`).
+3.  **`CONCEPT_VAR`** grounds the chain in a global semantic (e.g., a URI via `fair:conceptRef`).
 
 ```json
 {
   "$defs": {
     "CONCEPT_AGE": {
-      "fair:conceptRef": "https://www.wikidata.org/wiki/Q185836",
+      "fair:conceptRef": "https://example.org/concepts/age",
       "fair:unitType": "Person"
     },
     "REPRESENTED_AGE_5YR": {

@@ -77,11 +77,12 @@ Keywords for representation and semantic identity of a field/variable.
 
 | Keyword | Type | Description |
 | :--- | :--- | :--- |
-| `fair:unit` / `Ref` | `i18n`/`uri`| Unit of measurement (QUDT). |
+| `fair:measurementUnit` / `Ref` | `i18n`/`uri`| Unit of measurement (QUDT). |
 | `fair:quantity` / `Ref` | `i18n`/`uri`| Quantity kind (Mass, Length). |
 | `fair:classification` / `Ref` | `i18n`/`uri`| Classification / Code List authority. |
 | `fair:unitType` / `Ref` | `i18n`/`uri`| Observation unit type (e.g. 'Person'). |
 | `fair:universe` / `Ref` | `i18n`/`uri`| Broad scope or group (e.g. 'Students'). |
+| `fair:variableRef` | `uri` | Generic link to a shared or external variable definition. |
 | `fair:instanceVariableRef` | `uri` | Link to dataset-specific variable implementation. |
 | `fair:representedVariableRef`| `uri` | Link to shared measurement definition. |
 | `fair:conceptualVariableRef` | `uri` | Link to high-level semantic phenomenon. |

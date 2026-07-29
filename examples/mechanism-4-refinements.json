@@ -30,7 +30,7 @@
                 }
             ],
             "fair:concept": "https://www.wikidata.org/wiki/Q1203",
-            "fair:unit": "person",
+            "fair:measurementUnit": "person",
             "fair:label": {
                 "en": "Population"
             },
@@ -45,7 +45,7 @@
                 }
             ],
             "fair:concept": "https://www.wikidata.org/wiki/Q132821",
-            "fair:unit": "USD",
+            "fair:measurementUnit": "USD",
             "fair:label": {
                 "en": "Gross Domestic Product"
             }

@@ -30,8 +30,8 @@
             "ValueVar": {
                 "type": "number",
                 "title": "Indicator Value",
-                "fair:unit": "USD",
-                "fair:unitRef": "https://example.org/vocabs/units/usd"
+                "fair:measurementUnit": "USD",
+                "fair:measurementUnitRef": "https://example.org/vocabs/units/usd"
             }
         }
     },

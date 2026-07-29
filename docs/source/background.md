@@ -26,7 +26,7 @@ A JSON Schema defines the structure and validation rules for a JSON document (an
 
 In this project, the meta-schema defines the **FAIR Dialect** of JSON Schema. It:
 - **Declares Standards**: Specifies which version of the JSON Schema standard is being used (Draft 2020-12).
-- **Defines Keywords**: Introduces custom FAIR keywords (e.g., `fair:concept`, `fair:unit`) and specifies where they can be used and what values they should hold.
+- **Defines Keywords**: Introduces custom FAIR keywords (e.g., `fair:concept`, `fair:measurementUnit`) and specifies where they can be used and what values they should hold.
 - **Enables Interoperability**: Bundles various specialized vocabularies into a single cohesive dialect, allowing FAIR-aware tools and AI agents to recognize and act upon the metadata.
 
 ## Vision

@@ -14,7 +14,7 @@
                 "population_count": {
                     "type": "integer",
                     "fair:concept": "https://www.wikidata.org/wiki/Q1203",
-                    "fair:unit": "person",
+                    "fair:measurementUnit": "person",
                     "fair:label": {
                         "en": "Population Count",
                         "fr": "Nombre d'habitants"

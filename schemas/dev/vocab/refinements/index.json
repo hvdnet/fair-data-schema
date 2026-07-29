@@ -39,8 +39,8 @@
                 "fair:providerRef": { "type": "string", "format": "uri" },
                 "fair:license": { "type": ["string", "object"] },
                 "fair:licenseRef": { "type": "string", "format": "uri" },
-                "fair:unit": { "type": ["string", "object"] },
-                "fair:unitRef": { "type": "string" },
+                "fair:measurementUnit": { "type": ["string", "object"] },
+                "fair:measurementUnitRef": { "type": "string" },
                 "fair:quantity": { "type": ["string", "object"] },
                 "fair:quantityRef": { "type": "string" },
                 "fair:temporalCoverage": {

@@ -30,7 +30,7 @@ A **mixin** — attach via `allOf $ref` to any property to declare all FAIR anno
       { "$ref": "https://highvaluedata.net/fair-data-schema/vocab/refinements#/$defs/FairAnnotated" }
     ],
     "fair:concept": "https://www.wikidata.org/wiki/Q132821",
-    "fair:unit": "USD"
+    "fair:measurementUnit": "USD"
   }
 }
 ```

@@ -273,14 +273,14 @@
                 "$ref": "#/$defs/uriOrCurie"
             }
         },
-        "fair:unit": {
+        "fair:measurementUnit": {
             "$ref": "#/$defs/i18nString",
-            "title": "Unit Literal",
+            "title": "Measurement Unit Literal",
             "description": "The human-readable name of the unit of measurement."
         },
-        "fair:unitRef": {
+        "fair:measurementUnitRef": {
             "$ref": "#/$defs/uriOrCurie",
-            "title": "Unit Reference",
+            "title": "Measurement Unit Reference",
             "description": "URI of the unit definition (e.g. from QUDT or OM)."
         },
         "fair:quantity": {
@@ -312,6 +312,11 @@
             "$ref": "#/$defs/uriOrCurie",
             "title": "Universe Reference",
             "description": "URI of the broad universe definition."
+        },
+        "fair:variableRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Variable Reference",
+            "description": "Generic link to a shared variable definition or external schema variable."
         },
         "fair:instanceVariableRef": {
             "$ref": "#/$defs/uriOrCurie",
