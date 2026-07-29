@@ -1,40 +1,65 @@
 # FAIR Data Cookbook
 
-Welcome to the **FAIR Data Cookbook**! This collection of "recipes" provides practical, step-by-step guides for implementing the FAIR Data JSON Schema vocabularies in your own data products.
+Welcome to the **FAIR Data Cookbook**! This collection of recipes provides practical, step-by-step guides for implementing the FAIR Data JSON Schema vocabularies in your data assets with minimal effort.
 
-Each recipe addresses a specific challenge—from basic identification to complex semantic mapping—and includes working examples you can copy and adapt.
+Each recipe addresses a specific task—from basic identification to advanced semantic mapping—and includes working code examples you can copy and adapt immediately.
 
-::::{grid} 1 2 2 4
+---
+
+## 🟢 Tier 1: Essential Recipes (Start Here)
+
+Get started in minutes using simple, intuitive annotations for everyday datasets:
+
+::::{grid} 1 2 2 2
 :gutter: 3
 
 :::{grid-item-card} 🏷️ Coded Values & Enums
 :link: enum-to-fair-coded-values
 :link-type: doc
 
-Learn how to evolve from standard JSON Schema `enum` validation to rich, multilingual FAIR coded values.
+Learn how to evolve standard JSON Schema `enum` fields into self-documenting FAIR coded values mapped to human titles and web concepts.
 :::
+
+:::{grid-item-card} 📦 Data Products & Tables
+:link: data-products
+:link-type: doc
+
+Learn how to annotate basic dataset schemas and describe tables and resources with minimal effort.
+:::
+::::
+
+---
+
+## 🔵 Tier 2: Advanced & Extended Recipes (Optional Deep-Dive)
+
+For users who want to dig deeper into formal data stewardship, these advanced recipes explore deep provenance, population bounds, and complex data lineage:
+
+::::{grid} 1 2 2 3
+:gutter: 3
 
 :::{grid-item-card} 🌊 The Variable Cascade
 :link: variable-cascade
 :link-type: doc
 
-Understand how to implement the DDI Variable Cascade (Instance -> Represented -> Conceptual) using internal references.
+Implement formal variable lineage (Instance -> Represented -> Conceptual) using internal and external schema references.
 :::
 
-:::{grid-item-card} 📦 Data Products & Relations
-:link: data-products
+:::{grid-item-card} 🏛️ Hierarchical Data Products
+:link: complex-data-product
 :link-type: doc
 
-How to describe complex data products, including hierarchical files and join relationships between tables.
+Describe complex multi-table data products, hierarchical structures, and cross-dataset join relationships.
 :::
 
 :::{grid-item-card} 🏗️ Extension Mechanisms
 :link: /mechanisms/index
 :link-type: doc
 
-A deep dive into the four ways to extend JSON Schema: Annotations, Vocabularies, Dialects, and Refinements.
+Explore the four core mechanisms used to extend JSON Schema: Annotations, Vocabularies, Dialects, and Refinements.
 :::
 ::::
+
+---
 
 ## All Recipes
 
@@ -42,13 +67,13 @@ A deep dive into the four ways to extend JSON Schema: Annotations, Vocabularies,
 :maxdepth: 1
 :hidden:
 
-variable-cascade
 enum-to-fair-coded-values
-complex-data-product
 data-products
+complex-data-product
+variable-cascade
 ```
 
 ---
 
 > [!TIP]
-> Each recipe includes a "How-to" section with actionable steps. If you're looking for the raw JSON schema examples, check the `examples/` folder in the [source repository](https://github.com/highvaluedata/fair-data-schema).
+> Each recipe includes a "How-to" section with actionable steps. Check out the `examples/` folder in the [source repository](https://github.com/highvaluedata/fair-data-schema) for complete JSON schema files.

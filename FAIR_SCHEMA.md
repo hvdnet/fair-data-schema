@@ -3,22 +3,27 @@
 > [!CAUTION]
 > **EARLY DEVELOPMENT STAGE**: This meta-schema and its vocabularies are currently for **prototyping and testing only**. Do not use in production.
 
-This document describes the **FAIR Data JSON Schema** dialect and its various vocabularies.
+This document describes the **FAIR Data JSON Schema** dialect and its vocabularies.
 
-The **primary focus** of this project is to enable the straightforward description of **simple, standalone datasets** by attaching semantic annotations (concepts, units, classifications) directly to JSON Schema properties.
+## Key Philosophy: Simple, Intuitive & CDIF v1.1 Aligned
 
-While the core usage targets single-resource descriptions, the dialect also provides **advanced support** for complex "Data Products" and cross-dataset relationships for more sophisticated data management scenarios.
+The primary goal of this project is to allow developers, data stewards, and data owners to produce **standards-compliant, machine-actionable metadata with minimal effort and zero steep learning curve**.
+
+* **No Semantic Web Complexity**: You do **not** need to learn RDF, SPARQL, OWL, or triplestores to produce rich FAIR metadata.
+* **Instant AI & MCP Readiness**: Because JSON Schema is the native language of LLMs, AI agents, and the **Model Context Protocol (MCP)**, your FAIR-annotated schemas are immediately readable and actionable by AI tools out of the box.
+* **Aligned with CDIF v1.1 Profiles**: Built to map cleanly onto the **Cross-Domain Interoperability Framework Version 1.1** ([book.cdif.org](https://book.cdif.org)) profiles for Discovery, Access, Structure, and Variable Cascades.
+* **Tiered Usability**: Start simple with Tier 1 essential properties. If you want to dig deeper into advanced data stewardship, Tier 2 extended properties are completely optional and ready when needed.
 
 ---
 
 ## 1. The FAIR Dialect
 
-A **dialect** in JSON Schema 2020-12 is a bundle of vocabularies. By using the FAIR Dialect, you opt into a set of extensions designed for rich data stewardship.
+A **dialect** in JSON Schema Draft 2020-12 is a collection of vocabularies. By using the FAIR Dialect, you opt into keywords designed for rich metadata documentation while keeping full compatibility with standard JSON Schema validators.
 
-- **Dialect URI**: `https://highvaluedata.net/fair-data-schema`
-- **Baseline**: JSON Schema Draft 2020-12
+* **Dialect URI**: `https://highvaluedata.net/fair-data-schema`
+* **Baseline**: JSON Schema Draft 2020-12
 
-To use the dialect, set the `$schema` keyword in your schema file:
+To use the dialect, specify the `$schema` keyword in your schema file:
 
 ```json
 {
@@ -38,111 +43,103 @@ To use the dialect, set the `$schema` keyword in your schema file:
 
 ---
 
-## 2. Included Vocabularies
+## 2. Alignment with CDIF v1.1 Profiles
 
-The FAIR Dialect is composed of several specialized vocabularies.
+The FAIR Data JSON Schema vocabulary maps directly to the profiles defined in **CDIF Version 1.1** ([book.cdif.org](https://book.cdif.org)):
 
-### A. Annotations Vocabulary
-**URI**: `https://highvaluedata.net/fair-data-schema/vocab/annotations`
-**Namespace**: `fair:`
+| CDIF v1.1 Profile | FAIR Data JSON Schema Keywords |
+| :--- | :--- |
+| **Discovery & Access Profile** | `title`, `description`, `fair:label`, `fair:description`, `fair:license`/`Ref`, `fair:contributors` |
+| **Data Structure Profile** | `fair:resourceType`, `fair:unitType`/`Ref`, `fair:measurementUnit`/`Ref`, `fair:classification`/`Ref` |
+| **Variable Cascade Profile** | `fair:conceptualVariableRef`, `fair:representedVariableRef`, `fair:instanceVariableRef` |
+| **Population Bounds Profile** | `fair:universe`/`Ref`, `fair:population`/`Ref`, `fair:temporalCoverage`/`Ref`, `fair:spatialCoverage`/`Ref` |
 
-This vocabulary adds semantic metadata keywords that standard validators treat as transparent annotations. They are organized into three scopes:
+---
 
-#### 1. Universal Scope (Any level)
-Keywords for basic semantic identification, usable at any level of a schema.
+## 3. Two-Tier Vocabulary Framework
 
-| Keyword | Type | Description |
+The FAIR Annotations vocabulary (`fair:`) provides keywords organized into two clear tiers based on complexity and use case.
+
+### 🟢 Tier 1: Essential Properties (Simple & Intuitive)
+These keywords cover 90% of everyday data documentation needs. You can pick up any of these properties in minutes with minimal effort.
+
+#### A. Resource & Dataset Metadata
+| Keyword | Type | Developer Description |
 | :--- | :--- | :--- |
-| `fair:resourceType` | `string` | Role: `data-product`, `dataset`, or `variable`. |
-| `fair:conceptRef` | `uri` | URI/CURIE of the semantic concept. |
-| `fair:concept` | `i18nString` | Formal name of the concept (literal). |
+| `fair:resourceType` | `string` | Role of the schema object: `"data-product"`, `"dataset"`, or `"variable"`. |
 | `fair:label` | `i18nString` | Contextual human-readable label. |
-| `fair:description` | `i18nText` | Rich-text description (Markdown, i18n). |
+| `fair:description` | `i18nText` | Rich-text description (Markdown, multilingual). |
+| `fair:license` / `Ref` | `i18n`/`uri`| Human-readable license name and machine SPDX link (e.g., CC-BY-4.0). |
+| `fair:contributors` | `array` | List of people, organizations, or software agents involved in creating/providing the data. |
+| `fair:unitType` / `Ref` | `i18n`/`uri`| Entity represented by 1 row in a table (e.g., `"Person"`, `"Household"`). |
 
-#### 2. Dataset Scope (Container/Resource level)
-Keywords for provenance and broad coverage of a dataset or table.
-
-| Keyword | Type | Description |
+#### B. Property / Variable Semantics
+| Keyword | Type | Developer Description |
 | :--- | :--- | :--- |
-| `fair:provider` / `Ref`| `i18n`/`uri`| Providing organization or person (ROR, ORCID). |
-| `fair:license` / `Ref` | `i18n`/`uri`| License governing the data (CC, SPDX). |
-| `fair:temporalCoverage`| `object` | Time period (`description`, `start`, `end`). |
-| `fair:temporalCoverageRef`| `uri` | URI referencing a standardized time period. |
-| `fair:spatialCoverage` | `i18n`/`uri`| Geographic area or Gazetteer URI (GeoNames). |
-| `fair:population` / `Ref`| `i18n`/`uri`| Specific group bound by time/space (DDI: Instance). |
-| `fair:datasetRelations` | `array` | Relationships between datasets (joins, parts, versions). |
+| `fair:measurementUnit` / `Ref` | `i18n`/`uri`| Unit of measurement (e.g., `"years"`, `"USD"`, QUDT link). |
+| `fair:classification` / `Ref` | `i18n`/`uri`| Code list authority or classification standard (e.g. `"ISCO-08"`). |
+| `fair:concept` | `i18nString` | Human-readable name of the real-world concept. |
+| `fair:conceptRef` | `uri` | Quick link to a global URI defining the concept (e.g., Wikidata or SKOS URI). |
+| `fair:sentinel` | `boolean` | Set to `true` on special codes representing missing or out-of-range values. |
 
-#### 3. Property Scope (Variable level)
-Keywords for representation and semantic identity of a field/variable.
+---
 
-| Keyword | Type | Description |
+### 🔵 Tier 2: Advanced & Extended Properties (Optional Deep-Dive)
+For users who want to dig deeper into formal data stewardship, these properties support advanced provenance, population bounds, and data lineage. They are **100% optional**.
+
+#### A. Advanced Coverage & Population Bounds
+| Keyword | Type | Developer Description |
 | :--- | :--- | :--- |
-| `fair:measurementUnit` / `Ref` | `i18n`/`uri`| Unit of measurement (QUDT). |
-| `fair:quantity` / `Ref` | `i18n`/`uri`| Quantity kind (Mass, Length). |
-| `fair:classification` / `Ref` | `i18n`/`uri`| Classification / Code List authority. |
-| `fair:unitType` / `Ref` | `i18n`/`uri`| Observation unit type (e.g. 'Person'). |
-| `fair:universe` / `Ref` | `i18n`/`uri`| Broad scope or group (e.g. 'Students'). |
-| `fair:variableRef` | `uri` | Generic link to a shared or external variable definition. |
+| `fair:temporalCoverage` / `Ref`| `object`/`uri`| Time period covered by the dataset (`start`, `end`, description). |
+| `fair:spatialCoverage` / `Ref` | `i18n`/`uri`| Geographic area name or Gazetteer link (e.g., GeoNames, NUTS). |
+| `fair:universe` / `Ref` | `i18n`/`uri`| Broad target population eligible to be in the dataset (e.g., `"All adults 18+"`). |
+| `fair:population` / `Ref`| `i18n`/`uri`| Specific sampled group bound by time & space (e.g., `"Brussels residents in 2024"`). |
+
+#### B. Advanced Quantities & Scales
+| Keyword | Type | Developer Description |
+| :--- | :--- | :--- |
+| `fair:quantity` / `Ref` | `i18n`/`uri`| Physical quantity kind (e.g., `"Mass"`, `"Length"`, `"Speed"`). |
+| `fair:measurementScale` / `Ref`| `i18n`/`uri`| Mathematical scale type (`nominal`, `ordinal`, `interval`, `ratio`, `absolute`). |
+
+#### C. Formal Variable Lineage (DDI Cascade)
+| Keyword | Type | Developer Description |
+| :--- | :--- | :--- |
 | `fair:instanceVariableRef` | `uri` | Link to dataset-specific variable implementation. |
-| `fair:representedVariableRef`| `uri` | Link to shared measurement definition. |
-| `fair:conceptualVariableRef` | `uri` | Link to high-level semantic phenomenon. |
+| `fair:representedVariableRef`| `uri` | Link to shared representation / code list definition. |
+| `fair:conceptualVariableRef` | `uri` | Link to high-level semantic concept definition. |
+| `fair:datasetRelations` | `array` | Relationships between datasets (joins, parts, versioning, source/target keys). |
 
-### B. Refinements Vocabulary
+---
+
+## 4. The Refinements Vocabulary
+
 **URI**: `https://highvaluedata.net/fair-data-schema/vocab/refinements`
 
-Provides reusable `$defs` for common FAIR data patterns.
-
-- **`FairAnnotated`**: A mixin to enable all FAIR annotations on a property.
-- **`FairUri`**: A string constrained to URI format with persistence annotations.
-- **`FairCodedValue`**: A pattern for coded values with semantic mappings.
-- **`FairDatasetDescriptor`**: A base shape for dataset-level metadata.
-
----
-
-## 3. Extension Mechanisms
-
-The project leverages four core extension points of JSON Schema 2020-12:
-
-1.  **Vocabularies ($vocabulary)**: Define new sets of keywords and their associated logic.
-2.  **Custom Dialects ($schema)**: Bundle vocabularies into a single identifier.
-3.  **Meta-schemas**: We provide meta-schemas that describe how the new keywords should be used within a JSON Schema document.
-
-## Architecture & Design Philosophy
-
-### Three-Level Organization
-To support both simple datasets and complex hierarchical data products (e.g., census files with nested tables), we organize all `fair:` keywords into three functional scopes:
-1.  **Universal Scope**: Core identification keywords (`label`, `description`, `conceptRef`) applicable at any level.
-2.  **Dataset Scope**: Keywords for a **Container** or resource (`license`, `provider`, `population`).
-3.  **Property Scope**: Keywords for the **Data Representation** of a leaf variable (`unit`, `classification`).
-
-### The "Flexible by Default" Approach
-During this early development phase, the FAIR meta-schema intentionally avoids technical enforcement of these scopes (e.g., we do not use `unevaluatedProperties: false` to block keywords).
-
-*   **Why?** Data products are fractal. A "Dataset" keyword like `license` might be needed for a sub-table within a larger file.
-*   **The Future**: We envision two paths for users:
-    - **FAIR Standard (Current)**: A loose dialect focused on maximum compatibility and hierarchical flexibility.
-    - **FAIR Strict (Future)**: A specialized dialect with strict recursive validation forcing keywords into specific levels.
-4.  **Custom Annotations**: Keywords starting with `fair:` that are ignored by standard validators but used by FAIR-aware tools.
+Provides reusable `$defs` for common FAIR data patterns:
+* **`FairAnnotated`**: Mixin to enable FAIR keywords on schema properties.
+* **`FairUri`**: Standardized URI format helper with persistence metadata.
+* **`FairCodedValue`**: Pattern for coded values mapped to title & concepts.
+* **`FairDatasetDescriptor`**: Base template for dataset-level metadata.
 
 ---
 
-## 4. Compatibility & Tooling
+## 5. Extension Mechanisms
 
-### Standard Validators
-Because the FAIR vocabularies are declared as **optional** (`false`) in the meta-schema, any standard Draft 2020-12 validator will process FAIR-extended schemas without errors. They will ignore the `fair:` keywords, treating them as metadata.
+The project leverages standard JSON Schema Draft 2020-12 extension mechanisms:
+1. **Custom Annotations**: Standard validators ignore unknown `fair:` keywords, treating them as annotations.
+2. **`$vocabulary`**: Explicitly declares support for FAIR metadata vocabularies.
+3. **Custom Dialects (`$schema`)**: Bundles vocabularies into a single schema declaration.
 
-### FAIR-Aware Tooling
-The `fair_data_schema` Python package provides:
-- **Registry**: Offline resolution of canonical URIs.
-- **Validator**: Dialect-aware validation that understands FAIR constraints.
-- **CLI**: A command-line tool for linting and validating schemas.
+---
+
+## 6. Standard Compatibility & Tooling
+
+### Standard JSON Schema Validators
+Because FAIR vocabularies declare annotations as non-validating (`false`), standard Draft 2020-12 validators process FAIR schemas without errors, ignoring `fair:` keywords while performing normal technical validation.
+
+### FAIR-Aware Tooling & Python Package
+The `fair_data_schema` Python library provides offline URI resolution, dialect-aware validation, and CLI commands:
 
 ```bash
-fair-data-schema validate my-fair-schema.json
+uv run fair-data-schema validate my-schema.json
 ```
-
----
-
-## 5. Rationale
-
-While JSON Schema is excellent for technical structure, it was not designed for the complex needs of FAIR data stewardship (provenance, semantic context, variable cascades). This meta-schema bridges the "technoverse" and the "dataverse" by providing a familiar IT standard with the power of modern data documentation.

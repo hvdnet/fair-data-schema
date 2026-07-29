@@ -293,6 +293,16 @@
             "title": "Quantity Kind Reference",
             "description": "URI of the quantity kind definition."
         },
+        "fair:measurementScale": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Measurement Scale Literal",
+            "description": "The mathematical scale type of the variable (e.g. 'nominal', 'ordinal', 'interval', 'ratio', 'absolute', 'relative')."
+        },
+        "fair:measurementScaleRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Measurement Scale Reference",
+            "description": "URI pointing to a measurement scale controlled vocabulary (e.g. https://highvaluedata.net/fair-data-schema/cv/measurement-scales-v1)."
+        },
         "fair:unitType": {
             "$ref": "#/$defs/i18nString",
             "title": "Unit Type Literal",

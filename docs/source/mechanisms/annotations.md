@@ -57,6 +57,7 @@ Keywords describing the data representation of a leaf variable.
 | `fair:classification` / `Ref` | string / array | The authority or code list governing values. |
 | `fair:measurementUnit` / `Ref` | string / URI | Unit of measurement (Literal / QUDT) |
 | `fair:quantity` / `Ref` | string / URI | Quantity kind (Mass, Length) |
+| `fair:measurementScale` / `Ref` | string / URI | Scale type (ratio, interval, nominal, etc.) |
 | `fair:unitType` / `Ref` | string / URI | Observation unit type (e.g. 'Person') |
 | `fair:universe` / `Ref` | string / URI | Broad scope or group (e.g. 'Students') |
 | `fair:variableRef` | URI / CURIE | Generic link to a shared or external variable definition |

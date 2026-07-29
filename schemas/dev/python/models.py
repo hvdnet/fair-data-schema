@@ -165,6 +165,8 @@ class SchemaNode(BaseModel):
     fair_measurement_unit_ref: str | None = Field(None, alias="fair:measurementUnitRef")
     fair_quantity: I18nString | None = Field(None, alias="fair:quantity")
     fair_quantity_ref: str | None = Field(None, alias="fair:quantityRef")
+    fair_measurement_scale: I18nString | None = Field(None, alias="fair:measurementScale")
+    fair_measurement_scale_ref: str | None = Field(None, alias="fair:measurementScaleRef")
     fair_unit_type: I18nString | None = Field(None, alias="fair:unitType")
     fair_unit_type_ref: str | None = Field(None, alias="fair:unitTypeRef")
     fair_universe: I18nString | None = Field(None, alias="fair:universe")

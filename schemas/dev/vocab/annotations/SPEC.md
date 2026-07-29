@@ -61,6 +61,7 @@ The FAIR Data Schema uses a **Unified Variable Model** with progressive disclosu
 - **`fair:conceptualVariableRef`**: Standards-specific link to a high-level phenomenon or conceptual definition (DDI `ConceptualVariable`).
 - **`fair:measurementUnit` / `fair:measurementUnitRef`**: Reference to a specific unit of measurement.
 - **`fair:quantity` / `fair:quantityRef`**: Reference to a quantity kind (e.g. Mass, Length).
+- **`fair:measurementScale` / `fair:measurementScaleRef`**: The mathematical scale type of the variable (`nominal`, `ordinal`, `interval`, `ratio`, `absolute`, `relative`). See [Measurement Scales CV](https://highvaluedata.net/fair-data-schema/cv/measurement-scales-v1).
 - **`fair:classification` / `fair:classificationRef`**: The **Classification Authority** or Code List. Use the literal for the name (e.g. 'NUTS') and the Ref (array of URIs) for the authoritative scheme or system.
 - **`fair:unitType` / `fair:unitTypeRef`**: The observation unit (e.g. 'Person'). Associated with Conceptual level.
 - **`fair:universe` / `fair:universeRef`**: The broad population (e.g. 'Students'). Associated with Represented level.

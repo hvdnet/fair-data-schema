@@ -13,6 +13,8 @@
             "title": "Shared Variable: Gross Annual Income",
             "description": "A reusable definition of annual gross income before tax.",
             "fair:measurementUnit": "EUR",
+            "fair:measurementScale": "ratio",
+            "fair:measurementScaleRef": "https://highvaluedata.net/fair-data-schema/cv/measurement-scales-v1#ratio",
             "fair:unitType": "Person",
             "fair:conceptRef": "https://example.org/concepts/gross-income"
         },

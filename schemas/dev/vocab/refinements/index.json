@@ -43,6 +43,8 @@
                 "fair:measurementUnitRef": { "type": "string" },
                 "fair:quantity": { "type": ["string", "object"] },
                 "fair:quantityRef": { "type": "string" },
+                "fair:measurementScale": { "type": ["string", "object"] },
+                "fair:measurementScaleRef": { "type": "string" },
                 "fair:temporalCoverage": {
                     "type": "object",
                     "properties": {

@@ -68,6 +68,8 @@ def test_annotations_vocab_defines_fair_keywords() -> None:
         "fair:label",
         "fair:measurementUnit",
         "fair:measurementUnitRef",
+        "fair:measurementScale",
+        "fair:measurementScaleRef",
         "fair:license",
         "fair:licenseRef",
         "fair:provider",

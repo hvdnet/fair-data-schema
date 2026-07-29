@@ -1,0 +1,66 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://highvaluedata.net/fair-data-schema/cv/measurement-scales-v1",
+    "title": "FAIR Data Schema Measurement Scales CV",
+    "description": "A controlled vocabulary for categorizing measurement scales (nominal, ordinal, interval, ratio, absolute, relative). Each entry provides a canonical URI for use in 'fair:measurementScaleRef'.",
+    "terms": {
+        "nominal": {
+            "$anchor": "nominal",
+            "uri": "https://highvaluedata.net/fair-data-schema/cv/measurement-scales-v1#nominal",
+            "label": {
+                "en": "Nominal",
+                "fr": "Nominale"
+            },
+            "description": "Unordered categorical scale. Values are distinct names or categories without inherent order.",
+            "sameAs": ["https://www.wikidata.org/wiki/Q13222384"]
+        },
+        "ordinal": {
+            "$anchor": "ordinal",
+            "uri": "https://highvaluedata.net/fair-data-schema/cv/measurement-scales-v1#ordinal",
+            "label": {
+                "en": "Ordinal",
+                "fr": "Ordinale"
+            },
+            "description": "Ordered categorical scale. Values have a defined rank order, but distances between ranks are not equal or quantifiable.",
+            "sameAs": ["https://www.wikidata.org/wiki/Q13222378"]
+        },
+        "interval": {
+            "$anchor": "interval",
+            "uri": "https://highvaluedata.net/fair-data-schema/cv/measurement-scales-v1#interval",
+            "label": {
+                "en": "Interval",
+                "fr": "Intervalle"
+            },
+            "description": "Quantitative scale with equal intervals between values, but an arbitrary or relative zero point.",
+            "sameAs": ["https://www.wikidata.org/wiki/Q13222368"]
+        },
+        "ratio": {
+            "$anchor": "ratio",
+            "uri": "https://highvaluedata.net/fair-data-schema/cv/measurement-scales-v1#ratio",
+            "label": {
+                "en": "Ratio",
+                "fr": "Rapport"
+            },
+            "description": "Quantitative scale with equal intervals and an absolute zero point, allowing ratio comparisons.",
+            "sameAs": ["https://www.wikidata.org/wiki/Q13222361"]
+        },
+        "absolute": {
+            "$anchor": "absolute",
+            "uri": "https://highvaluedata.net/fair-data-schema/cv/measurement-scales-v1#absolute",
+            "label": {
+                "en": "Absolute Count",
+                "fr": "Comptage absolu"
+            },
+            "description": "Discrete integer count of items, entities, or events."
+        },
+        "relative": {
+            "$anchor": "relative",
+            "uri": "https://highvaluedata.net/fair-data-schema/cv/measurement-scales-v1#relative",
+            "label": {
+                "en": "Relative",
+                "fr": "Relatif"
+            },
+            "description": "Proportions, percentages, growth rates, or index numbers relative to a baseline."
+        }
+    }
+}
