@@ -109,13 +109,13 @@ Keep these simple rules in mind to get started in minutes:
 The FAIR Data JSON Schema is structured so you can start simple and grow as needed:
 
 ### 🟢 Tier 1: Essential Properties (Aligned with CDIF v1.1 Discovery & Access)
-Simple, intuitive keywords that cover 90% of everyday data documentation needs with minimal effort:
+Simple, intuitive keywords that cover 90% of everyday data documentation needs with minimal effort (*See working example*: [`examples/simple-dataset.json`](examples/simple-dataset.json)):
 - **Dataset Identification**: `title`, `description`, `fair:license` / `Ref`, `fair:contributors` (who created/provided the data)
-- **Table / Row Entity**: `fair:unitType` (e.g. `"Person"`, `"Household"`)
+- **Table / Row Entity**: `fair:unitType` (e.g. `"Weather Station Observation"`, `"Person"`)
 - **Field Semantics**: `fair:measurementUnit` / `Ref`, `fair:classification` / `Ref`, `fair:conceptRef`
 
 ### 🔵 Tier 2: Advanced & Extended Properties (Aligned with CDIF v1.1 Structure & Cascade)
-For users who want to dig deeper into formal data stewardship, these completely optional properties are ready when needed:
+For users who want to dig deeper into formal data stewardship, these completely optional properties are ready when needed (*See advanced hierarchical example*: [`examples/complex-data-product.json`](examples/complex-data-product.json)):
 - **Formal Variable Lineage**: DDI Variable Cascade (`fair:conceptualVariableRef`, `fair:representedVariableRef`, `fair:instanceVariableRef`)
 - **Population & Sample Bounds**: `fair:universe` / `Ref`, `fair:population` / `Ref`
 - **Physical Quantities**: `fair:quantity` / `Ref`, `fair:measurementScale` / `Ref`

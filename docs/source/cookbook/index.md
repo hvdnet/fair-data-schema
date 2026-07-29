@@ -10,8 +10,15 @@ Each recipe addresses a specific task—from basic identification to advanced se
 
 Get started in minutes using simple, intuitive annotations for everyday datasets:
 
-::::{grid} 1 2 2 2
+::::{grid} 1 2 2 3
 :gutter: 3
+
+:::{grid-item-card} 📊 Tier 1 Simple Dataset
+:link: simple-dataset
+:link-type: doc
+
+Annotate a simple, single-table dataset with title, license, unit type, measurement units, and self-documenting codes.
+:::
 
 :::{grid-item-card} 🏷️ Coded Values & Enums
 :link: enum-to-fair-coded-values
@@ -67,6 +74,7 @@ Explore the four core mechanisms used to extend JSON Schema: Annotations, Vocabu
 :maxdepth: 1
 :hidden:
 
+simple-dataset
 enum-to-fair-coded-values
 data-products
 complex-data-product

@@ -1,0 +1,46 @@
+{
+    "$schema": "https://highvaluedata.net/fair-data-schema/dev",
+    "$id": "https://highvaluedata.net/fair-data-schema/dev/examples/simple-dataset",
+    "title": "Weather Station Observations (Tier 1 Simple Dataset)",
+    "description": "A simple flat dataset containing daily temperature and status readings across weather stations. Demonstrates Tier 1 Essential FAIR annotations on a single dataset.",
+    "fair:resourceType": "dataset",
+    "fair:license": "CC-BY-4.0",
+    "fair:licenseRef": "https://spdx.org/licenses/CC-BY-4.0",
+    "fair:unitType": "Weather Station Observation",
+    "fair:contributors": [
+        {
+            "name": "Global Meteorological Network",
+            "role": "Producer",
+            "type": "Organization",
+            "contributorRef": "https://example.org/orgs/gmn"
+        }
+    ],
+    "type": "array",
+    "items": {
+        "type": "object",
+        "required": ["station_id", "temperature", "status"],
+        "properties": {
+            "station_id": {
+                "title": "Station Identifier",
+                "type": "string",
+                "fair:conceptRef": "https://example.org/concepts/station-id"
+            },
+            "temperature": {
+                "title": "Air Temperature",
+                "type": "number",
+                "fair:measurementUnit": "Celsius",
+                "fair:measurementUnitRef": "http://www.wikidata.org/entity/Q52261"
+            },
+            "status": {
+                "title": "Operational Status",
+                "type": "integer",
+                "fair:classification": "Station Status Codes",
+                "oneOf": [
+                    { "const": 1, "title": "Active" },
+                    { "const": 2, "title": "Maintenance" },
+                    { "const": 3, "title": "Offline" }
+                ]
+            }
+        }
+    }
+}

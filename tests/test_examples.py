@@ -19,6 +19,7 @@ EXAMPLE_NAMES = [
     "mechanism-4-refinements",
     "time-series-product",
     "flat-hierarchy-product",
+    "simple-dataset",
 ]
 
 
