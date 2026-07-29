@@ -100,6 +100,7 @@ Keep these simple rules in mind to get started in minutes:
 | **Name of 1 Row Entity** | Use `fair:unitType` | `"fair:unitType": "Person"` or `"Transaction"` |
 | **Units of Measure** | Use `fair:measurementUnit` + `Ref` | `"fair:measurementUnit": "kg"` |
 | **Human Meaning / Concept** | Use `fair:conceptRef` or `fair:concept` | `"fair:conceptRef": "https://wikidata.org/..."` |
+| **Multilingual Support (i18n)** | Use BCP-47 language map objects | `"fair:label": { "en": "Age", "fr": "Âge" }` |
 | **Self-Documenting Enums** | Use `oneOf` with `const` and `title` | `{ "const": 1, "title": "Active" }` |
 
 ---

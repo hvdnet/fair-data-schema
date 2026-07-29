@@ -8,7 +8,7 @@ Companion Schema: [`examples/variable-cascade.json`](variable-cascade.json)
 
 ## 1. Rationale: Unified Model with Progressive Disclosure
 
-Rather than forcing every schema author to construct a 3-tiered entity cascade (`InstanceVariable` $\rightarrow$ `RepresentedVariable` $\rightarrow$ `ConceptualVariable`), FAIR Data Schema uses a **Unified Variable Model**.
+Rather than forcing every schema author to construct a 3-tiered entity cascade (`InstanceVariable` → `RepresentedVariable` → `ConceptualVariable`), FAIR Data Schema uses a **Unified Variable Model**.
 
 A variable is represented as a single entity type (`fair:resourceType: "variable"`). Its scope (conceptual, represented, or instance) is indicated naturally by its metadata properties or external reference URIs.
 

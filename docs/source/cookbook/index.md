@@ -20,6 +20,13 @@ Get started in minutes using simple, intuitive annotations for everyday datasets
 Annotate a simple, single-table dataset with title, license, unit type, measurement units, and self-documenting codes.
 :::
 
+:::{grid-item-card} 🌐 Multilingual Metadata (i18n)
+:link: multilingual
+:link-type: doc
+
+Learn how to write multilingual titles, labels, descriptions, and coded values using BCP-47 language maps.
+:::
+
 :::{grid-item-card} ✅ Validating Data
 :link: validation
 :link-type: doc
@@ -33,6 +40,16 @@ Validate JSON data against FAIR schemas using common tools (Python `jsonschema`,
 
 Learn how to evolve standard JSON Schema `enum` fields into self-documenting FAIR coded values mapped to human titles and web concepts.
 :::
+::::
+
+---
+
+## 🔵 Tier 2: Advanced & Extended Recipes (Optional Deep-Dive)
+
+For users who want to dig deeper into formal data stewardship, these advanced recipes explore deep provenance, population bounds, and complex data lineage:
+
+::::{grid} 1 2 2 4
+:gutter: 3
 
 :::{grid-item-card} 📦 Data Products & Tables
 :link: data-products
@@ -40,16 +57,6 @@ Learn how to evolve standard JSON Schema `enum` fields into self-documenting FAI
 
 Learn how to annotate basic dataset schemas and describe tables and resources with minimal effort.
 :::
-::::
-
----
-
-## 2. Advanced & Extended Recipes (Optional Deep-Dive)
-
-For users who want to dig deeper into formal data stewardship, these advanced recipes explore deep provenance, population bounds, and complex data lineage:
-
-::::{grid} 1 2 2 3
-:gutter: 3
 
 :::{grid-item-card} 🌊 The Variable Cascade
 :link: variable-cascade
@@ -82,6 +89,7 @@ Explore the four core mechanisms used to extend JSON Schema: Annotations, Vocabu
 :hidden:
 
 simple-dataset
+multilingual
 validation
 enum-to-fair-coded-values
 data-products

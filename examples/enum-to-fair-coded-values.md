@@ -135,6 +135,6 @@ This mapping allows a FAIR data harvester to:
 | Human Labels | ❌ | ✅ (`title`) | ✅ (`fair:label`) | ✅ (External) |
 | Shared Definitions | ❌ | ✅ (`$ref`) | ✅ (`$ref`) | ✅ (`$ref`) |
 | Multilingual (i18n) | ❌ | ❌ | ✅ | ✅ (External) |
-| Semantic Mapping | \u274c | \u274c | \u2705 (`fair:conceptRef`) | \u2705 (`fair:conceptRef`) |
+| Semantic Mapping | ❌ | ❌ | ✅ (`fair:conceptRef`) | ✅ (`fair:conceptRef`) |
 | Authority Link | ❌ | ❌ | ❌ | ✅ (`fair:classificationRef`) |
 | Standard Compatibility| ✅ | ✅ | ✅ (ignored by defaults) | ✅ |
