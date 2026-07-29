@@ -17,9 +17,10 @@ However, standard JSON Schema was primarily designed for technical validation (e
 Traditional metadata standards (such as **DDI**, **DCAT**, **SKOS**, and **Croissant**) provide these features, but they often impose a steep learning curve and rely on niche **Semantic Web technologies** (RDF, SPARQL, OWL, triplestores, complex XML schemas). This creates a barrier for developers, data engineers, and IT professionals who operate in modern web and API environments.
 
 The **FAIR Data JSON Schema** project eliminates this barrier completely:
-1. **Zero Steep Learning Curve**: Produce standards-compliant metadata using standard JSON Schema—the format and tooling developers already use every day.
-2. **No Semantic Web Overhead**: Achieve FAIR data compliance without having to learn RDF triples, SPARQL endpoints, or complex ontology languages.
-3. **Instant AI Readiness & MCP Integration**: Because JSON Schema is the native tongue of LLMs, function-calling, and the **Model Context Protocol (MCP)**, FAIR-annotated schemas can be directly ingested and acted upon by AI agents out of the box.
+1. **100% Compatible with the JSON Schema Ecosystem**: Because FAIR keywords are defined as standard annotations in JSON Schema Draft 2020-12, **any standard JSON Schema validator across any programming language (Python, JS, Go, Rust, Java, C#, PHP) handles FAIR schemas out of the box.** Standard tools perform normal data validation and treat `fair:` keywords as rich metadata, integrating natively with OpenAPI/Swagger, VS Code intellisense, form generators, and data pipelines with zero lock-in.
+2. **Zero Steep Learning Curve**: Produce standards-compliant metadata using standard JSON Schema—the format and tooling developers already use every day.
+3. **No Semantic Web Overhead**: Achieve FAIR data compliance without having to learn RDF triples, SPARQL endpoints, or complex ontology languages.
+4. **Instant AI Readiness & MCP Integration**: Because JSON Schema is the native tongue of LLMs, function-calling, and the **Model Context Protocol (MCP)**, FAIR-annotated schemas can be directly ingested and acted upon by AI agents out of the box.
 
 ---
 

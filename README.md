@@ -1,6 +1,6 @@
 # A JSON Meta-Schema for FAIR Data
 
-*A lightweight, intuitive JSON Schema dialect for describing high-value datasets aligned on the [FAIR principles](https://www.go-fair.org/fair-principles/) and [CDIF v1.1 Profiles](https://book.cdif.org)—with minimal effort and zero steep learning curve.*
+*A lightweight, intuitive JSON Schema dialect for describing high-value datasets aligned on the [FAIR principles](https://www.go-fair.org/fair-principles/) and [CDIF v1.1 Profiles](https://book.cdif.org)—with minimal effort, zero steep learning curve, and 100% compatibility with the JSON Schema ecosystem.*
 
 
 > [!WARNING]
@@ -20,6 +20,12 @@
 High-quality data documentation and FAIR principles (Findable, Accessible, Interoperable, Reusable) are critical for data stewardship. However, traditional data documentation frameworks often force developers and data owners down a steep learning curve requiring specialized **Semantic Web technologies** (RDF, SPARQL, OWL, triplestores, complex XML schemas).
 
 **FAIR Data JSON Schema bridges this gap effortlessly.** Because JSON Schema is already the universal language of web APIs, software tools, and data pipelines, you can now produce standards-compliant, machine-actionable metadata **using the tools you already know best**.
+
+### ⚡ 100% Compatible with the JSON Schema Ecosystem
+FAIR Data JSON Schema uses standard JSON Schema Draft 2020-12 extension mechanisms (`$vocabulary`, custom dialect, metadata annotations). This means **100% compatibility across the entire JSON Schema stack**:
+- **Any Standard Validator Works**: Validators in Python, JavaScript/Node.js, Go, Rust, Java, C#, PHP, or Ruby validate FAIR schemas out of the box without breaking or requiring custom plugins.
+- **Seamless Tooling Integration**: Works instantly with **OpenAPI/Swagger, VS Code intellisense, JSON Schema form generators (RJSF), mock data generators, Pydantic models, and data pipelines**.
+- **Zero Lock-In**: Standard tools handle data validation normally while treating `fair:` keywords as transparent metadata annotations.
 
 ### 🤖 Instant AI Readiness & MCP Integration
 JSON Schema is the native tongue of modern AI systems. Large Language Models (LLMs), AI agents, function-calling pipelines, and the **Model Context Protocol (MCP)** natively parse and reason over JSON Schema documents. By adding FAIR metadata to your JSON schemas:
@@ -146,7 +152,7 @@ docs/             # Sphinx + MyST documentation
 ## Quick Start
 
 ### Prerequisites
-- Python ≥ 3.11
+- Python ≥ 3.12
 - [uv](https://docs.astral.sh/uv/)
 
 ### Setup

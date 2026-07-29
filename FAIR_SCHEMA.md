@@ -5,10 +5,11 @@
 
 This document describes the **FAIR Data JSON Schema** dialect and its vocabularies.
 
-## Key Philosophy: Simple, Intuitive & CDIF v1.1 Aligned
+## Key Philosophy: Simple, Intuitive, 100% JSON Schema Compatible & CDIF v1.1 Aligned
 
 The primary goal of this project is to allow developers, data stewards, and data owners to produce **standards-compliant, machine-actionable metadata with minimal effort and zero steep learning curve**.
 
+* **100% Compatible with the JSON Schema Stack**: Leverages standard JSON Schema Draft 2020-12 extension mechanisms. Any standard validator in any language (Python, JavaScript, Go, Rust, Java, C#, PHP) handles FAIR schemas out of the box without breaking. Works seamlessly with OpenAPI, VS Code intellisense, RJSF form generators, Pydantic, and data pipelines.
 * **No Semantic Web Complexity**: You do **not** need to learn RDF, SPARQL, OWL, or triplestores to produce rich FAIR metadata.
 * **Instant AI & MCP Readiness**: Because JSON Schema is the native language of LLMs, AI agents, and the **Model Context Protocol (MCP)**, your FAIR-annotated schemas are immediately readable and actionable by AI tools out of the box.
 * **Aligned with CDIF v1.1 Profiles**: Built to map cleanly onto the **Cross-Domain Interoperability Framework Version 1.1** ([book.cdif.org](https://book.cdif.org)) profiles for Discovery, Access, Structure, and Variable Cascades.
