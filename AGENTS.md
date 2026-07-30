@@ -171,3 +171,20 @@ To regenerate models (e.g., after changing a vocabulary in `schemas/`):
 ```bash
 uv run python scripts/generate_models.py --version dev
 ```
+
+## Web Template & Landing Page Conventions
+
+1. **Schema Example Parity**: Always preserve standard JSON Schema keywords (such as `description` or `title`) when converting standard examples into `fair:` annotated examples.
+2. **Format Toggle**: Code comparison blocks on the landing page must support dynamic syntax switching (`YAML` default, `JSON` toggle).
+3. **Equal Box Heights & Scrollability**: Side-by-side code blocks must stay 100% equal in height, set dynamically based on the source code content height (+ 25-50% padding margin) with smooth vertical scrolling for longer FAIR schemas.
+4. **AI & Machine Actionability Positioning**: Emphasize native AI readiness for **APIs, tools, LLMs, function calling, and autonomous AI agents**. Always highlight that agents gain **deep semantic understanding of data** without needing to inject unstructured documentation into context windows.
+
+## Terminology & Positioning Guidelines
+
+1. **Target Audiences & Universes**:
+   - **Dataverse** = **Data Practitioners**: Data stewards, scientists, researchers, domain custodians, and national statistical agencies. Focus: long-term stewardship, semantic clarity, FAIR principles, and research reproducibility.
+   - **Technoverse** = **Information Technologists**: Software developers, data engineers, IT architects, AI/ML experts, and private sector technologists. Focus: system reliability, operational speed, REST APIs, JSON payloads, OpenAPI, and AI tool calling.
+2. **Advocacy & Messaging Strategy**:
+   - Always frame FAIR Data JSON Schema as an **active open-source solution** (dialect, specification, Python SDK, CLI tooling) rather than a purely theoretical analysis of metadata problems.
+   - Emphasize **technical capacity asymmetry**: public data custodians often lack private-sector IT engineering budgets. Using standard JSON Schema allows Data Practitioners to document data without heavy IT overhead, while Information Technologists leverage their automated pipelines to process and archive datasets.
+   - Highlight **mutual collaboration**: Information Technologists get clean JSON payload schemas and native AI readiness (MCP); Data Practitioners get machine-actionable metadata and automated export to CDIF 1.1 / RO-Crate 1.1 manifests.
