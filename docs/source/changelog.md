@@ -2,6 +2,15 @@
 
 All notable changes to the **FAIR Data JSON Schema** project will be documented in this file.
 
+## [2026-07-30] - Multi-Language Code Models & Expanded SDK API Reference
+
+- **Multi-Language Code Generators**: Added `scripts/generate_typescript.py` and `scripts/generate_rust.py` alongside renamed `scripts/generate_python.py` to auto-generate client models across **Python (Pydantic 2.x)**, **TypeScript (Interfaces + Zod Schemas)**, and **Rust (Serde Structs & Untagged Enums)**.
+- **Automated Build Tooling**: Updated `scripts/build_dist.py` to generate Python, TypeScript, and Rust models automatically into versioned distribution directories (`dist/dev/python`, `dist/dev/typescript`, `dist/dev/rust`).
+- **Sphinx Documentation Guides & API References**:
+  - Added dedicated SDK guides: `docs/source/typescript-sdk.md` and `docs/source/rust-sdk.md`.
+  - Reorganized Sphinx TOC into **Language Packages & API Reference**, adding dedicated API reference pages for Python, TypeScript, and Rust featuring Quick Examples (Load, Validate, Save).
+- **Landing Page Alignment**: Updated landing page copy under *For Information Technologists* to emphasize aligning on FAIR data principles and global standards without a steep domain learning curve.
+
 ## [2026-07-29] - CDIF v1.1 Alignment & RO-Crate Exporter
 
 - **CDIF v1.1 Profile Alignment**: Conducted an exhaustive alignment audit against the CODATA Cross-Domain Interoperability Framework (CDIF v1.1) profiles, documenting 95%+ conceptual equivalence across Core, Discovery, Structure, and Cascade profiles.

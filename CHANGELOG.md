@@ -10,26 +10,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Initial repository scaffold
-- Project-level tooling: `pyproject.toml`, `uv`, `ruff`, `mypy`, `pytest`, `pre-commit`
-- Stub composite dialect meta-schema (`schemas/meta/fair-json-schema.json`)
-- Extension mechanism demonstrations (Mechanisms 1–4)
-- Python package skeleton (`src/fair_json_schema/`)
-- Initial test suite
-- Sphinx + MyST documentation skeleton
-- GitHub Actions CI and schema-publish workflows
-- Auto-generated Pydantic models for the FAIR Data JSON Schema vocabulary.
-- `scripts/generate_models.py` script for creating recurring/recursive `SchemaNode` and `DatasetSchema` classes.
-- Automatic Pydantic model regeneration in `scripts/build_dist.py`, keeping source code and specifications in sync.
-- New **Python SDK Documentation** guide in Sphinx.
-- Support for complex round-trip serialization/deserialization with Pydantic v2.
-- Generic attribution model via `fair:entities` following the OAIS Producer/Consumer/Archive pattern.
-- **[New] Independent CVs**: Moved Controlled Vocabularies to the project root (`/cv/`) and decoupled their lifecycles from the core schema versioning.
-- **[New] Entity Vocabularies**: Initial release of [Entity Types v1](cv/contributor-types-v1.json) and [Entity Roles v1](cv/contributor-roles-v1.json).
-- Explicit `sameAs` mappings for entity roles to the DDI Alliance ContributorRole CV (v1.0.2).
+- **Multi-Language Code Generation Suite**: Auto-generation of client models across **Python (Pydantic 2.x)**, **TypeScript (Interfaces + Zod Schemas)**, and **Rust (Serde Structs & Untagged Enums)**.
+- **TypeScript Generator**: `scripts/generate_typescript.py` and template `index.ts.j2` emitting compile-time interfaces (`SchemaNode`, `DatasetSchema`) and runtime validation schemas (`DatasetSchemaSchema`, `SchemaNodeSchema`).
+- **Rust Generator**: `scripts/generate_rust.py` and template `models.rs.j2` emitting `serde`-annotated structs and `I18nString` / `I18nText` untagged enums.
+- **Dedicated SDK & API Reference Documentation**: Added `typescript-sdk.md` and `rust-sdk.md` Sphinx guides and created dedicated API reference pages for Python, TypeScript, and Rust with Quick Examples (Load, Validate, Save).
+- Initial repository scaffold and tooling: `pyproject.toml`, `uv`, `ruff`, `mypy`, `pytest`, `pre-commit`.
+- Extension mechanism demonstrations (Mechanisms 1–4).
+- Python package skeleton (`src/fair_data_schema/`) and Typer CLI (`validate`, `lint`, `export`).
+- Generic attribution model via `fair:contributors` replacing `fair:provider`.
+- Independent Controlled Vocabularies in `/cv/` (`contributor-types-v1.json`, `contributor-roles-v1.json`).
 
 ### Changed
-- Deprecated `fair:provider` and `fair:providerRef` in favor of the more flexible and generic `fair:entities` property.
-- Refactored `models.py` to be a **standalone** artifact located in versioned schema directories (e.g., `schemas/dev/python/models.py`).
-- Enhanced `build_dist.py` to exclude `__pycache__`, `.pyc`, and `.DS_Store` from the web publication.
-- Updated `README.md` and `AGENTS.md` to reflect the standalone nature of the Python models.
+- Renamed Python generator from `scripts/generate_models.py` to `scripts/generate_python.py`.
+- Updated `scripts/build_dist.py` to regenerate Python, TypeScript, and Rust model outputs automatically into `/dist`.
+- Restructured Sphinx documentation TOC caption to **Language Packages & API Reference**.
+- Updated landing page positioning to emphasize aligning on FAIR principles and global standards without a steep domain learning curve.
