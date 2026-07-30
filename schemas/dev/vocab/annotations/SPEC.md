@@ -39,6 +39,8 @@ Keywords describing the **Provenance and Coverage** of a dataset, table, or reso
 - **`fair:temporalCoverage` / `fair:temporalCoverageRef`**: The time period covered by the data.
 - **`fair:spatialCoverage` / `fair:spatialCoverageRef`**: The geographic area covered (e.g. Gazetteer URI).
 - **`fair:population` / `fair:populationRef`**: The specific group bound by time and space (DDI: Instance level).
+- **`fair:structureType`**: The structural layout type of the dataset payload (`wide`, `long`, `dimensional`, `key-value`), aligned with the CDIF Data Structure profile.
+- **`fair:quality`**: An array of quality metric measurements (aligned with W3C Data Quality Vocabulary `dqv:hasQualityMeasurement`). Each item contains `metric` name, `metricRef` URI, `value`, and optional `description`.
 - **`fair:datasetRelations`**: An array of relationships between the current dataset and other resources.
     - **`relationType`**:
         - `isPartOf`: The dataset is a component of the target (e.g. a table in a product).
@@ -60,6 +62,7 @@ The FAIR Data Schema uses a **Unified Variable Model** with progressive disclosu
 - **`fair:representedVariableRef`**: Standards-specific link to a shared measurement or representation definition (DDI `RepresentedVariable`).
 - **`fair:conceptualVariableRef`**: Standards-specific link to a high-level phenomenon or conceptual definition (DDI `ConceptualVariable`).
 - **`fair:measurementUnit` / `fair:measurementUnitRef`**: Reference to a specific unit of measurement.
+- **`fair:measurementTechnique` / `fair:measurementTechniqueRef`**: The technology, method, or protocol used to measure values.
 - **`fair:quantity` / `fair:quantityRef`**: Reference to a quantity kind (e.g. Mass, Length).
 - **`fair:measurementScale` / `fair:measurementScaleRef`**: The mathematical scale type of the variable (`nominal`, `ordinal`, `interval`, `ratio`, `absolute`, `relative`). See [Measurement Scales CV](https://highvaluedata.net/fair-data-schema/cv/measurement-scales-v1).
 - **`fair:classification` / `fair:classificationRef`**: The **Classification Authority** or Code List. Use the literal for the name (e.g. 'NUTS') and the Ref (array of URIs) for the authoritative scheme or system.

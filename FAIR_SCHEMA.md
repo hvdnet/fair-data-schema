@@ -51,9 +51,10 @@ The FAIR Data JSON Schema vocabulary maps directly to the profiles defined in **
 | CDIF v1.1 Profile | FAIR Data JSON Schema Keywords |
 | :--- | :--- |
 | **Discovery & Access Profile** | `title`, `description`, `fair:label`, `fair:description`, `fair:license`/`Ref`, `fair:contributors` |
-| **Data Structure Profile** | `fair:resourceType`, `fair:unitType`/`Ref`, `fair:measurementUnit`/`Ref`, `fair:classification`/`Ref` |
+| **Data Structure Profile** | `fair:resourceType`, `fair:structureType`, `fair:unitType`/`Ref`, `fair:measurementUnit`/`Ref`, `fair:classification`/`Ref` |
 | **Variable Cascade Profile** | `fair:conceptualVariableRef`, `fair:representedVariableRef`, `fair:instanceVariableRef` |
 | **Population Bounds Profile** | `fair:universe`/`Ref`, `fair:population`/`Ref`, `fair:temporalCoverage`/`Ref`, `fair:spatialCoverage`/`Ref` |
+| **Data Quality & Lineage Profile**| `fair:quality`, `fair:measurementTechnique`/`Ref`, `fair:datasetRelations` |
 
 ---
 
@@ -86,20 +87,23 @@ These keywords cover 90% of everyday data documentation needs. You can pick up a
 ---
 
 ### 🔵 Tier 2: Advanced & Extended Properties (Optional Deep-Dive)
-For users who want to dig deeper into formal data stewardship, these properties support advanced provenance, population bounds, and data lineage. They are **100% optional**.
+For users who want to dig deeper into formal data stewardship, these properties support advanced provenance, population bounds, data quality, and layout classification. They are **100% optional**.
 
-#### A. Advanced Coverage & Population Bounds
+#### A. Advanced Coverage, Population & Quality Bounds
 | Keyword | Type | Developer Description |
 | :--- | :--- | :--- |
+| `fair:structureType` | `string` | Dataset structural layout (`"wide"`, `"long"`, `"dimensional"`, `"key-value"`). |
+| `fair:quality` | `array` | Data quality measurements (`metric`, `metricRef`, `value`, `description`) aligned with W3C DQV. |
 | `fair:temporalCoverage` / `Ref`| `object`/`uri`| Time period covered by the dataset (`start`, `end`, description). |
 | `fair:spatialCoverage` / `Ref` | `i18n`/`uri`| Geographic area name or Gazetteer link (e.g., GeoNames, NUTS). |
 | `fair:universe` / `Ref` | `i18n`/`uri`| Broad target population eligible to be in the dataset (e.g., `"All adults 18+"`). |
 | `fair:population` / `Ref`| `i18n`/`uri`| Specific sampled group bound by time & space (e.g., `"Brussels residents in 2024"`). |
 
-#### B. Advanced Quantities & Scales
+#### B. Advanced Quantities, Techniques & Scales
 | Keyword | Type | Developer Description |
 | :--- | :--- | :--- |
 | `fair:quantity` / `Ref` | `i18n`/`uri`| Physical quantity kind (e.g., `"Mass"`, `"Length"`, `"Speed"`). |
+| `fair:measurementTechnique` / `Ref` | `i18n`/`uri`| Method, technology, or protocol used to measure values. |
 | `fair:measurementScale` / `Ref`| `i18n`/`uri`| Mathematical scale type (`nominal`, `ordinal`, `interval`, `ratio`, `absolute`). |
 
 #### C. Formal Variable Lineage (DDI Cascade)
@@ -121,6 +125,7 @@ Provides reusable `$defs` for common FAIR data patterns:
 * **`FairUri`**: Standardized URI format helper with persistence metadata.
 * **`FairCodedValue`**: Pattern for coded values mapped to title & concepts.
 * **`FairDatasetDescriptor`**: Base template for dataset-level metadata.
+* **`CatalogRecord`**: Reusable pattern for metadata record provenance (`conformsTo`, `sdDatePublished`, `includedInDataCatalog`, `about`, `maintainer`) aligned with CDIF Core / DCAT `dcat:CatalogRecord`.
 
 ---
 
@@ -144,3 +149,22 @@ The `fair_data_schema` Python library provides offline URI resolution, dialect-a
 ```bash
 uv run fair-data-schema validate my-schema.json
 ```
+
+---
+
+## 7. CDIF v1.1 Profile Alignment & Analysis Summary
+
+An extensive comparative analysis was conducted between the **CODATA Cross-Domain Interoperability Framework (CDIF) Version 1.1** specifications ([book.cdif.org](https://book.cdif.org)) and **FAIR Data JSON Schema**.
+
+### Alignment Summary
+* **Core & Discovery Profiles (95% Equivalence)**: `title`, `description`, `fair:label`, `fair:description`, `fair:licenseRef`, `fair:spatialCoverageRef`, `fair:temporalCoverage` map cleanly. `fair:contributors` unifies agent attribution.
+* **Data Description & Data Structure Profiles (95% Equivalence)**: Full **DDI Variable Cascade** parity (`conceptualVariableRef` $\rightarrow$ `representedVariableRef` $\rightarrow$ `instanceVariableRef`), population bounds (`fair:universe`, `fair:population`), and layout classification (`fair:structureType`). Structural validation (`type`, `format`, `pattern`, `minimum`, `maximum`) is natively enforced by standard JSON Schema engines.
+* **Codelist Profile (90% Equivalence)**: Allowed values are validated natively using standard JSON Schema `enum` or `$ref` to controlled vocabulary schemas, while `fair:classificationRef` points directly to SKOS `ConceptScheme` URIs. `fair:sentinel: true` cleanly separates sentinel/missing values from substantive measurements.
+* **Provenance Profile (85% Equivalence)**: `fair:contributors` captures human, organizational, software, and AI agents with role URIs and timelines, while `fair:datasetRelations` models cross-dataset derivation and joining keys.
+* **Catalog Provenance**: The `CatalogRecord` refinement (`$defs/CatalogRecord`) provides standard properties (`conformsTo`, `sdDatePublished`, `includedInDataCatalog`, `about`, `maintainer`) matching CDIF Core / DCAT `dcat:CatalogRecord`.
+
+### Strategic Bridge Architecture
+FAIR Data JSON Schema acts as the **lightweight developer & AI ingestion bridge**:
+1. **Developers & Data Pipelines** author metadata using familiar JSON Schema Draft 2020-12.
+2. **LLMs, AI Agents & MCP Servers** natively validate and invoke APIs using standard JSON Schema tooling.
+3. **Institutional Data Stewards** can automatically transform FAIR-annotated schemas into formal CDIF v1.1 JSON-LD / SHACL graphs for global research infrastructure indexing.

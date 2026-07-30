@@ -258,6 +258,42 @@
             "title": "Population Reference",
             "description": "URI of the specific dataset population."
         },
+        "fair:structureType": {
+            "type": "string",
+            "enum": ["wide", "long", "dimensional", "key-value"],
+            "title": "Dataset Structural Layout",
+            "description": "The structural layout type of the dataset payload (CDIF Data Structure profile aligned)."
+        },
+        "fair:quality": {
+            "type": "array",
+            "title": "Quality Measurements",
+            "description": "Reported quality measurements and metrics associated with the resource (W3C DQV dqv:hasQualityMeasurement aligned).",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "metric": {
+                        "$ref": "#/$defs/i18nString",
+                        "title": "Quality Metric Name"
+                    },
+                    "metricRef": {
+                        "$ref": "#/$defs/uriOrCurie",
+                        "title": "Quality Metric URI"
+                    },
+                    "value": {
+                        "title": "Reported Quality Value",
+                        "oneOf": [
+                            { "type": "string" },
+                            { "type": "number" },
+                            { "$ref": "#/$defs/i18nString" }
+                        ]
+                    },
+                    "description": {
+                        "$ref": "#/$defs/i18nText",
+                        "title": "Quality Metric Description"
+                    }
+                }
+            }
+        },
 
         "// Property Scope": { "description": "Keywords describing the data representation and semantic identity of a leaf variable." },
         "fair:classification": {
@@ -282,6 +318,16 @@
             "$ref": "#/$defs/uriOrCurie",
             "title": "Measurement Unit Reference",
             "description": "URI of the unit definition (e.g. from QUDT or OM)."
+        },
+        "fair:measurementTechnique": {
+            "$ref": "#/$defs/i18nString",
+            "title": "Measurement Technique Literal",
+            "description": "The human-readable name of the technology, method, or protocol used to measure values."
+        },
+        "fair:measurementTechniqueRef": {
+            "$ref": "#/$defs/uriOrCurie",
+            "title": "Measurement Technique Reference",
+            "description": "URI or CURIE identifying the measurement technique definition."
         },
         "fair:quantity": {
             "$ref": "#/$defs/i18nString",

@@ -94,6 +94,29 @@ var = SchemaNode(
 )
 ```
 
+## RO-Crate 1.1 Export
+
+The package provides a built-in exporter to convert any FAIR Data JSON Schema into an **RO-Crate 1.1** compliant `@graph` metadata document.
+
+### Python API
+
+```python
+from fair_data_schema import to_ro_crate
+
+# Convert a schema dict or file path into an RO-Crate 1.1 dictionary
+ro_crate_dict = to_ro_crate("my-schema.json")
+```
+
+### CLI Command
+
+```bash
+# Export schema to terminal stdout
+fair-data-schema export ro-crate my-schema.json
+
+# Export schema to an ro-crate-metadata.json file
+fair-data-schema export ro-crate my-schema.json -o dist/ro-crate-metadata.json
+```
+
 ## Auto-Generation
 
 The model file `src/fair_data_schema/models.py` is **auto-generated** from the FAIR vocabulary meta-schemas. This ensures that the Python SDK always stays in sync with the latest specifications.

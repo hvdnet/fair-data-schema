@@ -56,6 +56,10 @@
                 "fair:temporalCoverageRef": { "type": "string" },
                 "fair:spatialCoverage": { "type": ["string", "object"] },
                 "fair:spatialCoverageRef": { "type": "string" },
+                "fair:measurementTechnique": { "type": ["string", "object"] },
+                "fair:measurementTechniqueRef": { "type": "string" },
+                "fair:structureType": { "type": "string", "enum": ["wide", "long", "dimensional", "key-value"] },
+                "fair:quality": { "type": "array" },
                 "fair:classification": {
                     "type": "array",
                     "items": { "type": "string" }
@@ -82,6 +86,7 @@
                 "title": { "type": "string" },
                 "description": { "type": ["string", "object"] },
                 "fair:description": { "type": ["string", "object"] },
+                "fair:structureType": { "type": "string", "enum": ["wide", "long", "dimensional", "key-value"] },
                 "fair:unitType": { "type": ["string", "object"] },
                 "fair:unitTypeRef": { "type": "string" },
                 "fair:universe": { "type": ["string", "object"] },
@@ -97,6 +102,44 @@
                         "start": { "type": "string", "format": "date" },
                         "end": { "type": "string", "format": "date" }
                     }
+                }
+            }
+        },
+        "CatalogRecord": {
+            "title": "Catalog Record Descriptor",
+            "description": "Metadata descriptor for record provenance, administration, and specification conformance (aligned with CDIF Core & W3C DCAT dcat:CatalogRecord).",
+            "type": "object",
+            "properties": {
+                "about": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "Target Resource URI",
+                    "description": "URI pointing back to the main dataset or resource described by this catalog record."
+                },
+                "conformsTo": {
+                    "type": "array",
+                    "title": "Conformance Standards",
+                    "description": "URIs of standards, profiles, or meta-schemas to which this metadata record conforms (e.g. CDIF profiles or FAIR Data JSON Schema).",
+                    "items": {
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "sdDatePublished": {
+                    "type": "string",
+                    "format": "date",
+                    "title": "Metadata Update Date",
+                    "description": "ISO 8601 date stamp indicating when the metadata record was generated or modified."
+                },
+                "includedInDataCatalog": {
+                    "type": ["string", "object"],
+                    "title": "Originating Registry / Data Catalog",
+                    "description": "Name or descriptor of the originating catalog or repository."
+                },
+                "maintainer": {
+                    "type": ["string", "object"],
+                    "title": "Metadata Maintainer",
+                    "description": "Person, Organization, or Agent responsible for maintaining this metadata record."
                 }
             }
         }

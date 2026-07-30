@@ -111,6 +111,53 @@ def info() -> None:
     console.print(table)
 
 
+# ── export ───────────────────────────────────────────────────────────────────
+
+export_app = typer.Typer(
+    name="export",
+    help="Export FAIR Data JSON Schema to other standards (e.g. RO-Crate 1.1).",
+    no_args_is_help=True,
+)
+app.add_typer(export_app, name="export")
+
+
+@export_app.command(name="ro-crate")
+def export_ro_crate(
+    schema: Annotated[Path, typer.Argument(help="Path to the FAIR Data JSON Schema file.")],
+    output: Annotated[
+        Path | None,
+        typer.Option(
+            "--output", "-o", help="Output path for the generated ro-crate-metadata.json file."
+        ),
+    ] = None,
+) -> None:
+    """Export a FAIR Data JSON Schema into an RO-Crate 1.1 metadata document."""
+    if not schema.exists():
+        err_console.print(f"Schema file not found: {schema}")
+        raise typer.Exit(code=1)
+
+    import json
+
+    from fair_data_schema.exporter import to_ro_crate
+
+    try:
+        ro_crate_dict = to_ro_crate(schema)
+    except Exception as e:
+        err_console.print(f"Failed to export RO-Crate: {e}")
+        raise typer.Exit(code=1) from e
+
+    formatted_json = json.dumps(ro_crate_dict, indent=2, ensure_ascii=False)
+
+    if output:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(formatted_json, encoding="utf-8")
+        rprint(
+            f"[green]✓[/green] Successfully exported RO-Crate 1.1 metadata to [cyan]{output}[/cyan]"
+        )
+    else:
+        print(formatted_json)
+
+
 # ── version ───────────────────────────────────────────────────────────────────
 
 
