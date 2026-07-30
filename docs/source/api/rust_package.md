@@ -2,6 +2,32 @@
 
 The Rust package (`fair-data-schema` crate or `schemas/<version>/rust/src/lib.rs`) provides auto-generated Rust data structures with `serde` serialization annotations.
 
+## Quick Example (Load, Validate, Save)
+
+```rust
+use std::fs;
+use serde_json::Result;
+use fair_data_schema::DatasetSchema;
+
+fn main() -> Result<()> {
+    // 1. Load schema from disk
+    let json_text = fs::read_to_string("my-schema.json").expect("Failed to read file");
+
+    // 2. Validate & deserialize with serde
+    let mut schema: DatasetSchema = serde_json::from_str(&json_text)?;
+    println!("✓ Validated FAIR dataset title: {:?}", schema.node.title);
+
+    // 3. Save modified schema to disk
+    schema.node.title = Some("Updated FAIR Dataset 2024".to_string());
+    let output_text = serde_json::to_string_pretty(&schema)?;
+    fs::write("my-schema-output.json", output_text).expect("Failed to write file");
+
+    Ok(())
+}
+```
+
+---
+
 ## Exported Enums
 
 ### `I18nString`

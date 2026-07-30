@@ -2,6 +2,26 @@
 
 The TypeScript package (`@fair-data-schema/core` or `schemas/<version>/typescript/index.ts`) provides auto-generated TypeScript interfaces and Zod validation schemas for the FAIR Data JSON Schema dialect.
 
+## Quick Example (Load, Validate, Save)
+
+```typescript
+import * as fs from "fs";
+import { DatasetSchemaSchema, DatasetSchema } from "./schemas/dev/typescript/index.ts";
+
+// 1. Load schema JSON from disk
+const rawJson = JSON.parse(fs.readFileSync("my-schema.json", "utf-8"));
+
+// 2. Validate at runtime using Zod
+const schema: DatasetSchema = DatasetSchemaSchema.parse(rawJson);
+console.log("✓ Valid FAIR dataset:", schema.title);
+
+// 3. Save modified schema to disk
+schema.title = "Updated FAIR Dataset 2024";
+fs.writeFileSync("my-schema-output.json", JSON.stringify(schema, null, 2));
+```
+
+---
+
 ## Exported Interfaces
 
 ### `DatasetSchema`
