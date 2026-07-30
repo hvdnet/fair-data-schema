@@ -1,0 +1,70 @@
+{
+  "$schema": "https://highvaluedata.net/fair-data-schema/dev",
+  "$id": "https://highvaluedata.net/fair-data-schema/examples/cdif-profile-alignment.json",
+  "title": "European Air Quality Observation Dataset",
+  "description": "High-resolution air quality measurements across European urban monitoring stations aligned with CDIF v1.1 profiles.",
+  "type": "object",
+  "fair:resourceType": "dataset",
+  "fair:structureType": "wide",
+  "fair:license": "Creative Commons Attribution 4.0 International",
+  "fair:licenseRef": "https://spdx.org/licenses/CC-BY-4.0.html",
+  "fair:spatialCoverage": "European Union",
+  "fair:spatialCoverageRef": "http://publications.europa.eu/resource/authority/country/EUR",
+  "fair:temporalCoverage": {
+    "start": "2024-01-01",
+    "end": "2024-12-31",
+    "description": "Calendar year 2024 observation period"
+  },
+  "fair:contributors": [
+    {
+      "name": "European Environment Agency",
+      "contributorRef": "https://ror.org/03375cb05",
+      "type": "Organization",
+      "role": "Provider",
+      "roleRef": "https://highvaluedata.net/fair-data-schema/cv/contributor-roles-v1#provider"
+    },
+    {
+      "name": "Dr. Elena Rostova",
+      "contributorRef": "https://orcid.org/0000-0002-1825-0097",
+      "type": "Individual",
+      "role": "Data Curator"
+    }
+  ],
+  "fair:quality": [
+    {
+      "metric": "Completeness Ratio",
+      "metricRef": "https://w3id.org/dqv#completeness",
+      "value": 0.985,
+      "description": "98.5% valid data observations across all active monitoring stations."
+    }
+  ],
+  "properties": {
+    "station_id": {
+      "type": "string",
+      "title": "Station Identifier",
+      "fair:concept": "Observation Station",
+      "fair:conceptRef": "https://www.wikidata.org/wiki/Q11400"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Observation Timestamp"
+    },
+    "pm25": {
+      "type": "number",
+      "minimum": 0,
+      "title": "Fine Particulate Matter (PM2.5)",
+      "fair:label": "PM2.5 Concentration",
+      "fair:concept": "Particulate Matter 2.5",
+      "fair:conceptRef": "https://www.wikidata.org/wiki/Q482798",
+      "fair:measurementUnit": "micrograms per cubic meter",
+      "fair:measurementUnitRef": "http://qudt.org/vocab/unit/MicroGM-PER-M3",
+      "fair:measurementTechnique": "Beta Attenuation Monitoring (BAM)",
+      "fair:measurementTechniqueRef": "https://example.org/methods/BAM-1020",
+      "fair:conceptualVariableRef": "https://example.org/concepts/air-quality/pm25",
+      "fair:representedVariableRef": "https://example.org/representations/micrograms-m3",
+      "fair:instanceVariableRef": "https://example.org/instances/eea-2024-pm25"
+    }
+  },
+  "required": ["station_id", "timestamp", "pm25"]
+}

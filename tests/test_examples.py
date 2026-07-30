@@ -20,6 +20,7 @@ EXAMPLE_NAMES = [
     "time-series-product",
     "flat-hierarchy-product",
     "simple-dataset",
+    "cdif-profile-alignment",
 ]
 
 
