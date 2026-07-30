@@ -4,11 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAIR Data JSON Schema — Machine-Actionable Metadata for Information Technologists & Data Practitioners</title>
-    <meta name="description" content="FAIR Data JSON Schema is a two-way bridge connecting Information Technologists (developers, data engineers, AI/ML experts) and Data Practitioners (data stewards, scientists, researchers) with machine-actionable metadata standards.">
+    <title>FAIR Data JSON Schema — Machine-Actionable Metadata for Information Technologists & Data Practitioners
+    </title>
+    <meta name="description"
+        content="FAIR Data JSON Schema is a two-way bridge connecting Information Technologists (developers, data engineers, AI/ML experts) and Data Practitioners (data stewards, scientists, researchers) with machine-actionable metadata standards.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg: #0b0f19;
@@ -293,6 +297,7 @@
             .bridge-grid {
                 grid-template-columns: 1fr;
             }
+
             h1 {
                 font-size: 2.5rem;
             }
@@ -400,11 +405,70 @@
             margin-bottom: 4rem;
         }
 
+        .code-header-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .format-toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: #080c14;
+            border: 1px solid var(--card-border);
+            border-radius: 0.5rem;
+            padding: 0.25rem 0.35rem;
+        }
+
+        .format-toggle-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 700;
+            padding-left: 0.5rem;
+        }
+
+        .format-toggle {
+            display: inline-flex;
+            gap: 0.25rem;
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            padding: 0.35rem 0.85rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .toggle-btn.active {
+            background: var(--accent-cyan);
+            color: #080c14;
+            font-weight: 700;
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.35);
+        }
+
+        .toggle-btn:hover:not(.active) {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
         .code-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
             margin-top: 1.5rem;
+            align-items: stretch;
         }
 
         @media (max-width: 840px) {
@@ -420,6 +484,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            height: 100%;
         }
 
         .code-header {
@@ -456,7 +521,28 @@
             font-size: 0.825rem;
             color: #e2e8f0;
             overflow-x: auto;
+            overflow-y: auto;
+            height: 320px;
+            box-sizing: border-box;
             line-height: 1.5;
+        }
+
+        pre::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        pre::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        pre::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.3);
+            border-radius: 3px;
+        }
+
+        pre::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-cyan);
         }
 
         .code-hl {
@@ -584,21 +670,33 @@
 
         <section class="hero">
             <div class="hero-pill">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
                 The Two-Way Bridge for FAIR Metadata
             </div>
-            <h1>Bridging <span class="gradient-text">Information Technology & Data Stewardship</span> with JSON Schema</h1>
+            <h1>Bridging <span class="gradient-text">Information Technology & Data Stewardship</span> with JSON Schema
+            </h1>
             <p class="hero-lead">
-                FAIR Data JSON Schema bridges the gap between <strong>Information Technologists</strong> and <strong>Data Practitioners</strong>. Document your datasets with machine-actionable metadata using industry-standard JSON Schema—with <strong>zero new tools to learn</strong> and <strong>100% ecosystem compatibility</strong>.
+                FAIR Data JSON Schema bridges the gap between <strong>Information Technologists</strong> and
+                <strong>Data Practitioners</strong>. Document your datasets with machine-actionable metadata using
+                industry-standard JSON Schema—with <strong>zero new tools to learn</strong> and <strong>100% ecosystem
+                    compatibility</strong>.
             </p>
 
             <div class="cta-group">
                 <a href="docs/" class="btn btn-primary">
                     Explore Documentation
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
                 </a>
                 <a href="docs/cookbook/index.html" class="btn btn-secondary">
-                    Try Examples & Cookbook
+                    See Examples & Cookbook
                 </a>
                 <a href="docs/specs/index.html" class="btn btn-ghost">
                     View Specifications
@@ -609,12 +707,17 @@
         <!-- Machine Intelligence Banner -->
         <div class="ai-banner">
             <div class="ai-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 1.5.4 2.9 1.2 4.1L4 20l5.9-1.2A8 8 0 1 0 12 2z"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a8 8 0 0 0-8 8c0 1.5.4 2.9 1.2 4.1L4 20l5.9-1.2A8 8 0 1 0 12 2z"></path>
+                    <path d="M12 8v4"></path>
+                    <path d="M12 16h.01"></path>
+                </svg>
             </div>
             <div class="ai-content">
-                <h3>Native Machine Actionability & AI Readiness (MCP)</h3>
+                <h3>Native Machine Actionability & AI Readiness</h3>
                 <p>
-                    JSON Schema is the native tongue of LLMs, function calling, and the <strong>Model Context Protocol (MCP)</strong>. By adding <code>fair:</code> metadata annotations, AI agents and automated pipelines instantly understand measurement units, concept links, target populations, and sentinel values without manual glue code.
+                    JSON Schema is the native format for <strong>APIs, tools, LLMs, function calling, and autonomous AI agents</strong>. By adding <code>fair:</code> metadata annotations, AI agents gain deep semantic understanding of the data—without needing to inject unstructured documentation into context windows or write custom glue code.
                 </p>
             </div>
         </div>
@@ -623,7 +726,8 @@
         <section>
             <div class="section-header">
                 <h2>Designed for Two Universes</h2>
-                <p>Connecting Information Technologists with Data Practitioners through a shared, lightweight standard.</p>
+                <p>Connecting Information Technologists with Data Practitioners through a shared, lightweight standard.
+                </p>
             </div>
 
             <div class="bridge-grid">
@@ -637,12 +741,16 @@
                     </div>
                     <h3>For Information Technologists</h3>
                     <p>
-                        You don't need to learn RDF, SPARQL, complex XML schemas, or niche domain tools to document data properly. Use the JSON Schema ecosystem you already know and love.
+                        You don't need to learn RDF, SPARQL, complex XML schemas, or niche domain tools to document data
+                        properly. Use the JSON Schema ecosystem you already know and love.
                     </p>
                     <ul class="feature-bullets">
-                        <li><strong>Zero Learning Curve</strong>: Works directly in JSON/YAML with standard tooling.</li>
-                        <li><strong>100% Compatible</strong>: Existing JSON Schema validators treat <code>fair:</code> keywords as transparent metadata annotations.</li>
-                        <li><strong>Instant Integration</strong>: Generates Pydantic models, OpenAPI specs, and AI function-calling schemas natively.</li>
+                        <li><strong>Zero Learning Curve</strong>: Works directly in JSON/YAML with standard tooling.
+                        </li>
+                        <li><strong>100% Compatible</strong>: Existing JSON Schema validators treat <code>fair:</code>
+                            keywords as transparent metadata annotations.</li>
+                        <li><strong>Instant Integration</strong>: Generates Pydantic models, OpenAPI specs, and AI
+                            function-calling schemas natively.</li>
                     </ul>
                 </div>
 
@@ -656,12 +764,16 @@
                     </div>
                     <h3>For Data Practitioners</h3>
                     <p>
-                        Established semantic standards (DDI, CDIF, Schema.org, RO-Crates) are essential, but their steep learning curve hinders adoption outside specialized archives.
+                        Established semantic standards (DDI, CDIF, Schema.org, RO-Crates) are essential, but their steep
+                        learning curve hinders adoption outside specialized archives.
                     </p>
                     <ul class="feature-bullets">
-                        <li><strong>Accessible Stepping Stone</strong>: A lightweight ingest layer that lowers the barrier to FAIR data documentation.</li>
-                        <li><strong>Does Not Replace Standards</strong>: Bridges raw data into active software workflows while supporting export to CDIF v1.1.</li>
-                        <li><strong>Active Metadata</strong>: Turns static portal documentation into live, machine-enforceable data rules.</li>
+                        <li><strong>Accessible Stepping Stone</strong>: A lightweight ingest layer that lowers the
+                            barrier to FAIR data documentation.</li>
+                        <li><strong>Does Not Replace Standards</strong>: Bridges raw data into active software workflows
+                            while supporting export to CDIF v1.1.</li>
+                        <li><strong>Active Metadata</strong>: Turns static portal documentation into live,
+                            machine-enforceable data rules.</li>
                     </ul>
                 </div>
             </div>
@@ -669,9 +781,23 @@
 
         <!-- Code Comparison -->
         <section class="code-section">
-            <div class="section-header" style="margin-bottom: 1.5rem; text-align: left;">
-                <h2>See the Difference in Action</h2>
-                <p style="margin: 0;">Adding simple <code>fair:</code> annotations transforms a low-level technical schema into a self-documenting, machine-actionable asset—while remaining <strong>100% valid and compatible with standard JSON Schema tools</strong> across Python, Node.js, Go, and Rust.</p>
+            <div class="code-header-top">
+                <div class="section-header" style="margin-bottom: 0; text-align: left; max-width: 680px;">
+                    <h2 style="margin-bottom: 0.5rem;">See the Difference in Action</h2>
+                    <p style="margin: 0; font-size: 0.95rem;">Adding simple <code>fair:</code> annotations transforms a
+                        low-level technical schema into a self-documenting, machine-actionable asset—while remaining
+                        <strong>100% valid and compatible with standard JSON Schema tools</strong> across Python,
+                        Node.js, Go, and Rust.
+                    </p>
+                </div>
+
+                <div class="format-toggle-container">
+                    <span class="format-toggle-label">Syntax:</span>
+                    <div class="format-toggle">
+                        <button id="btn-yaml" class="toggle-btn active" onclick="switchFormat('yaml')">YAML</button>
+                        <button id="btn-json" class="toggle-btn" onclick="switchFormat('json')">JSON</button>
+                    </div>
+                </div>
             </div>
 
             <div class="code-grid">
@@ -680,7 +806,22 @@
                         <span>Standard JSON Schema</span>
                         <span class="tag tag-bad">Technical Only</span>
                     </div>
-                    <pre><code>{
+                    <!-- YAML Syntax (Default) -->
+                    <pre class="code-block-yaml"><code>title: Weather Station Payload
+description: Raw surface observation data
+type: object
+properties:
+  station_id:
+    type: string
+  temp:
+    type: number
+    description: Temperature measurement
+  quality_flag:
+    type: integer
+    description: Data quality flag
+    enum: [0, 2, 3, 6, 7]</code></pre>
+                    <!-- JSON Syntax (Optional) -->
+                    <pre class="code-block-json" style="display: none;"><code>{
   "title": "Weather Station Payload",
   "description": "Raw surface observation data",
   "type": "object",
@@ -704,9 +845,46 @@
                         <span>FAIR Data JSON Schema</span>
                         <span class="tag tag-good">Machine-Actionable & Self-Documenting</span>
                     </div>
-                    <pre><code>{
+                    <!-- YAML Syntax (Default) -->
+                    <pre class="code-block-yaml"><code><span class="code-hl">$schema: https://highvaluedata.net/fair-data-schema/dev</span>
+title: Arctic Weather Station Surface Observations
+description: Raw surface observation data
+<span class="code-hl">fair:licenseRef: https://spdx.org/licenses/CC-BY-4.0</span>
+<span class="code-hl">fair:contributors:</span>
+<span class="code-hl">  - name: NOAA National Centers for Environmental Information</span>
+<span class="code-hl">    contributorRef: https://ror.org/007qwym43</span>
+<span class="code-hl">    role: Provider</span>
+type: object
+properties:
+  temp:
+    type: number
+    description: Temperature measurement
+    <span class="code-hl">fair:label: Ambient Surface Temperature</span>
+    <span class="code-hl">fair:quantity: Temperature</span>
+    <span class="code-hl">fair:quantityRef: https://qudt.org/vocab/quantitykind/Temperature</span>
+    <span class="code-hl">fair:measurementUnit: "Degree Celsius (°C)"</span>
+    <span class="code-hl">fair:measurementUnitRef: http://qudt.org/vocab/unit/DEG_C</span>
+  quality_flag:
+    type: integer
+    description: Data quality flag
+    <span class="code-hl">fair:classification: WMO Quality Flags</span>
+    oneOf:
+      - const: 0
+        title: Good / OK
+      - const: 2
+        title: Suspect / Doubtful
+      - const: 3
+        title: Incorrect value
+      - const: 6
+        title: Estimated / Synthetic
+      - const: 7
+        title: Missing value marker
+        <span class="code-hl">fair:sentinel: true</span></code></pre>
+                    <!-- JSON Syntax (Optional) -->
+                    <pre class="code-block-json" style="display: none;"><code>{
   <span class="code-hl">"$schema": "https://highvaluedata.net/fair-data-schema/dev"</span>,
   "title": "Arctic Weather Station Surface Observations",
+  "description": "Raw surface observation data",
   <span class="code-hl">"fair:licenseRef": "https://spdx.org/licenses/CC-BY-4.0"</span>,
   <span class="code-hl">"fair:contributors": [
     {
@@ -719,6 +897,7 @@
   "properties": {
     "temp": {
       "type": "number",
+      "description": "Temperature measurement",
       <span class="code-hl">"fair:label": "Ambient Surface Temperature"</span>,
       <span class="code-hl">"fair:quantity": "Temperature"</span>,
       <span class="code-hl">"fair:quantityRef": "https://qudt.org/vocab/quantitykind/Temperature"</span>,
@@ -727,6 +906,7 @@
     },
     "quality_flag": {
       "type": "integer",
+      "description": "Data quality flag",
       <span class="code-hl">"fair:classification": "WMO Quality Flags"</span>,
       "oneOf": [
         { "const": 0, "title": "Good / OK" },
@@ -745,36 +925,43 @@
         <!-- Resource Exploration Cards -->
         <div class="actions-grid">
             <a href="docs/" class="action-card">
-                <svg class="action-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="action-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                     <polyline points="14 2 14 8 20 8" />
                     <line x1="16" y1="13" x2="8" y2="13" />
                     <line x1="16" y1="17" x2="8" y2="17" />
                 </svg>
                 <h3>Documentation & Guides</h3>
-                <p>Read the comprehensive technical specifications, CDIF alignment guides, and Python SDK documentation.</p>
+                <p>Read the comprehensive technical specifications, CDIF alignment guides, and Python SDK documentation.
+                </p>
                 <span class="action-link">Explore Docs &rarr;</span>
             </a>
 
             <a href="docs/cookbook/index.html" class="action-card">
-                <svg class="action-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="action-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="16 18 22 12 16 6" />
                     <polyline points="8 6 2 12 8 18" />
                     <line x1="12" y1="2" x2="12" y2="22" />
                 </svg>
                 <h3>Cookbook & Examples</h3>
-                <p>Browse copy-pasteable schema examples for wide datasets, variables, classifications, and controlled vocabularies.</p>
+                <p>Browse copy-pasteable schema examples for wide datasets, variables, classifications, and controlled
+                    vocabularies.</p>
                 <span class="action-link">View Cookbook &rarr;</span>
             </a>
 
             <a href="docs/specs/index.html" class="action-card">
-                <svg class="action-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+                <svg class="action-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
                     <path d="m3.3 7 8.7 5 8.7-5" />
                     <path d="M12 22V12" />
                 </svg>
                 <h3>Specifications & Keywords</h3>
-                <p>Explore the complete keyword reference, scope definitions (Universal, Dataset, Property), and semantic mappings.</p>
+                <p>Explore the complete keyword reference, scope definitions (Universal, Dataset, Property), and
+                    semantic mappings.</p>
                 <span class="action-link">Inspect Specifications &rarr;</span>
             </a>
         </div>
@@ -789,6 +976,44 @@
             <p>&copy; 2026 High-Value Data Network. Released under the MIT License.</p>
         </footer>
     </div>
+    <script>
+        function adjustCodeBoxHeights() {
+            const yamlActive = document.getElementById('btn-yaml').classList.contains('active');
+            const sourcePre = document.querySelector(yamlActive ? '.code-box:first-child .code-block-yaml' : '.code-box:first-child .code-block-json');
+            if (sourcePre) {
+                const codeElem = sourcePre.querySelector('code');
+                const codeHeight = codeElem ? codeElem.offsetHeight : 255;
+                // Target height = source text height + 25% padding + container padding
+                const targetHeight = Math.round(codeHeight * 1.55 + 30);
+                document.querySelectorAll('pre').forEach(p => {
+                    p.style.height = targetHeight + 'px';
+                });
+            }
+        }
+
+        function switchFormat(format) {
+            const yamlBlocks = document.querySelectorAll('.code-block-yaml');
+            const jsonBlocks = document.querySelectorAll('.code-block-json');
+            const yamlBtn = document.getElementById('btn-yaml');
+            const jsonBtn = document.getElementById('btn-json');
+
+            if (format === 'yaml') {
+                yamlBlocks.forEach(b => b.style.display = 'block');
+                jsonBlocks.forEach(b => b.style.display = 'none');
+                yamlBtn.classList.add('active');
+                jsonBtn.classList.remove('active');
+            } else {
+                yamlBlocks.forEach(b => b.style.display = 'none');
+                jsonBlocks.forEach(b => b.style.display = 'block');
+                jsonBtn.classList.add('active');
+                yamlBtn.classList.remove('active');
+            }
+            adjustCodeBoxHeights();
+        }
+
+        window.addEventListener('load', adjustCodeBoxHeights);
+        window.addEventListener('resize', adjustCodeBoxHeights);
+    </script>
 </body>
 
 </html>
