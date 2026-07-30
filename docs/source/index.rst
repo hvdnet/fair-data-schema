@@ -41,6 +41,7 @@ The FAIR Data JSON Schema follows a versioned release strategy:
    :caption: Cookbook & Guides
 
    cookbook/index
+   validation
    python-sdk
 
 .. toctree::
