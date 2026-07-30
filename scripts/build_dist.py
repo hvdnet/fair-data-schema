@@ -14,7 +14,8 @@ import sys
 from pathlib import Path
 
 import markdown
-from generate_models import generate
+from generate_python import generate as generate_python_models
+from generate_typescript import generate as generate_ts_models
 
 REPO_ROOT = Path(__file__).parent.parent
 SCHEMAS_ROOT = REPO_ROOT / "schemas"
@@ -45,23 +46,24 @@ def get_version() -> str:
 
 
 def ensure_models_updated(version: str) -> None:
-    """Ensure models.py for the given version exists and is up to date."""
+    """Ensure python/models.py and typescript/index.ts for the given version are up to date."""
     version_dir = SCHEMAS_ROOT / version
     vocab_path = version_dir / "vocab" / "annotations" / "index.json"
-    models_path = version_dir / "python" / "models.py"
+    py_models_path = version_dir / "python" / "models.py"
+    ts_models_path = version_dir / "typescript" / "index.ts"
 
     if not vocab_path.exists():
         return  # No vocab, nothing to generate from (e.g. empty dev track)
 
-    needs_gen = False
-    if not models_path.exists():
-        needs_gen = True
-    elif vocab_path.stat().st_mtime > models_path.stat().st_mtime:
-        needs_gen = True
+    vocab_mtime = vocab_path.stat().st_mtime
 
-    if needs_gen:
-        print(f"  Regenerating models for {version}...")
-        generate(version, models_path)
+    if not py_models_path.exists() or vocab_mtime > py_models_path.stat().st_mtime:
+        print(f"  Regenerating Python models for {version}...")
+        generate_python_models(version, py_models_path)
+
+    if not ts_models_path.exists() or vocab_mtime > ts_models_path.stat().st_mtime:
+        print(f"  Regenerating TypeScript models for {version}...")
+        generate_ts_models(version, ts_models_path)
 
 
 def process_directory(src_dir: Path, dest_root: Path, version_tag: str = "dev") -> None:

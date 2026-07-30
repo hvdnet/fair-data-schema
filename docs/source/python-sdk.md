@@ -124,5 +124,5 @@ The model file `src/fair_data_schema/models.py` is **auto-generated** from the F
 To regenerate the models for the development track:
 
 ```bash
-uv run python scripts/generate_models.py --version dev
+uv run python scripts/generate_python.py --version dev
 ```

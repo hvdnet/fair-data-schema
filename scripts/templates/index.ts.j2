@@ -1,0 +1,205 @@
+// AUTO-GENERATED — do not edit manually.
+// Source:  {{ vocab_uri }}
+// Version: {{ version }}
+// Run:     uv run python scripts/generate_typescript.py --version {{ version }}
+//
+// This module provides TypeScript types and Zod schemas for the FAIR Data JSON Schema dialect.
+// It covers the full JSON Schema Draft 2020-12 vocabulary plus all FAIR extension
+// annotations defined in {{ vocab_uri }}.
+/**
+ * FAIR Data Schema — TypeScript types & Zod schemas (auto-generated).
+ */
+
+import { z } from "zod";
+
+// ---------------------------------------------------------------------------
+// Type aliases & primitive schemas
+// ---------------------------------------------------------------------------
+
+/** A string or a BCP-47 language-mapped dict, e.g. {"en": "Age", "fr": "Âge"}. */
+export type I18nString = string | Record<string, string>;
+export const I18nStringSchema = z.union([z.string(), z.record(z.string(), z.string())]);
+
+/** A Markdown-formatted string or a language-mapped dict of Markdown strings. */
+export type I18nText = string | Record<string, string>;
+export const I18nTextSchema = z.union([z.string(), z.record(z.string(), z.string())]);
+
+/** Valid JSON Schema ``type`` values. */
+export type JsonType = "string" | "integer" | "number" | "boolean" | "array" | "object" | "null";
+export const JsonTypeSchema = z.enum(["string", "integer", "number", "boolean", "array", "object", "null"]);
+
+// ---------------------------------------------------------------------------
+// Helper models (generated from inline object definitions in the vocab)
+// ---------------------------------------------------------------------------
+
+{% for cls in helper_classes %}
+/** {{ cls.description }} */
+export const {{ cls.class_name }}Schema = z.object({
+  {% for field in cls.fields %}
+  {{ field.ts_name }}: {{ field.zod_schema }},
+  {% endfor %}
+}).passthrough();
+
+export type {{ cls.class_name }} = z.infer<typeof {{ cls.class_name }}Schema>;
+
+{% endfor %}
+// ---------------------------------------------------------------------------
+// SchemaNode — core recursive interface & Zod schema
+// ---------------------------------------------------------------------------
+
+/**
+ * A node in a FAIR-extended JSON Schema document.
+ * Covers full JSON Schema Draft 2020-12 plus FAIR annotation extensions.
+ */
+export interface SchemaNode {
+  // JSON Schema: core
+  $id?: string;
+  $ref?: string;
+  $anchor?: string;
+  $defs?: Record<string, SchemaNode>;
+  $vocabulary?: Record<string, boolean>;
+  $comment?: string;
+
+  // JSON Schema: metadata
+  title?: string;
+  description?: string;
+  default?: any;
+  deprecated?: boolean;
+  readOnly?: boolean;
+  writeOnly?: boolean;
+  examples?: any[];
+
+  // JSON Schema: validation
+  type?: JsonType | JsonType[];
+  enum?: any[];
+  const?: any;
+  minimum?: number;
+  maximum?: number;
+  exclusiveMinimum?: number;
+  exclusiveMaximum?: number;
+  multipleOf?: number;
+  minLength?: number;
+  maxLength?: number;
+  pattern?: string;
+  minItems?: number;
+  maxItems?: number;
+  uniqueItems?: boolean;
+  minContains?: number;
+  maxContains?: number;
+  required?: string[];
+  dependentRequired?: Record<string, string[]>;
+  minProperties?: number;
+  maxProperties?: number;
+
+  // JSON Schema: applicator
+  properties?: Record<string, SchemaNode>;
+  patternProperties?: Record<string, SchemaNode>;
+  additionalProperties?: SchemaNode | boolean;
+  items?: SchemaNode;
+  prefixItems?: SchemaNode[];
+  contains?: SchemaNode;
+  allOf?: SchemaNode[];
+  anyOf?: SchemaNode[];
+  oneOf?: SchemaNode[];
+  not?: SchemaNode;
+  if?: SchemaNode;
+  then?: SchemaNode;
+  else?: SchemaNode;
+
+  // JSON Schema: unevaluated
+  unevaluatedProperties?: SchemaNode | boolean;
+  unevaluatedItems?: SchemaNode | boolean;
+
+  // JSON Schema: format & content
+  format?: string;
+  contentEncoding?: string;
+  contentMediaType?: string;
+  contentSchema?: SchemaNode;
+
+  // FAIR extension annotations
+  {% for field in fair_fields %}
+  "{{ field.alias }}"?: {{ field.ts_type }};
+  {% endfor %}
+}
+
+export const SchemaNodeSchema: z.ZodType<SchemaNode> = z.lazy(() =>
+  z.object({
+    $id: z.string().optional(),
+    $ref: z.string().optional(),
+    $anchor: z.string().optional(),
+    $defs: z.record(z.string(), SchemaNodeSchema).optional(),
+    $vocabulary: z.record(z.string(), z.boolean()).optional(),
+    $comment: z.string().optional(),
+
+    title: z.string().optional(),
+    description: z.string().optional(),
+    default: z.any().optional(),
+    deprecated: z.boolean().optional(),
+    readOnly: z.boolean().optional(),
+    writeOnly: z.boolean().optional(),
+    examples: z.array(z.any()).optional(),
+
+    type: z.union([JsonTypeSchema, z.array(JsonTypeSchema)]).optional(),
+    enum: z.array(z.any()).optional(),
+    const: z.any().optional(),
+    minimum: z.number().optional(),
+    maximum: z.number().optional(),
+    exclusiveMinimum: z.number().optional(),
+    exclusiveMaximum: z.number().optional(),
+    multipleOf: z.number().optional(),
+    minLength: z.number().optional(),
+    maxLength: z.number().optional(),
+    pattern: z.string().optional(),
+    minItems: z.number().optional(),
+    maxItems: z.number().optional(),
+    uniqueItems: z.boolean().optional(),
+    minContains: z.number().optional(),
+    maxContains: z.number().optional(),
+    required: z.array(z.string()).optional(),
+    dependentRequired: z.record(z.string(), z.array(z.string())).optional(),
+    minProperties: z.number().optional(),
+    maxProperties: z.number().optional(),
+
+    properties: z.record(z.string(), SchemaNodeSchema).optional(),
+    patternProperties: z.record(z.string(), SchemaNodeSchema).optional(),
+    additionalProperties: z.union([SchemaNodeSchema, z.boolean()]).optional(),
+    items: SchemaNodeSchema.optional(),
+    prefixItems: z.array(SchemaNodeSchema).optional(),
+    contains: SchemaNodeSchema.optional(),
+    allOf: z.array(SchemaNodeSchema).optional(),
+    anyOf: z.array(SchemaNodeSchema).optional(),
+    oneOf: z.array(SchemaNodeSchema).optional(),
+    not: SchemaNodeSchema.optional(),
+    if: SchemaNodeSchema.optional(),
+    then: SchemaNodeSchema.optional(),
+    else: SchemaNodeSchema.optional(),
+
+    unevaluatedProperties: z.union([SchemaNodeSchema, z.boolean()]).optional(),
+    unevaluatedItems: z.union([SchemaNodeSchema, z.boolean()]).optional(),
+
+    format: z.string().optional(),
+    contentEncoding: z.string().optional(),
+    contentMediaType: z.string().optional(),
+    contentSchema: SchemaNodeSchema.optional(),
+
+    {% for field in fair_fields %}
+    "{{ field.alias }}": {{ field.zod_schema }}.optional(),
+    {% endfor %}
+  }).passthrough()
+);
+
+// ---------------------------------------------------------------------------
+// DatasetSchema — root-level dataset schema
+// ---------------------------------------------------------------------------
+
+/** Root-level FAIR dataset schema interface. */
+export interface DatasetSchema extends SchemaNode {
+  $schema?: string;
+}
+
+/** Root-level FAIR dataset schema Zod validation schema. */
+export const DatasetSchemaSchema: z.ZodType<DatasetSchema> = SchemaNodeSchema.and(
+  z.object({
+    $schema: z.string().default("{{ dialect_uri }}").optional(),
+  })
+);

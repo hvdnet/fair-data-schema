@@ -1,7 +1,7 @@
 # AUTO-GENERATED — do not edit manually.
 # Source:  https://highvaluedata.net/fair-data-schema/dev/vocab/annotations
 # Version: dev
-# Run:     uv run python scripts/generate_models.py --version dev
+# Run:     uv run python scripts/generate_python.py --version dev
 #
 # This module provides Pydantic models for the FAIR Data JSON Schema dialect.
 # It covers the full JSON Schema Draft 2020-12 vocabulary plus all FAIR extension

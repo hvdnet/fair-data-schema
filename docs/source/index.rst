@@ -43,6 +43,7 @@ The FAIR Data JSON Schema follows a versioned release strategy:
    cookbook/index
    validation
    python-sdk
+   typescript-sdk
 
 .. toctree::
    :maxdepth: 2

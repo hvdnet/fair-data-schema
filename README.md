@@ -164,15 +164,17 @@ cd fair-data-schema
 make install
 ```
 
-### Programmatic Authoring (Python SDK)
+### Programmatic Authoring & Code Models (Python & TypeScript)
 
-The project generates **standalone** Pydantic models for the FAIR Data JSON Schema dialect. You can find them in the versioned schema directories (e.g., `schemas/dev/python/models.py`).
+The project generates **standalone** models for the FAIR Data JSON Schema dialect across multiple language environments:
+
+#### Python (Pydantic 2.x)
+Find Pydantic models in `schemas/dev/python/models.py`:
 
 ```python
 # Copy schemas/dev/python/models.py to your project
 from models import DatasetSchema, SchemaNode
 
-# Create a schema effortlessly
 schema = DatasetSchema(
     title="My FAIR Dataset",
     fair_license="CC-BY-4.0",
@@ -181,11 +183,32 @@ schema = DatasetSchema(
     }
 )
 
-# Save to file
 schema.to_file("my-schema.json")
 ```
 
-For more details, see the [Python SDK Documentation](https://highvaluedata.net/fair-data-schema/docs/python-sdk.html).
+See the [Python SDK Documentation](docs/source/python-sdk.md).
+
+#### TypeScript & Zod (Node.js & Web)
+Find TypeScript interfaces and Zod schemas in `schemas/dev/typescript/index.ts`:
+
+```typescript
+import { DatasetSchemaSchema, DatasetSchema } from "./schemas/dev/typescript/index.ts";
+
+// Parse and validate at runtime with Zod
+const schema: DatasetSchema = DatasetSchemaSchema.parse(rawJsonData);
+console.log(schema.title, schema["fair:license"]);
+```
+
+See the [TypeScript SDK Documentation](docs/source/typescript-sdk.md).
+
+#### Code Generation Commands
+
+To regenerate models from updated meta-schemas:
+
+```bash
+uv run python scripts/generate_python.py --version dev
+uv run python scripts/generate_typescript.py --version dev
+```
 
 ### Validate a Schema & Instance (CLI)
 

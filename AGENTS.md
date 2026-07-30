@@ -160,16 +160,17 @@ The project version is the single source of truth for all release-related activi
 
 CLI entry point: `fair-data-schema` (defined in `pyproject.toml [project.scripts]`)
 
-### Pydantic Models & Generation
+### Code Generation (Python Pydantic & TypeScript Zod)
 
-To ensure consistency between the JSON Schema vocabularies and Python tooling, `models.py` is auto-generated from the meta-schemas.
+To ensure consistency between the JSON Schema vocabularies and target runtime environments, Python Pydantic models and TypeScript/Zod schemas are auto-generated from the meta-schemas.
 
-**Do not hand-edit `src/fair_data_schema/models.py`.**
+**Do not hand-edit generated models.**
 
-To regenerate models (e.g., after changing a vocabulary in `schemas/`):
+To regenerate code models (e.g., after changing a vocabulary in `schemas/`):
 
 ```bash
-uv run python scripts/generate_models.py --version dev
+uv run python scripts/generate_python.py --version dev
+uv run python scripts/generate_typescript.py --version dev
 ```
 
 ## Web Template & Landing Page Conventions

@@ -1,9 +1,9 @@
-"""Generate ``src/fair_data_schema/models.py`` from the FAIR annotations vocabulary.
+"""Generate Python Pydantic models from the FAIR annotations vocabulary.
 
 Usage::
 
-    uv run python scripts/generate_models.py --version dev
-    uv run python scripts/generate_models.py --version 0.1.0
+    uv run python scripts/generate_python.py --version dev
+    uv run python scripts/generate_python.py --version 0.1.0
 """
 
 from __future__ import annotations
