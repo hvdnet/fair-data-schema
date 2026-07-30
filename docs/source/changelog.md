@@ -2,6 +2,17 @@
 
 All notable changes to the **FAIR Data JSON Schema** project will be documented in this file.
 
+## [2026-07-29] - CDIF v1.1 Alignment & RO-Crate Exporter
+
+- **CDIF v1.1 Profile Alignment**: Conducted an exhaustive alignment audit against the CODATA Cross-Domain Interoperability Framework (CDIF v1.1) profiles, documenting 95%+ conceptual equivalence across Core, Discovery, Structure, and Cascade profiles.
+- **New Tier 2 Keywords**:
+  - `fair:structureType`: Dataset-level layout classification (`"wide"`, `"long"`, `"dimensional"`, `"key-value"`).
+  - `fair:quality`: Data quality measurements (`metric`, `metricRef`, `value`, `description`) aligned with W3C Data Quality Vocabulary (`dqv:hasQualityMeasurement`).
+  - `fair:measurementTechnique` & `fair:measurementTechniqueRef`: Technology, method, or protocol used to measure values.
+- **Refinements Vocabulary**: Added `CatalogRecord` (`$defs/CatalogRecord`) for metadata record provenance (`conformsTo`, `sdDatePublished`, `includedInDataCatalog`, `about`, `maintainer`) matching CDIF Core / DCAT `dcat:CatalogRecord`.
+- **RO-Crate 1.1 Exporter**: Added `to_ro_crate()` exporter function and `fair-data-schema export ro-crate` CLI command to convert FAIR Data JSON Schemas into RO-Crate 1.1 `@graph` manifests.
+- **Examples & Cookbook**: Added `examples/cdif-profile-alignment.json` and `examples/cdif-profile-alignment.md` showcasing CDIF profile annotations and export tooling.
+
 ## [2026-03-23] - Generic Attribution & Controlled Vocabularies
 
 - **Meta-Schema**: Replaced specific `fair:provider` keywords with a generic `fair:entities` attribution model.
