@@ -37,7 +37,14 @@ extensions = [
 myst_enable_extensions = ["colon_fence", "deflist", "tasklist"]
 
 templates_path = ["_templates"]
-exclude_patterns: list[str] = []
+exclude_patterns: list[str] = [
+    "_build",
+    "Thumbs.db",
+    ".DS_Store",
+    "**/drafts/**",
+    "**/_*.md",
+    "**.draft.md",
+]
 
 html_theme = "sphinx_book_theme"
 html_static_path = ["_static"]

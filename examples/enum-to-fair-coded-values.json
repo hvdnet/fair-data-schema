@@ -20,7 +20,7 @@
                 },
                 {
                     "const": 9,
-                    "title": "Don't know",
+                    "title": "Did not answer",
                     "fair:sentinel": true
                 }
             ]
@@ -38,7 +38,7 @@
                         "fr": "Oui",
                         "de": "Ja"
                     },
-                    "fair:conceptRef": "https://www.wikidata.org/wiki/Q231043"
+                    "fair:conceptRef": "https://www.wikidata.org/wiki/Q6452715"
                 },
                 {
                     "const": 2,
@@ -48,7 +48,17 @@
                         "fr": "Non",
                         "de": "Nein"
                     },
-                    "fair:conceptRef": "https://www.wikidata.org/wiki/Q15303"
+                    "fair:conceptRef": "https://www.wikidata.org/wiki/Q1814990"
+                },
+                {
+                    "const": 9,
+                    "title": "Did not answer",
+                    "fair:label": {
+                        "en": "Did not answer",
+                        "fr": "Pas de réponse",
+                        "de": "Keine Antwort"
+                    },
+                    "fair:sentinel": true
                 }
             ]
         },
@@ -82,12 +92,12 @@
     "properties": {
         "standard_enum": {
             "title": "1. Standard Enum",
-            "description": "Simplest approach. Validates against a list, but has no place for labels.",
-            "type": "string",
+            "description": "Simplest approach. Validates against a list of values, but has no place for human labels.",
+            "type": "integer",
             "enum": [
-                "red",
-                "green",
-                "blue"
+                1,
+                2,
+                9
             ]
         },
         "inline_oneof": {
@@ -96,16 +106,16 @@
             "type": "integer",
             "oneOf": [
                 {
-                    "const": 0,
-                    "title": "Low"
+                    "const": 1,
+                    "title": "Yes"
                 },
                 {
-                    "const": 5,
-                    "title": "Medium"
+                    "const": 2,
+                    "title": "No"
                 },
                 {
-                    "const": 10,
-                    "title": "High"
+                    "const": 9,
+                    "title": "Did not answer"
                 }
             ]
         },

@@ -22,57 +22,59 @@ The most basic way to restrict a value in JSON Schema is the [`enum`](https://js
 
 ```json
 {
-  "type": "string",
-  "enum": ["red", "green", "blue"]
+  "type": "integer",
+  "enum": [1, 2, 9]
 }
 ```
 
 **Pros**: extremely simple; natively supported by all tools.
-**Cons**: No way to associate a human-readable label or description with each code. The codes must be self-explanatory.
+**Cons**: No way to associate human-readable labels (`"Yes"`, `"No"`, `"Did not answer"`) or semantic context with each numeric code.
 
 ---
 
 ## 2. The Labeled Enum Pattern (Standard JSON Schema)
 
-To associate a label like "Yes" with a code like `1`, we use the [**`oneOf`**](https://json-schema.org/draft/2020-12/json-schema-core#name-oneof) + [**`const`**](https://json-schema.org/draft/2020-12/json-schema-validation#name-const) pattern. This is **100% standard JSON Schema**, requires no extensions, and is natively supported by all standard-compliant JSON Schema validators.
+To associate labels like `"Yes"` or `"Did not answer"` with numerical codes like `1`, `2`, and `9`, we use the [**`oneOf`**](https://json-schema.org/draft/2020-12/json-schema-core#name-oneof) + [**`const`**](https://json-schema.org/draft/2020-12/json-schema-validation#name-const) pattern. This is **100% standard JSON Schema**, requires no extensions, and is natively supported by all standard-compliant JSON Schema validators.
 
 ```json
 {
   "type": "integer",
   "oneOf": [
     { "const": 1, "title": "Yes" },
-    { "const": 2, "title": "No" }
+    { "const": 2, "title": "No" },
+    { "const": 9, "title": "Did not answer" }
   ]
 }
 ```
 
-By using the standard [`title`](https://json-schema.org/draft/2020-12/json-schema-validation#name-title) keyword inside each `oneOf` branch, you create an unambiguous mapping between the stored value and its human-readable representation.
+By using the standard [`title`](https://json-schema.org/draft/2020-12/json-schema-validation#name-title) keyword inside each `oneOf` branch, you create an unambiguous mapping between the stored numeric value and its human-readable representation.
 
 ---
 
 ## 3. The Shared Response Domain (DRY Principle)
 
-In data stewardship, many variables often share the same "Response Domain" (e.g., several "Yes/No" questions in a survey). Instead of repeating the `oneOf` logic, you define it once in `$defs` and reference it using `$ref`.
+In data stewardship, many variables often share the same "Response Domain" (e.g., several "Yes/No/Did not answer" survey questions). Instead of repeating the `oneOf` logic, you define it once in `$defs` and reference it using `$ref`.
 
 ```json
 {
   "$defs": {
-    "YesNo": {
+    "SimpleSharedDomain": {
       "type": "integer",
       "oneOf": [
         { "const": 1, "title": "Yes" },
-        { "const": 2, "title": "No" }
+        { "const": 2, "title": "No" },
+        { "const": 9, "title": "Did not answer" }
       ]
     }
   },
   "properties": {
-    "satisfied": { "$ref": "#/$defs/YesNo" },
-    "completed": { "$ref": "#/$defs/YesNo" }
+    "satisfied": { "$ref": "#/$defs/SimpleSharedDomain" },
+    "completed": { "$ref": "#/$defs/SimpleSharedDomain" }
   }
 }
 ```
 
-This ensures consistency: if you decide to change the label "Yes" to "Agree", you only change it in one place, and it updates across all variables.
+This ensures consistency: if you decide to update a label, you only change it in one place, and it updates across all variables.
 
 ---
 
@@ -81,23 +83,34 @@ This ensures consistency: if you decide to change the label "Yes" to "Agree", yo
 While `title` is great for simple labels, FAIR data requires more depth: multilingual support, semantic pointers, and persistence. The **FAIR Data JSON Schema** dialect extends the `oneOf` pattern with custom keywords.
 
 ```json
-{
-  "const": 1,
-  "title": "Yes",
-  "fair:label": {
-    "en": "Yes",
-    "fr": "Oui",
-    "de": "Ja"
+"oneOf": [
+  {
+    "const": 1,
+    "title": "Yes",
+    "fair:label": { "en": "Yes", "fr": "Oui", "de": "Ja" },
+    "fair:conceptRef": "https://www.wikidata.org/wiki/Q6452715"
   },
-  "fair:conceptRef": "https://www.wikidata.org/wiki/Q231043"
-}
+  {
+    "const": 2,
+    "title": "No",
+    "fair:label": { "en": "No", "fr": "Non", "de": "Nein" },
+    "fair:conceptRef": "https://www.wikidata.org/wiki/Q1814990"
+  },
+  {
+    "const": 9,
+    "title": "Did not answer",
+    "fair:label": { "en": "Did not answer", "fr": "Pas de réponse", "de": "Keine Antwort" },
+    "fair:sentinel": true
+  }
+]
 ```
 
 ### Why use FAIR extensions instead of just `title`?
 
-1.  **Multilingualism**: Standard `title` is a single string. `fair:label` supports localized objects.
-2.  **Semantic Context**: `fair:conceptRef` links the code to a global ontology (like Wikidata or SKOS), making the data machine-understandable across different languages and systems.
-3.  **Variable Cascade**: This pattern implements a light version of the DDI "Variable Cascade." The shared definition in `$defs` acts as the *Represented Variable*, while the local property in `properties` acts as the *Instance Variable*, allowing you to have a local label (e.g., "User's Satisfaction") while inheriting a global domain definition.
+1. **Multilingualism**: Standard `title` is a single string. `fair:label` supports localized objects.
+2. **Sentinel Values**: Flag non-response or missing data codes (e.g. `9: Did not answer`) with `"fair:sentinel": true` so data pipelines and AI agents filter them automatically.
+3. **Semantic Context**: `fair:conceptRef` links valid codes to global ontology URIs (like Wikidata or SKOS).
+4. **Variable Cascade**: This pattern implements a lightweight version of the DDI "Variable Cascade." The shared definition in `$defs` acts as the *Represented Variable*, while the property in `properties` acts as the *Instance Variable*.
 
 ---
 

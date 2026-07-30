@@ -22,6 +22,21 @@ The FAIR Data JSON Schema follows a versioned release strategy:
    cdif_comparison
 
 .. toctree::
+   :maxdepth: 1
+   :caption: Publications
+
+   publications/index
+   publications/vision-and-positioning
+   publications/bridging-the-gap-fair-json-schema
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Specifications
+
+   specs/index
+   specs/keywords
+
+.. toctree::
    :maxdepth: 2
    :caption: Cookbook & Guides
 
@@ -30,7 +45,7 @@ The FAIR Data JSON Schema follows a versioned release strategy:
 
 .. toctree::
    :maxdepth: 2
-   :caption: Extension Mechanisms
+   :caption: Extension Mechanisms (Advanced)
 
    mechanisms/index
 

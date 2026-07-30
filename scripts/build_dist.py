@@ -22,6 +22,7 @@ SRC_DEV = SCHEMAS_ROOT / "dev"
 SRC_EXAMPLES = REPO_ROOT / "examples"
 DIST_DIR = REPO_ROOT / "dist"
 CV_ROOT = REPO_ROOT / "cv"
+ADVOCACY_ROOT = REPO_ROOT / "advocacy"
 PYPROJECT_TOML = REPO_ROOT / "pyproject.toml"
 
 PROTOTYPE_WARNING = """

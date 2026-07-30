@@ -20,6 +20,13 @@ Get started in minutes using simple, intuitive annotations for everyday datasets
 Annotate a simple, single-table dataset with title, license, unit type, measurement units, and self-documenting codes.
 :::
 
+:::{grid-item-card} 🏷️ Coded Values & Enums
+:link: enum-to-fair-coded-values
+:link-type: doc
+
+Learn how to evolve standard JSON Schema `enum` fields into self-documenting FAIR coded values mapped to human titles and web concepts.
+:::
+
 :::{grid-item-card} 🌐 Multilingual Metadata (i18n)
 :link: multilingual
 :link-type: doc
@@ -32,13 +39,6 @@ Learn how to write multilingual titles, labels, descriptions, and coded values u
 :link-type: doc
 
 Validate JSON data against FAIR schemas using common tools (Python `jsonschema`, Node.js `ajv`, CLI, Go, Java).
-:::
-
-:::{grid-item-card} 🏷️ Coded Values & Enums
-:link: enum-to-fair-coded-values
-:link-type: doc
-
-Learn how to evolve standard JSON Schema `enum` fields into self-documenting FAIR coded values mapped to human titles and web concepts.
 :::
 ::::
 
@@ -89,9 +89,9 @@ Explore the four core mechanisms used to extend JSON Schema: Annotations, Vocabu
 :hidden:
 
 simple-dataset
+enum-to-fair-coded-values
 multilingual
 validation
-enum-to-fair-coded-values
 data-products
 complex-data-product
 variable-cascade

@@ -75,8 +75,8 @@ Inside the property definitions, we annotate the fields with units, concepts, an
   "temperature": {
     "title": "Air Temperature",
     "type": "number",
-    "fair:measurementUnit": "Celsius",
-    "fair:measurementUnitRef": "http://www.wikidata.org/entity/Q52261"
+    "fair:measurementUnit": "Degree Celsius (°C)",
+    "fair:measurementUnitRef": "http://qudt.org/vocab/unit/DEG_C"
   },
   "status": {
     "title": "Operational Status",
@@ -92,7 +92,7 @@ Inside the property definitions, we annotate the fields with units, concepts, an
 ```
 
 ### Key Takeaways
-- **`fair:measurementUnit` & `Ref`**: Disambiguates numbers (`21.5`) as **Celsius** with a Wikidata URI.
+- **`fair:measurementUnit` & `Ref`**: Disambiguates numbers (`21.5`) as **Degree Celsius (°C)** with a QUDT URI (`http://qudt.org/vocab/unit/DEG_C`).
 - **Self-Documenting Coded Values (`oneOf` + `const` + `title`)**: Converts raw status integers (`1`, `2`, `3`) into human-readable titles (`"Active"`, `"Maintenance"`, `"Offline"`).
 
 ---

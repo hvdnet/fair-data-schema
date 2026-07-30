@@ -28,8 +28,8 @@
             "temperature": {
                 "title": "Air Temperature",
                 "type": "number",
-                "fair:measurementUnit": "Celsius",
-                "fair:measurementUnitRef": "http://www.wikidata.org/entity/Q52261"
+                "fair:measurementUnit": "Degree Celsius (°C)",
+                "fair:measurementUnitRef": "http://qudt.org/vocab/unit/DEG_C"
             },
             "status": {
                 "title": "Operational Status",

@@ -18,7 +18,7 @@
   "fair:contributors": [
     {
       "name": "European Environment Agency",
-      "contributorRef": "https://ror.org/03375cb05",
+      "contributorRef": "https://ror.org/00z2b8r11",
       "type": "Organization",
       "role": "Provider",
       "roleRef": "https://highvaluedata.net/fair-data-schema/cv/contributor-roles-v1#provider"
