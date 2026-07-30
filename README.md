@@ -201,6 +201,18 @@ console.log(schema.title, schema["fair:license"]);
 
 See the [TypeScript SDK Documentation](docs/source/typescript-sdk.md).
 
+#### Rust (`serde`)
+Find Rust serde data models in `schemas/dev/rust/src/lib.rs`:
+
+```rust
+use fair_data_schema::DatasetSchema;
+
+let schema: DatasetSchema = serde_json::from_str(&raw_json_str)?;
+println!("Title: {:?}", schema.node.title);
+```
+
+See the [Rust SDK Documentation](docs/source/rust-sdk.md).
+
 #### Code Generation Commands
 
 To regenerate models from updated meta-schemas:
@@ -208,6 +220,7 @@ To regenerate models from updated meta-schemas:
 ```bash
 uv run python scripts/generate_python.py --version dev
 uv run python scripts/generate_typescript.py --version dev
+uv run python scripts/generate_rust.py --version dev
 ```
 
 ### Validate a Schema & Instance (CLI)

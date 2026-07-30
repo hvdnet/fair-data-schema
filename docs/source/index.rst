@@ -44,6 +44,7 @@ The FAIR Data JSON Schema follows a versioned release strategy:
    validation
    python-sdk
    typescript-sdk
+   rust-sdk
 
 .. toctree::
    :maxdepth: 2

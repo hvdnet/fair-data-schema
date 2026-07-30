@@ -1,0 +1,173 @@
+// AUTO-GENERATED — do not edit manually.
+// Source:  {{ vocab_uri }}
+// Version: {{ version }}
+// Run:     uv run python scripts/generate_rust.py --version {{ version }}
+//
+// This module provides Rust structs and serde models for the FAIR Data JSON Schema dialect.
+// It covers the full JSON Schema Draft 2020-12 vocabulary plus all FAIR extension
+// annotations defined in {{ vocab_uri }}.
+//! FAIR Data Schema — Rust serde models (auto-generated).
+
+use std::collections::HashMap;
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+// ---------------------------------------------------------------------------
+// Type aliases & primitive enums
+// ---------------------------------------------------------------------------
+
+/// A string or a BCP-47 language-mapped map, e.g. {"en": "Age", "fr": "Âge"}.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(untagged)]
+pub enum I18nString {
+    Text(String),
+    Map(HashMap<String, String>),
+}
+
+/// A Markdown-formatted string or a language-mapped map of Markdown strings.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(untagged)]
+pub enum I18nText {
+    Text(String),
+    Map(HashMap<String, String>),
+}
+
+/// Valid JSON Schema type values.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "lowercase")]
+pub enum JsonType {
+    String,
+    Integer,
+    Number,
+    Boolean,
+    Array,
+    Object,
+    Null,
+}
+
+// ---------------------------------------------------------------------------
+// Helper models
+// ---------------------------------------------------------------------------
+
+{% for cls in helper_classes %}
+/// {{ cls.description }}
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Default)]
+pub struct {{ cls.class_name }} {
+    {% for field in cls.fields %}
+    {% if field.serde_rename %}
+    #[serde(rename = "{{ field.serde_rename }}", skip_serializing_if = "Option::is_none")]
+    {% else %}
+    #[serde(skip_serializing_if = "Option::is_none")]
+    {% endif %}
+    pub {{ field.rust_name }}: {{ field.rust_type }},
+    {% endfor %}
+}
+
+{% endfor %}
+// ---------------------------------------------------------------------------
+// SchemaNode — core recursive struct
+// ---------------------------------------------------------------------------
+
+/// A node in a FAIR-extended JSON Schema document.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Default)]
+pub struct SchemaNode {
+    // Core JSON Schema keywords
+    #[serde(rename = "$id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(rename = "$ref", skip_serializing_if = "Option::is_none")]
+    pub ref_uri: Option<String>,
+    #[serde(rename = "$anchor", skip_serializing_if = "Option::is_none")]
+    pub anchor: Option<String>,
+    #[serde(rename = "$defs", skip_serializing_if = "Option::is_none")]
+    pub defs: Option<HashMap<String, SchemaNode>>,
+    #[serde(rename = "$vocabulary", skip_serializing_if = "Option::is_none")]
+    pub vocabulary: Option<HashMap<String, bool>>,
+    #[serde(rename = "$comment", skip_serializing_if = "Option::is_none")]
+    pub comment: Option<String>,
+
+    // Metadata
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub default: Option<Value>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub deprecated: Option<bool>,
+    #[serde(rename = "readOnly", skip_serializing_if = "Option::is_none")]
+    pub read_only: Option<bool>,
+    #[serde(rename = "writeOnly", skip_serializing_if = "Option::is_none")]
+    pub write_only: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub examples: Option<Vec<Value>>,
+
+    // Validation
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<Value>,
+    #[serde(rename = "enum", skip_serializing_if = "Option::is_none")]
+    pub enum_values: Option<Vec<Value>>,
+    #[serde(rename = "const", skip_serializing_if = "Option::is_none")]
+    pub const_value: Option<Value>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub minimum: Option<f64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub maximum: Option<f64>,
+    #[serde(rename = "exclusiveMinimum", skip_serializing_if = "Option::is_none")]
+    pub exclusive_minimum: Option<f64>,
+    #[serde(rename = "exclusiveMaximum", skip_serializing_if = "Option::is_none")]
+    pub exclusive_maximum: Option<f64>,
+    #[serde(rename = "multipleOf", skip_serializing_if = "Option::is_none")]
+    pub multiple_of: Option<f64>,
+    #[serde(rename = "minLength", skip_serializing_if = "Option::is_none")]
+    pub min_length: Option<u64>,
+    #[serde(rename = "maxLength", skip_serializing_if = "Option::is_none")]
+    pub max_length: Option<u64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pattern: Option<String>,
+    #[serde(rename = "minItems", skip_serializing_if = "Option::is_none")]
+    pub min_items: Option<u64>,
+    #[serde(rename = "maxItems", skip_serializing_if = "Option::is_none")]
+    pub max_items: Option<u64>,
+    #[serde(rename = "uniqueItems", skip_serializing_if = "Option::is_none")]
+    pub unique_items: Option<bool>,
+
+    // Applicators
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub properties: Option<HashMap<String, SchemaNode>>,
+    #[serde(rename = "patternProperties", skip_serializing_if = "Option::is_none")]
+    pub pattern_properties: Option<HashMap<String, SchemaNode>>,
+    #[serde(rename = "additionalProperties", skip_serializing_if = "Option::is_none")]
+    pub additional_properties: Option<Value>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub items: Option<Box<SchemaNode>>,
+    #[serde(rename = "prefixItems", skip_serializing_if = "Option::is_none")]
+    pub prefix_items: Option<Vec<SchemaNode>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub contains: Option<Box<SchemaNode>>,
+    #[serde(rename = "allOf", skip_serializing_if = "Option::is_none")]
+    pub all_of: Option<Vec<SchemaNode>>,
+    #[serde(rename = "anyOf", skip_serializing_if = "Option::is_none")]
+    pub any_of: Option<Vec<SchemaNode>>,
+    #[serde(rename = "oneOf", skip_serializing_if = "Option::is_none")]
+    pub one_of: Option<Vec<SchemaNode>>,
+
+    // FAIR annotation fields
+    {% for field in fair_fields %}
+    #[serde(rename = "{{ field.alias }}", skip_serializing_if = "Option::is_none")]
+    pub {{ field.rust_name }}: {{ field.rust_type }},
+    {% endfor %}
+}
+
+// ---------------------------------------------------------------------------
+// DatasetSchema — root-level dataset schema
+// ---------------------------------------------------------------------------
+
+/// Root-level FAIR dataset schema struct.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Default)]
+pub struct DatasetSchema {
+    #[serde(rename = "$schema", skip_serializing_if = "Option::is_none")]
+    pub schema: Option<String>,
+
+    #[serde(flatten)]
+    pub node: SchemaNode,
+}

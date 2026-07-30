@@ -160,9 +160,9 @@ The project version is the single source of truth for all release-related activi
 
 CLI entry point: `fair-data-schema` (defined in `pyproject.toml [project.scripts]`)
 
-### Code Generation (Python Pydantic & TypeScript Zod)
+### Code Generation (Python Pydantic, TypeScript Zod & Rust Serde)
 
-To ensure consistency between the JSON Schema vocabularies and target runtime environments, Python Pydantic models and TypeScript/Zod schemas are auto-generated from the meta-schemas.
+To ensure consistency between the JSON Schema vocabularies and target runtime environments, Python Pydantic models, TypeScript/Zod schemas, and Rust serde structs are auto-generated from the meta-schemas.
 
 **Do not hand-edit generated models.**
 
@@ -171,7 +171,16 @@ To regenerate code models (e.g., after changing a vocabulary in `schemas/`):
 ```bash
 uv run python scripts/generate_python.py --version dev
 uv run python scripts/generate_typescript.py --version dev
+uv run python scripts/generate_rust.py --version dev
 ```
+
+### Generator Script & Output Registry
+
+| Target Language | Generator Script | Target Output Path | Primary Artifact |
+| :--- | :--- | :--- | :--- |
+| **Python** | `scripts/generate_python.py` | `schemas/<version>/python/models.py` | Standalone Pydantic 2.x models |
+| **TypeScript** | `scripts/generate_typescript.py` | `schemas/<version>/typescript/index.ts` | TS Interfaces & Zod validation schemas |
+| **Rust** | `scripts/generate_rust.py` | `schemas/<version>/rust/src/lib.rs` | Rust structs with `serde` annotations |
 
 ## Web Template & Landing Page Conventions
 

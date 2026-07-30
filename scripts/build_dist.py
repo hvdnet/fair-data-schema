@@ -15,6 +15,7 @@ from pathlib import Path
 
 import markdown
 from generate_python import generate as generate_python_models
+from generate_rust import generate as generate_rust_models
 from generate_typescript import generate as generate_ts_models
 
 REPO_ROOT = Path(__file__).parent.parent
@@ -46,11 +47,12 @@ def get_version() -> str:
 
 
 def ensure_models_updated(version: str) -> None:
-    """Ensure python/models.py and typescript/index.ts for the given version are up to date."""
+    """Ensure python, typescript, and rust models for the given version are up to date."""
     version_dir = SCHEMAS_ROOT / version
     vocab_path = version_dir / "vocab" / "annotations" / "index.json"
     py_models_path = version_dir / "python" / "models.py"
     ts_models_path = version_dir / "typescript" / "index.ts"
+    rust_models_path = version_dir / "rust" / "src" / "lib.rs"
 
     if not vocab_path.exists():
         return  # No vocab, nothing to generate from (e.g. empty dev track)
@@ -64,6 +66,10 @@ def ensure_models_updated(version: str) -> None:
     if not ts_models_path.exists() or vocab_mtime > ts_models_path.stat().st_mtime:
         print(f"  Regenerating TypeScript models for {version}...")
         generate_ts_models(version, ts_models_path)
+
+    if not rust_models_path.exists() or vocab_mtime > rust_models_path.stat().st_mtime:
+        print(f"  Regenerating Rust models for {version}...")
+        generate_rust_models(version, rust_models_path)
 
 
 def process_directory(src_dir: Path, dest_root: Path, version_tag: str = "dev") -> None:
