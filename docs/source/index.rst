@@ -54,9 +54,11 @@ The FAIR Data JSON Schema follows a versioned release strategy:
 
 .. toctree::
    :maxdepth: 1
-   :caption: Python Package
+   :caption: Language Packages & API Reference
 
    api/fair_data_schema
+   api/typescript_package
+   api/rust_package
 
 .. toctree::
    :maxdepth: 1
