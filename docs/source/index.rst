@@ -1,6 +1,9 @@
 FAIR JSON Meta-Schema
 =====================
 
+.. caution::
+   **EARLY DEVELOPMENT STAGE**: This project and its meta-schemas are in **early development for prototyping and testing only**. Focus is on implementing core vocabularies and ensuring architectural consistency. Avoid production-ready assumptions.
+
 A custom JSON Schema dialect and vocabularies for FAIR Datasets.
 
 Versioning

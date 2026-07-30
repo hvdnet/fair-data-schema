@@ -1,5 +1,8 @@
 # Background & Motivation
 
+> [!CAUTION]
+> **EARLY DEVELOPMENT STAGE**: This meta-schema and its vocabularies are currently in **early development for prototyping and testing only**. Focus is on implementing core vocabularies and ensuring architectural consistency. Avoid production-ready assumptions.
+
 ## The Challenge
 JSON Schema is the industry-standard language for describing and validating JSON data structures. It is widely adopted across the information technology ecosystem, powering everything from web APIs (OpenAPI) to data integration tools and modern AI agents.
 
