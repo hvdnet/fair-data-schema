@@ -39,6 +39,11 @@
         "release_2024_01": {
             "title": "January 2024 Release",
             "allOf": [ { "$ref": "#/$defs/BaseRelease" } ],
+            "fair:version": {
+                "identifier": "2024.01",
+                "date": "2024-02-01",
+                "notes": "Initial 2024 monthly release of economic indicators."
+            },
             "fair:temporalCoverage": {
                 "start": "2024-01-01",
                 "end": "2024-01-31"
@@ -57,6 +62,11 @@
         "release_2024_02": {
             "title": "February 2024 Release",
             "allOf": [ { "$ref": "#/$defs/BaseRelease" } ],
+            "fair:version": {
+                "identifier": "2024.02",
+                "date": "2024-03-01",
+                "notes": "Updated February indicator calculations incorporating revised employment figures."
+            },
             "fair:temporalCoverage": {
                 "start": "2024-02-01",
                 "end": "2024-02-29"

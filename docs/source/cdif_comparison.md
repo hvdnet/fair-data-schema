@@ -25,15 +25,15 @@ FAIR Data JSON Schema maps directly to CDIF v1.1 profiles across its **Tier 1 (E
 
 | CDIF v1.1 Profile ([book.cdif.org](https://book.cdif.org)) | Underlying Standards | FAIR Data JSON Schema Mapping | Tier Level |
 | :--- | :--- | :--- | :--- |
-| **Discovery Profile** | Schema.org, DCAT | `title`, `description`, `fair:label`, `fair:description`, `fair:spatialCoverage`, `fair:temporalCoverage` | **Tier 1 & Tier 2** |
+| **Discovery Profile** | Schema.org, DCAT, Dublin Core | `title`, `description`, `fair:label`, `fair:description`, `fair:version` (`identifier`, `date`), `fair:spatialCoverage`, `fair:temporalCoverage` | **Tier 1 & Tier 2** |
 | **Access & Rights Profile** | SPDX, Schema.org | `fair:license`, `fair:licenseRef` | **Tier 1** |
-| **Contributor & Provenance Profile** | PROV-O, DDI-CDI | `fair:contributors` (`name`, `contributorRef`, `type`, `role`, `startDate`, `endDate`) | **Tier 1** |
+| **Contributor & Provenance Profile** | PROV-O, DDI-CDI, SKOS | `fair:contributors` (`name`, `contributorRef`, `type`, `role`, `startDate`, `endDate`), `fair:version` (`notes` changelog/rationale -> `skos:changeNote`) | **Tier 1** |
 | **Data Description & Structure Profile**| DDI-CDI, CSVW | `fair:resourceType`, `fair:structureType` (`"wide"`, `"long"`, `"dimensional"`, `"key-value"`), `fair:unitType`, `fair:measurementUnit` | **Tier 1 & Tier 2** |
 | **Coded Values & Classifications Profile**| SKOS, DDI-CDI | `fair:classification` / `Ref`, `oneOf` + `const` + `title` (Hybrid Pattern), `fair:sentinel` | **Tier 1** |
 | **Variable Cascade Profile** | DDI-CDI | `fair:conceptualVariableRef`, `fair:representedVariableRef`, `fair:instanceVariableRef` | **Tier 2** |
 | **Population & Scope Bounds Profile** | DDI-CDI | `fair:universe` / `Ref`, `fair:population` / `Ref` | **Tier 2** |
 | **Data Quality & Measurement Techniques** | W3C DQV, ISO 19115 | `fair:quality` (metrics & values), `fair:measurementTechnique` / `Ref` | **Tier 2** |
-| **Cross-Dataset Relations Profile** | DDI-CDI, Dublin Core | `fair:datasetRelations` (`relationType`, `targetRef`, `sourceVariables`, `targetVariables`) | **Tier 2** |
+| **Cross-Dataset Relations & Versioning Profile** | DDI-CDI, Dublin Core, OWL | `fair:version` (`identifier` -> `owl:versionInfo`, `date` -> `dcterms:issued`), `fair:datasetRelations` (`relationType`, `targetRef`, `sourceVariables`, `targetVariables`) | **Tier 1 & Tier 2** |
 | **Catalog Record Provenance Profile** | DCAT (`dcat:CatalogRecord`) | `CatalogRecord` ($defs/CatalogRecord: `conformsTo`, `sdDatePublished`, `includedInDataCatalog`, `about`, `maintainer`) | **Refinements** |
 
 ---

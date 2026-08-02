@@ -94,6 +94,38 @@
         },
 
         "// Dataset Scope": { "description": "Keywords that describe a container, resource, or entire dataset (Provenance & Coverage)." },
+        "fair:version": {
+            "title": "Version Descriptor",
+            "description": "Describes the version, release date, and release notes/changelog for a dataset or resource.",
+            "oneOf": [
+                {
+                    "type": "string",
+                    "description": "A simple version string or tag. Semantic Versioning (MAJOR.MINOR.PATCH, e.g. '1.2.0') following https://semver.org is strongly encouraged."
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "identifier": {
+                            "type": "string",
+                            "title": "Version Identifier",
+                            "description": "Version identifier string or tag. Semantic Versioning (MAJOR.MINOR.PATCH, e.g. '1.2.0') following https://semver.org is strongly encouraged for compatibility tracking."
+                        },
+                        "date": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Version Release Date",
+                            "description": "Publication or release date of this version (ISO 8601 YYYY-MM-DD)."
+                        },
+                        "notes": {
+                            "$ref": "#/$defs/i18nText",
+                            "title": "Version Release Notes",
+                            "description": "Markdown-formatted release notes, changelog, breaking changes, or version change rationale."
+                        }
+                    },
+                    "required": ["identifier"]
+                }
+            ]
+        },
         "fair:datasetRelations": {
             "title": "Dataset Relationships",
             "description": "Describes relationships between this dataset and other resources (e.g. isPartOf, isVersionOf). Supports joins via source/target variables.",

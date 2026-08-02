@@ -63,6 +63,36 @@
                 "fair:classification": {
                     "type": "array",
                     "items": { "type": "string" }
+                },
+                "fair:version": {
+                    "oneOf": [
+                        { "type": "string" },
+                        { "$ref": "#/$defs/FairVersion" }
+                    ]
+                }
+            }
+        },
+        "FairVersion": {
+            "title": "FAIR Version Descriptor",
+            "description": "Reusable version descriptor resource containing version identifier, release date, and release notes.",
+            "type": "object",
+            "required": ["identifier"],
+            "properties": {
+                "identifier": {
+                    "type": "string",
+                    "title": "Version Identifier",
+                    "description": "Version identifier string or tag. Semantic Versioning (MAJOR.MINOR.PATCH, e.g. '1.2.0') following https://semver.org is strongly encouraged for compatibility tracking."
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date",
+                    "title": "Version Release Date",
+                    "description": "Publication or release date of this version (ISO 8601 YYYY-MM-DD)."
+                },
+                "notes": {
+                    "type": ["string", "object"],
+                    "title": "Version Release Notes",
+                    "description": "Markdown-formatted release notes, changelog, breaking changes, or version change rationale."
                 }
             }
         },
@@ -86,6 +116,12 @@
                 "title": { "type": "string" },
                 "description": { "type": ["string", "object"] },
                 "fair:description": { "type": ["string", "object"] },
+                "fair:version": {
+                    "oneOf": [
+                        { "type": "string" },
+                        { "$ref": "#/$defs/FairVersion" }
+                    ]
+                },
                 "fair:structureType": { "type": "string", "enum": ["wide", "long", "dimensional", "key-value"] },
                 "fair:unitType": { "type": ["string", "object"] },
                 "fair:unitTypeRef": { "type": "string" },

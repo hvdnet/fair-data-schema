@@ -24,6 +24,7 @@ Keywords describing provenance, temporal/spatial bounds, licensing, and overall 
 
 | Keyword | Type | Description & Usage |
 | :--- | :--- | :--- |
+| **`fair:version`** | `string` / `object` | Version descriptor resource (`identifier`, `date`, `notes`). Semantic Versioning (`MAJOR.MINOR.PATCH`, e.g., `"1.0.0"`) following [SemVer](https://semver.org) is strongly encouraged. |
 | **`fair:contributors`** | `array` | List of contributor agents (aligned with W3C PROV-O). Each item contains `name`, `contributorRef` (URI), `type` (e.g., `Person`, `Organization`), `role` (e.g., `Provider`, `Author`, `Curator`), and optional `startDate`/`endDate`. |
 | **`fair:license`** | `string` | Plain-text license identifier (e.g., `"CC-BY-4.0"`). |
 | **`fair:licenseRef`** | `string` (URI) | Direct URI to the license terms (e.g., `"https://spdx.org/licenses/CC-BY-4.0.html"`). |

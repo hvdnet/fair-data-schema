@@ -50,11 +50,11 @@ The FAIR Data JSON Schema vocabulary maps directly to the profiles defined in **
 
 | CDIF v1.1 Profile | FAIR Data JSON Schema Keywords |
 | :--- | :--- |
-| **Discovery & Access Profile** | `title`, `description`, `fair:label`, `fair:description`, `fair:license`/`Ref`, `fair:contributors` |
+| **Discovery & Access Profile** | `title`, `description`, `fair:label`, `fair:description`, `fair:version`, `fair:license`/`Ref`, `fair:contributors` |
 | **Data Structure Profile** | `fair:resourceType`, `fair:structureType`, `fair:unitType`/`Ref`, `fair:measurementUnit`/`Ref`, `fair:classification`/`Ref` |
 | **Variable Cascade Profile** | `fair:conceptualVariableRef`, `fair:representedVariableRef`, `fair:instanceVariableRef` |
 | **Population Bounds Profile** | `fair:universe`/`Ref`, `fair:population`/`Ref`, `fair:temporalCoverage`/`Ref`, `fair:spatialCoverage`/`Ref` |
-| **Data Quality & Lineage Profile**| `fair:quality`, `fair:measurementTechnique`/`Ref`, `fair:datasetRelations` |
+| **Data Quality & Lineage Profile**| `fair:quality`, `fair:measurementTechnique`/`Ref`, `fair:version`, `fair:datasetRelations` |
 
 ---
 
@@ -71,6 +71,7 @@ These keywords cover 90% of everyday data documentation needs. You can pick up a
 | `fair:resourceType` | `string` | Role of the schema object: `"data-product"`, `"dataset"`, or `"variable"`. |
 | `fair:label` | `i18nString` | Contextual human-readable label. |
 | `fair:description` | `i18nText` | Rich-text description (Markdown, multilingual). |
+| `fair:version` | `string`/`object`| Reusable version descriptor (`identifier`, `date`, `notes`). Semantic Versioning (`MAJOR.MINOR.PATCH`, https://semver.org) is strongly encouraged. |
 | `fair:license` / `Ref` | `i18n`/`uri`| Human-readable license name and machine SPDX link (e.g., CC-BY-4.0). |
 | `fair:contributors` | `array` | List of people, organizations, or software agents involved in creating/providing the data. |
 | `fair:unitType` / `Ref` | `i18n`/`uri`| Entity represented by 1 row in a table (e.g., `"Person"`, `"Household"`). |

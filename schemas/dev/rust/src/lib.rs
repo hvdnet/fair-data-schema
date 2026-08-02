@@ -175,6 +175,8 @@ pub struct SchemaNode {
     pub fair_label: Option<I18nString>,
     #[serde(rename = "fair:description", skip_serializing_if = "Option::is_none")]
     pub fair_description: Option<I18nText>,
+    #[serde(rename = "fair:version", skip_serializing_if = "Option::is_none")]
+    pub fair_version: Option<I18nString>,
     #[serde(rename = "fair:datasetRelations", skip_serializing_if = "Option::is_none")]
     pub fair_dataset_relations: Option<Vec<DatasetRelation>>,
     #[serde(rename = "fair:contributors", skip_serializing_if = "Option::is_none")]

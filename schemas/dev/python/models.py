@@ -145,6 +145,7 @@ class SchemaNode(BaseModel):
     fair_concept: I18nString | None = Field(None, alias="fair:concept")
     fair_label: I18nString | None = Field(None, alias="fair:label")
     fair_description: I18nText | None = Field(None, alias="fair:description")
+    fair_version: I18nString | None = Field(None, alias="fair:version")
     fair_dataset_relations: list[DatasetRelation] | None = Field(
         None, alias="fair:datasetRelations"
     )

@@ -132,6 +132,7 @@ export interface SchemaNode {
   "fair:concept"?: I18nString;
   "fair:label"?: I18nString;
   "fair:description"?: I18nText;
+  "fair:version"?: I18nString;
   "fair:datasetRelations"?: DatasetRelation[];
   "fair:contributors"?: any[];
   "fair:provider"?: I18nString;
@@ -232,6 +233,7 @@ export const SchemaNodeSchema: z.ZodType<SchemaNode> = z.lazy(() =>
     "fair:concept": I18nStringSchema.optional(),
     "fair:label": I18nStringSchema.optional(),
     "fair:description": I18nTextSchema.optional(),
+    "fair:version": I18nStringSchema.optional(),
     "fair:datasetRelations": z.array(DatasetRelationSchema).optional(),
     "fair:contributors": z.array(z.any()).optional(),
     "fair:provider": I18nStringSchema.optional(),

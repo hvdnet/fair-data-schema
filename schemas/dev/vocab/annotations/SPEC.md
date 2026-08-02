@@ -29,6 +29,10 @@ Keywords that provide basic semantic identification and can be applied to **any*
 ### 2. Dataset Scope (Container/Resource level)
 Keywords describing the **Provenance and Coverage** of a dataset, table, or resource.
 
+- **`fair:version`**: The version descriptor for the dataset or resource. Supports a simple string tag (e.g. `"1.2.0"`) or a structured object:
+    - **`identifier`**: Required string specifying the version tag. Using Semantic Versioning (`MAJOR.MINOR.PATCH`, e.g. `"1.2.0"`) following [SemVer](https://semver.org) is strongly encouraged.
+    - **`date`**: Optional release/publication date (ISO 8601 YYYY-MM-DD).
+    - **`notes`**: Optional markdown-formatted release notes, changelog, or version change rationale.
 - **`fair:contributors`**: A list of contributors (agents) associated with the resource.
     - **`name` / `contributorRef`**: Identification of the contributor.
     - **`type` / `typeRef`**: Category of the contributor. [Contributor Types CV](https://highvaluedata.net/fair-data-schema/cv/contributor-types-v1).
