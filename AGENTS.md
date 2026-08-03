@@ -118,12 +118,12 @@ Examples (Source):
 |---|---|
 | `uv` | Dependency management |
 | `ruff` | Linting & formatting |
-| `mypy` | Type checking |
+| `pyrefly` | Type checking |
 | `pytest` | Testing |
 | `typer` | CLI framework |
 | `jsonschema` | Schema validation (Draft 2020-12) |
 | Sphinx + MyST | Documentation |
-| `pre-commit` | Git hooks (ruff, check-json, mypy) |
+| `pre-commit` | Git hooks (ruff, check-json, pyrefly) |
 
 Setup: `uv sync && uv run pre-commit install`
 

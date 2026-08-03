@@ -17,6 +17,10 @@ dependencies = [
     "rich>=13",
 ]
 
+[tool.pyrefly.errors]
+redundant-cast = "warn"
+no-any-return = "error"
+
 [project.urls]
 Homepage = "https://highvaluedata.net/fair-data-schema/"
 Documentation = "https://highvaluedata.net/fair-data-schema/docs/"
@@ -26,7 +30,7 @@ Repository = "https://github.com/hvdnet/fair-data-schema"
 fair-data-schema = "fair_data_schema.cli:app"
 
 [project.optional-dependencies]
-dev = ["ruff>=0.6", "mypy>=1.10", "pytest>=8", "pytest-cov>=5", "pre-commit>=3", "httpx>=0.24"]
+dev = ["ruff>=0.6", "pyrefly>=1.0", "pytest>=8", "pytest-cov>=5", "pre-commit>=3", "httpx>=0.24"]
 api = ["fastapi>=0.100", "uvicorn[standard]>=0.20", "httpx>=0.24"]
 models = ["pydantic>=2"]
 docs = [
@@ -57,13 +61,6 @@ ignore = []
 # Auto-generated files — alias strings can exceed line-length limit
 "schemas/**/models.py" = ["E501"]
 
-[tool.mypy]
-python_version = "3.12"
-strict = true
-plugins = ["pydantic.mypy"]
-files = ["src", "tests", "scripts"]
-exclude = ["schemas/.*/python/models.py"]
-
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-v --tb=short"
@@ -72,5 +69,16 @@ pythonpath = ["src"]
 [tool.coverage.run]
 source = ["src/fair_data_schema"]
 
+[tool.pyrefly]
+project-includes = [
+    "src",
+    "tests",
+    "scripts",
+]
+project-excludes = ["**/schemas/*/python/models.py"]
+search-path = ["src", ".", "scripts", "tests", "schemas/dev/python"]
+enabled-ignores = ["type", "pyrefly", "mypy"]
+python-version = "3.12.0"
+
 [dependency-groups]
-dev = ["types-jsonschema>=4.26.0.20260202", "types-Markdown>=3.7", "pydantic>=2", "jinja2>=3", "fastapi>=0.100", "uvicorn[standard]>=0.20", "httpx>=0.24"]
+dev = ["types-jsonschema>=4.26.0.20260202", "types-Markdown>=3.7", "pydantic>=2", "jinja2>=3", "fastapi>=0.100", "uvicorn[standard]>=0.20", "httpx>=0.24", "pyrefly>=1.0"]
