@@ -71,10 +71,16 @@ gunicorn -w 4 -k uvicorn.workers.UvicornWorker fair_data_schema.server:app
 Deploy using the provided multi-stage `Dockerfile` and `docker-compose.yml`:
 
 ```bash
-# Build Docker image and export compressed tarball archive to dist/
+# Build multi-platform Docker image (linux/amd64, linux/arm64)
 ./docker-build.sh
 
-# Build and run with Docker Compose
+# Build and export compressed image tarball archive to dist/
+./docker-build.sh --save
+
+# Build multi-platform image and push to Docker Hub (dartfx/fair-data-schema-api)
+./docker-build.sh --push
+
+# Build and run locally with Docker Compose
 docker-compose up -d --build
 
 # Check status

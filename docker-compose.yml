@@ -1,11 +1,6 @@
-version: "3.8"
-
 services:
-  fair-data-api:
+  fair-data-schema-api:
     image: dartfx/fair-data-schema-api:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
     container_name: fair-data-schema-api
     ports:
       - "8000:8000"
