@@ -78,6 +78,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # --- Project Specific ---
+.env
 docs/build/
 site/
 fair-data-schema-dist.zip

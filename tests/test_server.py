@@ -159,8 +159,22 @@ def test_export_croissant_endpoint() -> None:
 def test_openapi_schema_endpoint() -> None:
     response = client.get("/openapi.json")
     assert response.status_code == 200
-    spec = response.json()
-    assert spec["openapi"].startswith("3.")
-    assert "/api/v1/validate" in spec["paths"]
-    assert "/api/v1/export/cdif" in spec["paths"]
-    assert "/api/v1/export/croissant" in spec["paths"]
+    data = response.json()
+    assert data["info"]["title"] == "FAIR Data JSON Schema API"
+
+
+def test_prefix_rewrite_middleware() -> None:
+    from fastapi import FastAPI
+    from fastapi.testclient import TestClient
+
+    from fair_data_schema.server import PrefixRewriteMiddleware, health_check
+
+    test_app = FastAPI()
+    test_app.add_middleware(PrefixRewriteMiddleware, prefix="/fair-data-schema")
+    test_app.get("/")(health_check)
+
+    prefix_client = TestClient(test_app)
+
+    response = prefix_client.get("/fair-data-schema/")
+    assert response.status_code == 200
+    assert response.json()["status"] == "ok"

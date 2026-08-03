@@ -9,6 +9,7 @@ Commands:
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Annotated
 
@@ -242,6 +243,14 @@ def serve(
         str, typer.Option("--host", "-h", help="Host interface to bind.")
     ] = "127.0.0.1",
     port: Annotated[int, typer.Option("--port", "-p", help="Port to bind.")] = 8000,
+    root_path: Annotated[
+        str,
+        typer.Option(
+            "--root-path",
+            "-r",
+            help="Root path prefix for reverse proxy (e.g. /fair-data-schema).",
+        ),
+    ] = "",
     reload: Annotated[bool, typer.Option("--reload", help="Enable auto-reload for dev.")] = False,
     workers: Annotated[
         int, typer.Option("--workers", "-w", help="Number of worker processes.")
@@ -257,8 +266,19 @@ def serve(
         )
         raise typer.Exit(code=1) from e
 
-    rprint(f"[bold green]Starting API server on http://{host}:{port}[/bold green]")
-    uvicorn.run("fair_data_schema.server:app", host=host, port=port, reload=reload, workers=workers)
+    env_root_path = root_path or os.getenv("API_ROOT_PATH", os.getenv("ROOT_PATH", ""))
+    if env_root_path:
+        os.environ["API_ROOT_PATH"] = env_root_path
+
+    rprint(f"[bold green]Starting API server on http://{host}:{port}{env_root_path}[/bold green]")
+    uvicorn.run(
+        "fair_data_schema.server:app",
+        host=host,
+        port=port,
+        reload=reload,
+        workers=workers,
+        root_path=env_root_path,
+    )
 
 
 # ── version ───────────────────────────────────────────────────────────────────

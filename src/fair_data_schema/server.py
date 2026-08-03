@@ -8,13 +8,47 @@ schema registry inspection, and format conversions (RO-Crate, CDIF, Croissant).
 from __future__ import annotations
 
 import json
+import os
 from typing import Any
 
 from fastapi import FastAPI, HTTPException, Query, status
 from pydantic import BaseModel, Field
+from starlette.types import ASGIApp, Receive, Scope, Send
 
 from fair_data_schema.exporter import to_cdif, to_croissant, to_ro_crate
 from fair_data_schema.validator import validate
+
+KNOWN_ROOT_ENDPOINTS = {"", "docs", "redoc", "openapi.json", "api", "health"}
+
+
+class PrefixRewriteMiddleware:
+    """ASGI middleware to strip subpath prefix from HTTP request path dynamically."""
+
+    def __init__(self, app: ASGIApp, prefix: str = "") -> None:
+        self.app = app
+        self.prefix = prefix.rstrip("/")
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if scope["type"] == "http":
+            path = scope.get("path", "")
+            # 1. Explicit configured prefix (e.g. API_ROOT_PATH=/fair-data-schema)
+            if self.prefix and (path == self.prefix or path.startswith(self.prefix + "/")):
+                new_path = path[len(self.prefix) :] or "/"
+                scope["path"] = new_path
+                scope["root_path"] = self.prefix
+            else:
+                # 2. Dynamic auto-detection: if path starts with an unrecognized subpath prefix
+                parts = [p for p in path.split("/") if p]
+                if parts and parts[0] not in KNOWN_ROOT_ENDPOINTS:
+                    detected_prefix = "/" + parts[0]
+                    new_path = path[len(detected_prefix) :] or "/"
+                    scope["path"] = new_path
+                    scope["root_path"] = detected_prefix
+
+        await self.app(scope, receive, send)
+
+
+root_path = os.getenv("API_ROOT_PATH", os.getenv("ROOT_PATH", ""))
 
 app = FastAPI(
     title="FAIR Data JSON Schema API",
@@ -23,10 +57,13 @@ app = FastAPI(
         "linting semantic quality, and converting to RO-Crate, CDIF 1.1, and Croissant 1.1."
     ),
     version="0.1.0",
+    root_path=root_path,
     docs_url="/docs",
     redoc_url="/redoc",
     openapi_url="/openapi.json",
 )
+
+app.add_middleware(PrefixRewriteMiddleware, prefix=root_path)
 
 
 # --- Request & Response Models ---
