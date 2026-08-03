@@ -1,6 +1,6 @@
 # Multi-stage Dockerfile for FAIR Data JSON Schema API Server
 
-FROM python:3.12-slim as builder
+FROM python:3.12-slim AS builder
 
 WORKDIR /app
 
@@ -17,7 +17,7 @@ COPY cv ./cv
 RUN /uv pip install --system --no-cache .[api]
 
 # --- Production Runtime ---
-FROM python:3.12-slim as runtime
+FROM python:3.12-slim AS runtime
 
 WORKDIR /app
 
