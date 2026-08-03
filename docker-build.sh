@@ -7,14 +7,22 @@ set -euo pipefail
 
 PUSH_IMAGE=false
 SAVE_IMAGE=false
+NO_CACHE=false
 
 for arg in "$@"; do
   if [ "$arg" == "--push" ]; then
     PUSH_IMAGE=true
   elif [ "$arg" == "--save" ]; then
     SAVE_IMAGE=true
+  elif [ "$arg" == "--no-cache" ]; then
+    NO_CACHE=true
   fi
 done
+
+# Automatically enforce --no-cache when pushing or saving release builds
+if [ "${PUSH_IMAGE}" = true ] || [ "${SAVE_IMAGE}" = true ]; then
+  NO_CACHE=true
+fi
 
 IMAGE_NAME="${IMAGE_NAME:-dartfx/fair-data-schema-api}"
 TAG="${TAG:-latest}"
@@ -29,17 +37,18 @@ else
   docker buildx use multiarch-builder >/dev/null 2>&1 || true
 fi
 
-BUILD_ACTION=""
-if [ "${PUSH_IMAGE}" = true ]; then
-  BUILD_ACTION="--push"
+BUILD_FLAGS=""
+if [ "${NO_CACHE}" = true ]; then
+  BUILD_FLAGS="--no-cache"
 fi
 
-echo "=== Building Multi-Platform Docker Image: ${IMAGE_NAME}:${TAG} (${PLATFORMS}) ==="
-if [ -n "${BUILD_ACTION}" ]; then
-  docker buildx build --platform "${PLATFORMS}" -t "${IMAGE_NAME}:${TAG}" ${BUILD_ACTION} .
+if [ "${PUSH_IMAGE}" = true ]; then
+  echo "=== Building & Pushing Multi-Platform Image: ${IMAGE_NAME}:${TAG} (${PLATFORMS}) ==="
+  docker buildx build --platform "${PLATFORMS}" -t "${IMAGE_NAME}:${TAG}" ${BUILD_FLAGS} --push .
   echo "✓ Successfully built and pushed ${IMAGE_NAME}:${TAG} (${PLATFORMS}) to Docker Hub!"
 else
-  docker buildx build --platform "${PLATFORMS}" -t "${IMAGE_NAME}:${TAG}" .
+  echo "=== Building Multi-Platform Docker Image: ${IMAGE_NAME}:${TAG} (${PLATFORMS}) ==="
+  docker buildx build --platform "${PLATFORMS}" -t "${IMAGE_NAME}:${TAG}" ${BUILD_FLAGS} .
   echo "✓ Successfully built ${IMAGE_NAME}:${TAG} (${PLATFORMS})"
 fi
 
@@ -47,7 +56,7 @@ if [ "${SAVE_IMAGE}" = true ]; then
   mkdir -p "${DIST_DIR}"
   TAR_PATH="${DIST_DIR}/${TAR_NAME}"
   echo "=== Exporting Local Platform Image Archive to ${TAR_PATH} ==="
-  docker buildx build -t "${IMAGE_NAME}:${TAG}" --load .
+  docker buildx build -t "${IMAGE_NAME}:${TAG}" ${BUILD_FLAGS} --load .
   docker save "${IMAGE_NAME}:${TAG}" | gzip > "${TAR_PATH}"
   echo "✓ Docker image ${IMAGE_NAME}:${TAG} successfully exported and saved to ${TAR_PATH}"
 fi
