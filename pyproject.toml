@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "JSON Schema dialect and vocabularies for FAIR datasets"
 readme = "README.md"
 license = { file = "LICENSE" }
-authors = [{ name = "Pascal Heus", email = "pascal@highvaluedata.net" }]
+authors = [{ name = "High-Value Data Network", email = "info@highvaluedata.net" }]
 requires-python = ">=3.12"
 dependencies = [
     "jsonschema>=4.23",

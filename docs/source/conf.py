@@ -20,8 +20,8 @@ def get_version() -> str:
 
 
 project = "FAIR JSON Meta-Schema"
-author = "Pascal Heus"
-copyright = "2025-2026, Pascal Heus and contributors"
+author = "High-Value Data Network"
+copyright = "2025-2026, High-Value Data Network and contributors"
 release = get_version()
 
 extensions = [

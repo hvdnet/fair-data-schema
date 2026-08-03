@@ -288,4 +288,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-[MIT License](LICENSE) © Pascal Heus and contributors.
+[MIT License](LICENSE) © High-Value Data Network and contributors.
