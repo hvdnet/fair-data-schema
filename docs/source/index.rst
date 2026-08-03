@@ -42,6 +42,7 @@ The FAIR Data JSON Schema follows a versioned release strategy:
 
    cookbook/index
    validation
+   api-deployment
    python-sdk
    typescript-sdk
    rust-sdk

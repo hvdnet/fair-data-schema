@@ -49,6 +49,35 @@ fair-data-schema validate path/to/schema.json dataset.json
 
 ---
 
+## 2. REST API Validation (`/api/v1/validate` & `/api/v1/lint`)
+
+The FAIR Data JSON Schema API provides dedicated endpoints for programmatic HTTP validation:
+
+### Standard Validation
+```bash
+curl -X POST http://localhost:8000/api/v1/validate \
+  -H "Content-Type: application/json" \
+  -d '{"schema": {...}, "instance": {...}}'
+```
+
+### Strict Mode Validation (`?strict=true`)
+By default, standard JSON Schema validators treat unknown keywords as annotations. Enable **strict mode** to fail validation if any unrecognized or misspelled `fair:` keyword (e.g., `fair:measurementUnit2`) is found:
+
+```bash
+curl -X POST "http://localhost:8000/api/v1/validate?strict=true" \
+  -H "Content-Type: application/json" \
+  -d '{"schema": {...}}'
+```
+
+### Semantic Quality Linting (`/api/v1/lint`)
+```bash
+curl -X POST http://localhost:8000/api/v1/lint \
+  -H "Content-Type: application/json" \
+  -d '{"schema": {...}}'
+```
+
+---
+
 ## 2. Python
 
 ### Option A: Standard `jsonschema` Library (JSON & YAML)

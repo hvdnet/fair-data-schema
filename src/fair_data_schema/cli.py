@@ -158,6 +158,109 @@ def export_ro_crate(
         print(formatted_json)
 
 
+@export_app.command(name="cdif")
+def export_cdif(
+    schema: Annotated[Path, typer.Argument(help="Path to the FAIR Data JSON Schema file.")],
+    output: Annotated[
+        Path | None,
+        typer.Option(
+            "--output", "-o", help="Output path for the generated cdif-metadata.json file."
+        ),
+    ] = None,
+) -> None:
+    """Export a FAIR Data JSON Schema into a CDIF v1.1 profile JSON-LD metadata document."""
+    if not schema.exists():
+        err_console.print(f"Schema file not found: {schema}")
+        raise typer.Exit(code=1)
+
+    import json
+
+    from fair_data_schema.exporter import to_cdif
+
+    try:
+        cdif_dict = to_cdif(schema)
+    except Exception as e:
+        err_console.print(f"Failed to export CDIF profile: {e}")
+        raise typer.Exit(code=1) from e
+
+    formatted_json = json.dumps(cdif_dict, indent=2, ensure_ascii=False)
+
+    if output:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(formatted_json, encoding="utf-8")
+        rprint(
+            f"[green]✓[/green] Successfully exported CDIF v1.1 metadata to [cyan]{output}[/cyan]"
+        )
+    else:
+        print(formatted_json)
+
+
+@export_app.command(name="croissant")
+def export_croissant(
+    schema: Annotated[Path, typer.Argument(help="Path to the FAIR Data JSON Schema file.")],
+    output: Annotated[
+        Path | None,
+        typer.Option(
+            "--output", "-o", help="Output path for the generated croissant-metadata.json file."
+        ),
+    ] = None,
+) -> None:
+    """Export a FAIR Data JSON Schema into an MLCommons Croissant 1.1 JSON-LD metadata document."""
+    if not schema.exists():
+        err_console.print(f"Schema file not found: {schema}")
+        raise typer.Exit(code=1)
+
+    import json
+
+    from fair_data_schema.exporter import to_croissant
+
+    try:
+        croissant_dict = to_croissant(schema)
+    except Exception as e:
+        err_console.print(f"Failed to export Croissant: {e}")
+        raise typer.Exit(code=1) from e
+
+    formatted_json = json.dumps(croissant_dict, indent=2, ensure_ascii=False)
+
+    if output:
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(formatted_json, encoding="utf-8")
+        rprint(
+            "[green]✓[/green] Successfully exported MLCommons Croissant 1.1 metadata to "
+            f"[cyan]{output}[/cyan]"
+        )
+    else:
+        print(formatted_json)
+
+
+# ── serve ────────────────────────────────────────────────────────────────────
+
+
+@app.command()
+def serve(
+    host: Annotated[
+        str, typer.Option("--host", "-h", help="Host interface to bind.")
+    ] = "127.0.0.1",
+    port: Annotated[int, typer.Option("--port", "-p", help="Port to bind.")] = 8000,
+    reload: Annotated[bool, typer.Option("--reload", help="Enable auto-reload for dev.")] = False,
+    workers: Annotated[
+        int, typer.Option("--workers", "-w", help="Number of worker processes.")
+    ] = 1,
+) -> None:
+    """Start the FAIR Data JSON Schema REST API server."""
+    try:
+        import uvicorn
+    except ImportError as e:
+        err_console.print(
+            "[red]uvicorn is required to run the API server. "
+            "Install with `pip install fair-data-schema[api]`.[/red]"
+        )
+        raise typer.Exit(code=1) from e
+
+    rprint(f"[bold green]Starting API server on http://{host}:{port}[/bold green]")
+    uvicorn.run("fair_data_schema.server:app", host=host, port=port, reload=reload, workers=workers)
+
+
 # ── version ───────────────────────────────────────────────────────────────────
 
 

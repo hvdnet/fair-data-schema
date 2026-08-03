@@ -268,7 +268,21 @@ def build() -> None:
     print(f"  Generating landing page (Latest: {latest})...")
     generate_landing_page(DIST_DIR, latest, versions)
 
-    # 5. Add .nojekyll
+    # 5. Export static OpenAPI JSON spec
+    try:
+        from fair_data_schema.server import app as fastapi_app
+
+        api_spec = fastapi_app.openapi()
+        dev_api_dir = DIST_DIR / "dev" / "api"
+        dev_api_dir.mkdir(parents=True, exist_ok=True)
+        with open(dev_api_dir / "openapi.json", "w", encoding="utf-8") as f:
+            json.dump(api_spec, f, indent=2)
+            f.write("\n")
+        print(f"  Exported static OpenAPI specification -> {dev_api_dir / 'openapi.json'}")
+    except Exception as e:
+        print(f"  Warning: Failed to export static openapi.json: {e}")
+
+    # 6. Add .nojekyll
     (DIST_DIR / ".nojekyll").touch()
 
     print(f"\nBuild complete in: {DIST_DIR}")
