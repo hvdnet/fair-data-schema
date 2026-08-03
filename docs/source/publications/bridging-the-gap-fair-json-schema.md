@@ -1,7 +1,7 @@
 # Introducing FAIR Data JSON Schema: Bringing FAIR Data Principles to Modern Software
 
 > [!NOTE]
-> **Draft Article** | **Author**: High-Value Data Network | **Status**: Work in Progress / Draft for Review
+> **Draft Article** | **Author**: Pascal Heus | **Status**: Work in Progress / Draft for Review
 
 In the digital world, data flows through two distinct communities that rarely speak the same language.
 
