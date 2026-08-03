@@ -9,11 +9,36 @@ without network access, and so that tests are fully offline.
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any
 
-# Root of the repository — two levels up from this file (src/fair_data_schema/)
-_REPO_ROOT = Path(__file__).parent.parent.parent
+
+def _find_repo_root() -> Path:
+    """Find the root directory containing schemas/ and cv/ directories."""
+    # 1. Environment variable override
+    if "FAIR_SCHEMA_ROOT" in os.environ:
+        return Path(os.environ["FAIR_SCHEMA_ROOT"])
+
+    # 2. Local dev checkout relative to this file
+    dev_root = Path(__file__).parent.parent.parent
+    if (dev_root / "schemas" / "dev" / "index.json").exists():
+        return dev_root
+
+    # 3. Docker container default (/app)
+    app_root = Path("/app")
+    if (app_root / "schemas" / "dev" / "index.json").exists():
+        return app_root
+
+    # 4. Current working directory
+    cwd_root = Path.cwd()
+    if (cwd_root / "schemas" / "dev" / "index.json").exists():
+        return cwd_root
+
+    return dev_root
+
+
+_REPO_ROOT = _find_repo_root()
 
 # Base URI for canonical URIs
 BASE_URI = "https://highvaluedata.net/fair-data-schema"
