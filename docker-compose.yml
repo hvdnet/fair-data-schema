@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   fair-data-api:
+    image: dartfx/fair-data-schema-api:latest
     build:
       context: .
       dockerfile: Dockerfile
