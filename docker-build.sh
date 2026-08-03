@@ -5,6 +5,14 @@ set -euo pipefail
 # Purpose: Build the FAIR Data JSON Schema API Docker container image
 #          and save the exported image tarball archive into dist/
 
+PUSH_IMAGE=false
+
+for arg in "$@"; do
+  if [ "$arg" == "--push" ]; then
+    PUSH_IMAGE=true
+  fi
+done
+
 IMAGE_NAME="${IMAGE_NAME:-dartfx/fair-data-schema-api}"
 TAG="${TAG:-latest}"
 TAR_NAME="dartfx-fair-data-schema-api-docker.tar.gz"
@@ -21,3 +29,9 @@ echo "=== Saving Image Archive to ${TAR_PATH} ==="
 docker save "${IMAGE_NAME}:${TAG}" | gzip > "${TAR_PATH}"
 
 echo "✓ Docker image ${IMAGE_NAME}:${TAG} successfully built and saved to ${TAR_PATH}"
+
+if [ "${PUSH_IMAGE}" = true ]; then
+  echo "=== Pushing Docker Image to Docker Hub: ${IMAGE_NAME}:${TAG} ==="
+  docker push "${IMAGE_NAME}:${TAG}"
+  echo "✓ Successfully pushed ${IMAGE_NAME}:${TAG} to Docker Hub!"
+fi
