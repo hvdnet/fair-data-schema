@@ -55,6 +55,7 @@ When the API server is running (`fair-data-schema serve`), you can perform valid
 
 ```bash
 curl -X POST http://localhost:8000/v1/validate \
+  -H "User-Agent: Mozilla/5.0" \
   -H "Content-Type: application/json" \
   -d '{
     "schema": {
@@ -68,6 +69,7 @@ To enable **strict mode** (failing on misspelled or unknown `fair:` keywords):
 
 ```bash
 curl -X POST "http://localhost:8000/v1/validate?strict=true" \
+  -H "User-Agent: Mozilla/5.0" \
   -H "Content-Type: application/json" \
   -d '{ ... }'
 ```
@@ -76,6 +78,7 @@ curl -X POST "http://localhost:8000/v1/validate?strict=true" \
 
 ```bash
 curl -X POST http://localhost:8000/v1/lint \
+  -H "User-Agent: Mozilla/5.0" \
   -H "Content-Type: application/json" \
   -d '{ ... }'
 ```

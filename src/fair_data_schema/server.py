@@ -453,6 +453,7 @@ def root_landing_page(request: Request) -> HTMLResponse:
 
         <div id="tab-validate" class="tab-content active">
           <pre>curl -X POST "{BASE_URL}/v1/validate" \
+  -H "User-Agent: Mozilla/5.0" \
   -H "Content-Type: application/json" \
   -d '{
     "schema": {
@@ -482,6 +483,7 @@ def root_landing_page(request: Request) -> HTMLResponse:
 
         <div id="tab-cdif" class="tab-content">
           <pre>curl -X POST "{BASE_URL}/v1/export/cdif" \
+  -H "User-Agent: Mozilla/5.0" \
   -H "Content-Type: application/json" \
   -d '{
     "schema": {
@@ -511,6 +513,7 @@ def root_landing_page(request: Request) -> HTMLResponse:
 
         <div id="tab-croissant" class="tab-content">
           <pre>curl -X POST "{BASE_URL}/v1/export/croissant" \
+  -H "User-Agent: Mozilla/5.0" \
   -H "Content-Type: application/json" \
   -d '{
     "schema": {
@@ -540,6 +543,7 @@ def root_landing_page(request: Request) -> HTMLResponse:
 
         <div id="tab-ro-crate" class="tab-content">
           <pre>curl -X POST "{BASE_URL}/v1/export/ro-crate" \
+  -H "User-Agent: Mozilla/5.0" \
   -H "Content-Type: application/json" \
   -d '{
     "schema": {
@@ -591,7 +595,7 @@ def root_landing_page(request: Request) -> HTMLResponse:
   </div>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const origin = window.location.origin + window.location.pathname.replace(/\/$/, '');
+      const origin = window.location.origin + window.location.pathname.replace(RegExp('/+$'), '');
       document.querySelectorAll('.tab-content pre').forEach(pre => {
         if (pre.innerText.includes('{BASE_URL}')) {
           pre.innerText = pre.innerText.replace('{BASE_URL}', origin);
