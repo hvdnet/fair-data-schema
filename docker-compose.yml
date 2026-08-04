@@ -10,7 +10,7 @@ services:
       - API_ROOT_PATH=${API_ROOT_PATH:-}
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/status"]
       interval: 30s
       timeout: 5s
       retries: 3

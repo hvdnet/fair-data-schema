@@ -12,13 +12,14 @@ import os
 from typing import Any
 
 from fastapi import FastAPI, HTTPException, Query, status
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 from starlette.types import ASGIApp, Receive, Scope, Send
 
 from fair_data_schema.exporter import to_cdif, to_croissant, to_ro_crate
 from fair_data_schema.validator import validate
 
-KNOWN_ROOT_ENDPOINTS = {"", "docs", "redoc", "openapi.json", "api", "health"}
+KNOWN_ROOT_ENDPOINTS = {"", "status", "docs", "redoc", "openapi.json", "api", "health"}
 
 
 class PrefixRewriteMiddleware:
@@ -125,7 +126,556 @@ class ExportRequest(BaseModel):
 # --- API Routes ---
 
 
-@app.get("/", response_model=HealthResponse, tags=["Meta"])  # type: ignore[misc]
+@app.get("/", response_class=HTMLResponse, include_in_schema=False)
+def root_landing_page() -> str:
+    """Return minimalistic HTML landing page for the API."""
+    return """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAIR Data JSON Schema API</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --border: #334155;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 2.5rem 1rem;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 780px;
+      width: 100%;
+    }
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin: 0 0 0.5rem 0;
+      color: var(--primary);
+    }
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    section h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+      color: var(--primary);
+    }
+    pre {
+      background-color: #090d16;
+      border: 1px solid var(--border);
+      border-radius: 0.375rem;
+      padding: 1rem;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.875rem;
+      color: #e2e8f0;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 0.25rem;
+      background-color: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+    .example-label {
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .example-label-first {
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .tab-container {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+    .tab-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #162032;
+      border-bottom: 1px solid var(--border);
+      padding: 0 0.5rem;
+    }
+    .tab-buttons {
+      display: flex;
+      gap: 0.25rem;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .tab-btn:hover {
+      color: var(--text);
+    }
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .run-btn {
+      background-color: var(--primary);
+      color: #0f172a;
+      border: 1px solid var(--primary);
+      border-radius: 0.25rem;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .run-btn:hover {
+      opacity: 0.9;
+    }
+    .copy-btn {
+      background-color: var(--border);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 0.25rem;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .copy-btn:hover {
+      background-color: var(--primary);
+      color: #0f172a;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .tab-content pre {
+      margin: 0;
+      border: none;
+      border-radius: 0;
+    }
+    .response-container {
+      border-top: 1px solid var(--border);
+      background-color: #090d16;
+      display: none;
+    }
+    .response-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      background-color: #111827;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .response-status {
+      font-weight: 600;
+      color: #4ade80;
+    }
+    .response-container pre {
+      max-height: 280px;
+      overflow-y: auto;
+      padding: 1rem;
+      margin: 0;
+      font-size: 0.825rem;
+      color: #e2e8f0;
+    }
+    .learn-more {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .learn-more p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .learn-more a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .learn-more a:hover {
+      text-decoration: underline;
+    }
+    .docs-nav {
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    .doc-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .doc-link:hover {
+      text-decoration: underline;
+    }
+    .divider {
+      color: var(--border);
+    }
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="badge">v0.1.0</span>
+      <h1>FAIR Data JSON Schema API</h1>
+      <p class="subtitle">
+        RESTful validation, semantic linting, and metadata conversion for
+        FAIR &amp; CDIF high-value datasets.
+      </p>
+    </header>
+
+    <div class="learn-more">
+      <p>
+        To explore complete vocabulary definitions, semantic conventions, and integration guides,
+        visit the official
+        <a href="https://www.highvaluedata.net/fair-data-schema/" target="_blank" rel="noopener">
+          FAIR Data Schema Specification &rarr;
+        </a>
+      </p>
+      <div class="docs-nav">
+        <span>Interactive API Docs:</span>
+        <a href="docs" class="doc-link">Swagger UI (/docs)</a>
+        <span class="divider">•</span>
+        <a href="redoc" class="doc-link">ReDoc (/redoc)</a>
+      </div>
+    </div>
+
+    <section>
+      <h2>Quick Start Examples</h2>
+      <p style="color: var(--text-muted); margin-bottom: 0.5rem; font-size: 0.95rem;">
+        Test validation, quality linting, and metadata conversion on an MVP dataset:
+      </p>
+
+      <div class="tab-container">
+        <div class="tab-header">
+          <div class="tab-buttons">
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-validate')">
+              Validate Schema
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-lint')">
+              Lint Quality
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-cdif')">
+              CDIF v1.1 Export
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-croissant')">
+              Croissant 1.1 Export
+            </button>
+          </div>
+          <div class="header-actions">
+            <button class="run-btn" onclick="runActiveExample(this)">▶ Try</button>
+            <button class="copy-btn" onclick="copyActiveCode(this)">Copy</button>
+          </div>
+        </div>
+
+        <div id="tab-validate" class="tab-content active">
+          <pre>curl -X POST "api/v1/validate" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "schema": {
+      "$schema": "https://highvaluedata.net/fair-data-schema/dev",
+      "title": "Arctic Weather Observations",
+      "description": "Surface temperature and relative humidity dataset.",
+      "fair:licenseRef": "https://spdx.org/licenses/CC-BY-4.0",
+      "type": "object",
+      "properties": {
+        "temperature": {
+          "type": "number",
+          "description": "Ambient surface temperature measurement",
+          "fair:label": "Air Temperature",
+          "fair:quantityRef": "https://qudt.org/vocab/quantitykind/Temperature",
+          "fair:measurementUnit": "Degree Celsius (°C)"
+        },
+        "humidity": {
+          "type": "number",
+          "description": "Relative humidity percentage",
+          "fair:label": "Relative Humidity",
+          "fair:measurementUnit": "Percent (%)"
+        }
+      }
+    }
+  }'</pre>
+        </div>
+
+        <div id="tab-lint" class="tab-content">
+          <pre>curl -X POST "api/v1/lint" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "schema": {
+      "$schema": "https://highvaluedata.net/fair-data-schema/dev",
+      "title": "Arctic Weather Observations",
+      "description": "Surface temperature and relative humidity dataset.",
+      "fair:licenseRef": "https://spdx.org/licenses/CC-BY-4.0",
+      "type": "object",
+      "properties": {
+        "temperature": {
+          "type": "number",
+          "description": "Ambient surface temperature measurement",
+          "fair:label": "Air Temperature",
+          "fair:quantityRef": "https://qudt.org/vocab/quantitykind/Temperature",
+          "fair:measurementUnit": "Degree Celsius (°C)"
+        },
+        "humidity": {
+          "type": "number",
+          "description": "Relative humidity percentage",
+          "fair:label": "Relative Humidity",
+          "fair:measurementUnit": "Percent (%)"
+        }
+      }
+    }
+  }'</pre>
+        </div>
+
+        <div id="tab-cdif" class="tab-content">
+          <pre>curl -X POST "api/v1/export/cdif" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "schema": {
+      "$schema": "https://highvaluedata.net/fair-data-schema/dev",
+      "title": "Arctic Weather Observations",
+      "description": "Surface temperature and relative humidity dataset.",
+      "fair:licenseRef": "https://spdx.org/licenses/CC-BY-4.0",
+      "type": "object",
+      "properties": {
+        "temperature": {
+          "type": "number",
+          "description": "Ambient surface temperature measurement",
+          "fair:label": "Air Temperature",
+          "fair:quantityRef": "https://qudt.org/vocab/quantitykind/Temperature",
+          "fair:measurementUnit": "Degree Celsius (°C)"
+        },
+        "humidity": {
+          "type": "number",
+          "description": "Relative humidity percentage",
+          "fair:label": "Relative Humidity",
+          "fair:measurementUnit": "Percent (%)"
+        }
+      }
+    }
+  }'</pre>
+        </div>
+
+        <div id="tab-croissant" class="tab-content">
+          <pre>curl -X POST "api/v1/export/croissant" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "schema": {
+      "$schema": "https://highvaluedata.net/fair-data-schema/dev",
+      "title": "Arctic Weather Observations",
+      "description": "Surface temperature and relative humidity dataset.",
+      "fair:licenseRef": "https://spdx.org/licenses/CC-BY-4.0",
+      "type": "object",
+      "properties": {
+        "temperature": {
+          "type": "number",
+          "description": "Ambient surface temperature measurement",
+          "fair:label": "Air Temperature",
+          "fair:quantityRef": "https://qudt.org/vocab/quantitykind/Temperature",
+          "fair:measurementUnit": "Degree Celsius (°C)"
+        },
+        "humidity": {
+          "type": "number",
+          "description": "Relative humidity percentage",
+          "fair:label": "Relative Humidity",
+          "fair:measurementUnit": "Percent (%)"
+        }
+      }
+    }
+  }'</pre>
+        </div>
+
+        <div class="response-container">
+          <div class="response-header">
+            <div>
+              <span>API Response Output</span>
+              <span class="response-status" style="margin-left: 0.5rem;">200 OK</span>
+            </div>
+            <button class="copy-btn" onclick="copyResponseCode(this)">Copy Response</button>
+          </div>
+          <pre class="response-json"></pre>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        Source Code:
+        <a href="https://github.com/hvdnet/fair-data-schema" target="_blank" rel="noopener">
+          GitHub Repository
+        </a>
+      </p>
+    </footer>
+  </div>
+  <script>
+    function switchTab(evt, tabId) {
+      const container = evt.target.closest('.tab-container');
+      container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      container.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      evt.target.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    function copyActiveCode(btn) {
+      const container = btn.closest('.tab-container');
+      const activeContent = container.querySelector('.tab-content.active pre');
+      if (!activeContent) return;
+      navigator.clipboard.writeText(activeContent.innerText).then(() => {
+        btn.innerText = "Copied!";
+        setTimeout(() => { btn.innerText = "Copy"; }, 2000);
+      });
+    }
+
+    function copyResponseCode(btn) {
+      const container = btn.closest('.response-container');
+      const pre = container.querySelector('pre.response-json');
+      if (!pre) return;
+      navigator.clipboard.writeText(pre.innerText).then(() => {
+        btn.innerText = "Copied!";
+        setTimeout(() => { btn.innerText = "Copy Response"; }, 2000);
+      });
+    }
+
+    async function runActiveExample(btn) {
+      const container = btn.closest('.tab-container');
+      const activeTab = container.querySelector('.tab-content.active');
+      const tabId = activeTab ? activeTab.id : 'tab-validate';
+
+      let endpoint = "api/v1/validate";
+      if (tabId === "tab-lint") endpoint = "api/v1/lint";
+      if (tabId === "tab-cdif") endpoint = "api/v1/export/cdif";
+      if (tabId === "tab-croissant") endpoint = "api/v1/export/croissant";
+
+      const payload = {
+        schema: {
+          "$schema": "https://highvaluedata.net/fair-data-schema/dev",
+          "title": "Arctic Weather Observations",
+          "description": "Surface temperature and relative humidity dataset.",
+          "fair:licenseRef": "https://spdx.org/licenses/CC-BY-4.0",
+          "type": "object",
+          "properties": {
+            "temperature": {
+              "type": "number",
+              "description": "Ambient surface temperature measurement",
+              "fair:label": "Air Temperature",
+              "fair:quantityRef": "https://qudt.org/vocab/quantitykind/Temperature",
+              "fair:measurementUnit": "Degree Celsius (°C)"
+            },
+            "humidity": {
+              "type": "number",
+              "description": "Relative humidity percentage",
+              "fair:label": "Relative Humidity",
+              "fair:measurementUnit": "Percent (%)"
+            }
+          }
+        }
+      };
+
+      btn.innerText = "Running...";
+      btn.disabled = true;
+
+      const respContainer = container.querySelector('.response-container');
+      const respStatus = container.querySelector('.response-status');
+      const respPre = container.querySelector('.response-json');
+
+      try {
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        respStatus.innerText = `${res.status} ${res.statusText || 'OK'}`;
+        respPre.innerText = JSON.stringify(data, null, 2);
+        respContainer.style.display = 'block';
+        respContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } catch (err) {
+        respStatus.innerText = "Error";
+        respPre.innerText = err.message || "Failed to execute request";
+        respContainer.style.display = 'block';
+        respContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } finally {
+        btn.innerText = "▶ Try";
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>"""
+
+
+@app.get("/status", response_model=HealthResponse, tags=["Meta"])  # type: ignore[misc]
 def health_check() -> HealthResponse:
     """Return API server health status and version metadata."""
     return HealthResponse()

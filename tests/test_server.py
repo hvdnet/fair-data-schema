@@ -15,12 +15,19 @@ client = TestClient(app)
 
 
 def test_health_check() -> None:
-    response = client.get("/")
+    response = client.get("/status")
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "ok"
     assert data["name"] == "FAIR Data JSON Schema API"
     assert data["version"] == "0.1.0"
+
+
+def test_landing_page() -> None:
+    response = client.get("/")
+    assert response.status_code == 200
+    assert "FAIR Data JSON Schema API" in response.text
+    assert "text/html" in response.headers["content-type"]
 
 
 def test_list_schemas() -> None:
