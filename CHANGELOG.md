@@ -10,9 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- **REST API Server**: Programmatic RESTful web service (`fair-data-schema serve`) powered by FastAPI and Uvicorn providing HTTP endpoints for validation (`/api/v1/validate`), semantic linting (`/api/v1/lint`), registry exploration (`/api/v1/schemas`), and metadata format export (`/api/v1/export/*`).
-- **OpenAPI 3.1.0 Specification**: Interactive Swagger UI (`/docs`), ReDoc (`/redoc`), raw spec endpoint (`/openapi.json`), and static export (`dist/dev/api/openapi.json`).
-- **Strict Validation Mode**: `"strict": true` payload parameter and `?strict=true` URL query parameter on `POST /api/v1/validate` to detect and fail validation on unrecognized or misspelled `fair:` keywords.
+- **REST API Server**: Programmatic RESTful web service (`fair-data-schema serve`) powered by FastAPI and Uvicorn providing HTTP endpoints for validation (`/v1/validate`), semantic linting (`/v1/lint`), registry exploration (`/v1/schemas`), and metadata format export (`/v1/export/*`).
+- **Interactive OpenAPI Documentation**: Built-in Swagger UI (`/docs`) and ReDoc (`/redoc`) sandboxes for real-time API exploration and testing.
+- **Strict Validation Mode**: `"strict": true` payload parameter and `?strict=true` URL query parameter on `POST /v1/validate` to detect and fail validation on unrecognized or misspelled `fair:` keywords.
 - **Multi-Format Export Endpoints**: REST API endpoints for converting FAIR schemas to **RO-Crate 1.1**, **CDIF v1.1**, and **MLCommons Croissant 1.1**.
 - **REST API & Deployment Guide**: Added Sphinx documentation guide (`docs/source/api-deployment.md`) covering 5 deployment options (CLI, FastAPI sub-app, Uvicorn/Gunicorn, Docker, and Serverless).
 - **Containerization Support**: Multi-stage `Dockerfile` (based on `python:3.12-slim` and `uv`) and `docker-compose.yml`.

@@ -12,7 +12,7 @@ import os
 from datetime import UTC, datetime
 from typing import Any
 
-from fastapi import FastAPI, HTTPException, Query, status
+from fastapi import FastAPI, HTTPException, Query, Request, status
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 from starlette.types import ASGIApp, Receive, Scope, Send
@@ -22,7 +22,7 @@ from fair_data_schema.validator import validate
 
 STARTUP_TIME = datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-KNOWN_ROOT_ENDPOINTS = {"", "status", "docs", "redoc", "openapi.json", "api", "health"}
+KNOWN_ROOT_ENDPOINTS = {"", "status", "docs", "redoc", "openapi.json", "v1", "health"}
 
 
 class PrefixRewriteMiddleware:
@@ -119,14 +119,16 @@ class ValidationResponse(BaseModel):
     )
 
 
-class LintResponse(BaseModel):
-    valid: bool = Field(..., description="True if no critical lint errors were found")
-    warnings: list[str] = Field(default_factory=list, description="Semantic lint warnings")
-
-
 class ExportRequest(BaseModel):
     schema_data: dict[str, Any] = Field(
         ..., alias="schema", description="Target FAIR Data JSON Schema to convert"
+    )
+
+
+class LintResponse(BaseModel):
+    valid: bool = Field(..., description="True if schema has zero lint warnings")
+    warnings: list[str] = Field(
+        default_factory=list, description="Semantic lint warnings and recommendations"
     )
 
 
@@ -134,9 +136,10 @@ class ExportRequest(BaseModel):
 
 
 @app.get("/", response_class=HTMLResponse, include_in_schema=False)
-def root_landing_page() -> str:
+def root_landing_page(request: Request) -> HTMLResponse:
     """Return minimalistic HTML landing page for the API."""
-    return """<!DOCTYPE html>
+    base_url = str(request.base_url).rstrip("/")
+    html_template = """<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -152,25 +155,24 @@ def root_landing_page() -> str:
       --border: #334155;
     }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: var(--bg);
       color: var(--text);
       margin: 0;
-      padding: 2.5rem 1rem;
+      padding: 2rem 1rem;
       display: flex;
       justify-content: center;
     }
     .container {
-      max-width: 780px;
+      max-width: 900px;
       width: 100%;
     }
     header {
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 1.5rem;
       margin-bottom: 2rem;
+      text-align: center;
     }
     h1 {
-      font-size: 2.2rem;
+      font-size: 2.25rem;
       margin: 0 0 0.5rem 0;
       color: var(--primary);
     }
@@ -215,27 +217,32 @@ def root_landing_page() -> str:
       color: var(--text-muted);
       margin-top: 1.5rem;
       margin-bottom: 0.5rem;
+      font-size: 0.875rem;
       font-weight: 600;
-      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
     .example-label-first {
       color: var(--text-muted);
+      margin-top: 0.5rem;
       margin-bottom: 0.5rem;
+      font-size: 0.875rem;
       font-weight: 600;
-      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
     .tab-container {
       background-color: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 0.5rem;
       overflow: hidden;
-      margin-top: 1rem;
+      margin-bottom: 1.5rem;
     }
     .tab-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: #162032;
+      background-color: #090d16;
       border-bottom: 1px solid var(--border);
       padding: 0 0.5rem;
     }
@@ -249,10 +256,10 @@ def root_landing_page() -> str:
       color: var(--text-muted);
       padding: 0.75rem 1rem;
       font-size: 0.875rem;
-      font-weight: 600;
+      font-weight: 500;
       cursor: pointer;
       border-bottom: 2px solid transparent;
-      transition: color 0.2s, border-color 0.2s;
+      transition: color 0.15s, border-color 0.15s;
     }
     .tab-btn:hover {
       color: var(--text);
@@ -269,13 +276,13 @@ def root_landing_page() -> str:
     .run-btn {
       background-color: var(--primary);
       color: #0f172a;
-      border: 1px solid var(--primary);
+      border: none;
       border-radius: 0.25rem;
-      padding: 0.25rem 0.65rem;
-      font-size: 0.75rem;
-      font-weight: 700;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: opacity 0.2s;
+      transition: opacity 0.15s;
     }
     .run-btn:hover {
       opacity: 0.9;
@@ -283,13 +290,13 @@ def root_landing_page() -> str:
     .copy-btn {
       background-color: var(--border);
       color: var(--text);
-      border: 1px solid var(--border);
+      border: none;
       border-radius: 0.25rem;
-      padding: 0.25rem 0.65rem;
-      font-size: 0.75rem;
-      font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 500;
       cursor: pointer;
-      transition: background-color 0.2s, color 0.2s;
+      transition: background-color 0.15s;
     }
     .copy-btn:hover {
       background-color: var(--primary);
@@ -308,30 +315,30 @@ def root_landing_page() -> str:
     }
     .response-container {
       border-top: 1px solid var(--border);
-      background-color: #090d16;
+      background-color: #050811;
       display: none;
     }
     .response-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       padding: 0.5rem 1rem;
-      background-color: #111827;
+      background-color: #090d16;
       border-bottom: 1px solid var(--border);
       font-size: 0.8rem;
+      font-weight: 600;
       color: var(--text-muted);
     }
     .response-status {
       font-weight: 600;
-      color: #4ade80;
+      color: #34d399;
     }
     .response-container pre {
       max-height: 280px;
       overflow-y: auto;
-      padding: 1rem;
       margin: 0;
-      font-size: 0.825rem;
-      color: #e2e8f0;
+      border: none;
+      border-radius: 0;
     }
     .learn-more {
       background-color: var(--card-bg);
@@ -421,9 +428,6 @@ def root_landing_page() -> str:
 
     <section>
       <h2>Quick Start Examples</h2>
-      <p style="color: var(--text-muted); margin-bottom: 0.5rem; font-size: 0.95rem;">
-        Test validation, quality linting, and metadata conversion on an MVP dataset:
-      </p>
 
       <div class="tab-container">
         <div class="tab-header">
@@ -431,14 +435,14 @@ def root_landing_page() -> str:
             <button class="tab-btn active" onclick="switchTab(event, 'tab-validate')">
               Validate Schema
             </button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-lint')">
-              Lint Quality
-            </button>
             <button class="tab-btn" onclick="switchTab(event, 'tab-cdif')">
-              CDIF v1.1 Export
+              CDIF v1.1
             </button>
             <button class="tab-btn" onclick="switchTab(event, 'tab-croissant')">
-              Croissant 1.1 Export
+              Croissant 1.1
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-ro-crate')">
+              RO-Crate 1.1
             </button>
           </div>
           <div class="header-actions">
@@ -448,36 +452,7 @@ def root_landing_page() -> str:
         </div>
 
         <div id="tab-validate" class="tab-content active">
-          <pre>curl -X POST "api/v1/validate" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "schema": {
-      "$schema": "https://highvaluedata.net/fair-data-schema/dev",
-      "title": "Arctic Weather Observations",
-      "description": "Surface temperature and relative humidity dataset.",
-      "fair:licenseRef": "https://spdx.org/licenses/CC-BY-4.0",
-      "type": "object",
-      "properties": {
-        "temperature": {
-          "type": "number",
-          "description": "Ambient surface temperature measurement",
-          "fair:label": "Air Temperature",
-          "fair:quantityRef": "https://qudt.org/vocab/quantitykind/Temperature",
-          "fair:measurementUnit": "Degree Celsius (°C)"
-        },
-        "humidity": {
-          "type": "number",
-          "description": "Relative humidity percentage",
-          "fair:label": "Relative Humidity",
-          "fair:measurementUnit": "Percent (%)"
-        }
-      }
-    }
-  }'</pre>
-        </div>
-
-        <div id="tab-lint" class="tab-content">
-          <pre>curl -X POST "api/v1/lint" \
+          <pre>curl -X POST "{BASE_URL}/v1/validate" \
   -H "Content-Type: application/json" \
   -d '{
     "schema": {
@@ -506,7 +481,7 @@ def root_landing_page() -> str:
         </div>
 
         <div id="tab-cdif" class="tab-content">
-          <pre>curl -X POST "api/v1/export/cdif" \
+          <pre>curl -X POST "{BASE_URL}/v1/export/cdif" \
   -H "Content-Type: application/json" \
   -d '{
     "schema": {
@@ -535,7 +510,36 @@ def root_landing_page() -> str:
         </div>
 
         <div id="tab-croissant" class="tab-content">
-          <pre>curl -X POST "api/v1/export/croissant" \
+          <pre>curl -X POST "{BASE_URL}/v1/export/croissant" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "schema": {
+      "$schema": "https://highvaluedata.net/fair-data-schema/dev",
+      "title": "Arctic Weather Observations",
+      "description": "Surface temperature and relative humidity dataset.",
+      "fair:licenseRef": "https://spdx.org/licenses/CC-BY-4.0",
+      "type": "object",
+      "properties": {
+        "temperature": {
+          "type": "number",
+          "description": "Ambient surface temperature measurement",
+          "fair:label": "Air Temperature",
+          "fair:quantityRef": "https://qudt.org/vocab/quantitykind/Temperature",
+          "fair:measurementUnit": "Degree Celsius (°C)"
+        },
+        "humidity": {
+          "type": "number",
+          "description": "Relative humidity percentage",
+          "fair:label": "Relative Humidity",
+          "fair:measurementUnit": "Percent (%)"
+        }
+      }
+    }
+  }'</pre>
+        </div>
+
+        <div id="tab-ro-crate" class="tab-content">
+          <pre>curl -X POST "{BASE_URL}/v1/export/ro-crate" \
   -H "Content-Type: application/json" \
   -d '{
     "schema": {
@@ -586,6 +590,15 @@ def root_landing_page() -> str:
     </footer>
   </div>
   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const origin = window.location.origin + window.location.pathname.replace(/\/$/, '');
+      document.querySelectorAll('.tab-content pre').forEach(pre => {
+        if (pre.innerText.includes('{BASE_URL}')) {
+          pre.innerText = pre.innerText.replace('{BASE_URL}', origin);
+        }
+      });
+    });
+
     function switchTab(evt, tabId) {
       const container = evt.target.closest('.tab-container');
       container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -619,10 +632,10 @@ def root_landing_page() -> str:
       const activeTab = container.querySelector('.tab-content.active');
       const tabId = activeTab ? activeTab.id : 'tab-validate';
 
-      let endpoint = "api/v1/validate";
-      if (tabId === "tab-lint") endpoint = "api/v1/lint";
-      if (tabId === "tab-cdif") endpoint = "api/v1/export/cdif";
-      if (tabId === "tab-croissant") endpoint = "api/v1/export/croissant";
+      let endpoint = "v1/validate";
+      if (tabId === "tab-ro-crate") endpoint = "v1/export/ro-crate";
+      if (tabId === "tab-cdif") endpoint = "v1/export/cdif";
+      if (tabId === "tab-croissant") endpoint = "v1/export/croissant";
 
       const payload = {
         schema: {
@@ -680,6 +693,7 @@ def root_landing_page() -> str:
   </script>
 </body>
 </html>"""
+    return HTMLResponse(content=html_template.replace("{BASE_URL}", base_url))
 
 
 @app.get("/status", response_model=HealthResponse, tags=["Meta"])  # type: ignore[misc]
@@ -688,7 +702,7 @@ def health_check() -> HealthResponse:
     return HealthResponse()
 
 
-@app.get("/api/v1/schemas", response_model=SchemaListResponse, tags=["Registry"])  # type: ignore[misc]
+@app.get("/v1/schemas", response_model=SchemaListResponse, tags=["Registry"])  # type: ignore[misc]
 def list_schemas() -> SchemaListResponse:
     """List all registered FAIR Data JSON Schemas in the local registry."""
     from fair_data_schema.registry import resolve_uri, schema_uris
@@ -708,7 +722,7 @@ def list_schemas() -> SchemaListResponse:
     return SchemaListResponse(count=len(schema_list), schemas=schema_list)
 
 
-@app.post("/api/v1/validate", response_model=ValidationResponse, tags=["Validation"])  # type: ignore[misc]
+@app.post("/v1/validate", response_model=ValidationResponse, tags=["Validation"])  # type: ignore[misc]
 def validate_endpoint(
     request: ValidationRequest,
     strict: bool | None = Query(
@@ -802,7 +816,7 @@ def _check_unknown_fair_keywords(obj: object, path: str, warnings: list[str]) ->
             _check_unknown_fair_keywords(item, f"{path}[{idx}]", warnings)
 
 
-@app.post("/api/v1/lint", response_model=LintResponse, tags=["Validation"])  # type: ignore[misc]
+@app.post("/v1/lint", response_model=LintResponse, tags=["Validation"])  # type: ignore[misc]
 def lint(request: ExportRequest) -> LintResponse:
     """
     Perform semantic quality linting on a FAIR Data JSON Schema.
@@ -845,7 +859,7 @@ def lint(request: ExportRequest) -> LintResponse:
     return LintResponse(valid=len(warnings) == 0, warnings=warnings)
 
 
-@app.post("/api/v1/export/ro-crate", tags=["Exporters"])  # type: ignore[misc]
+@app.post("/v1/export/ro-crate", tags=["Exporters"])  # type: ignore[misc]
 def export_ro_crate(request: ExportRequest) -> dict[str, Any]:
     """Export a FAIR Data JSON Schema to RO-Crate 1.1 metadata graph (@graph format)."""
     try:
@@ -857,7 +871,7 @@ def export_ro_crate(request: ExportRequest) -> dict[str, Any]:
         ) from e
 
 
-@app.post("/api/v1/export/cdif", tags=["Exporters"])  # type: ignore[misc]
+@app.post("/v1/export/cdif", tags=["Exporters"])  # type: ignore[misc]
 def export_cdif(request: ExportRequest) -> dict[str, Any]:
     """Export a FAIR Data JSON Schema to CDIF v1.1 profiles JSON-LD format."""
     try:
@@ -869,7 +883,7 @@ def export_cdif(request: ExportRequest) -> dict[str, Any]:
         ) from e
 
 
-@app.post("/api/v1/export/croissant", tags=["Exporters"])  # type: ignore[misc]
+@app.post("/v1/export/croissant", tags=["Exporters"])  # type: ignore[misc]
 def export_croissant(request: ExportRequest) -> dict[str, Any]:
     """Export a FAIR Data JSON Schema to MLCommons Croissant 1.1 JSON-LD format."""
     try:

@@ -33,7 +33,7 @@ def test_landing_page() -> None:
 
 
 def test_list_schemas() -> None:
-    response = client.get("/api/v1/schemas")
+    response = client.get("/v1/schemas")
     assert response.status_code == 200
     data = response.json()
     assert data["count"] > 0
@@ -46,7 +46,7 @@ def test_validate_endpoint_valid_schema() -> None:
     assert schema_path.exists()
     schema_data = json.loads(schema_path.read_text(encoding="utf-8"))
 
-    response = client.post("/api/v1/validate", json={"schema": schema_data})
+    response = client.post("/v1/validate", json={"schema": schema_data})
     assert response.status_code == 200
     data = response.json()
     assert data["valid"] is True
@@ -68,18 +68,18 @@ def test_validate_endpoint_strict_mode() -> None:
     }
 
     # Standard non-strict mode: valid is true (unknown keywords treated as annotations)
-    resp_default = client.post("/api/v1/validate", json={"schema": schema_data})
+    resp_default = client.post("/v1/validate", json={"schema": schema_data})
     assert resp_default.status_code == 200
     assert resp_default.json()["valid"] is True
 
     # Strict mode via JSON body: valid is false
-    resp_strict_body = client.post("/api/v1/validate", json={"schema": schema_data, "strict": True})
+    resp_strict_body = client.post("/v1/validate", json={"schema": schema_data, "strict": True})
     assert resp_strict_body.status_code == 200
     assert resp_strict_body.json()["valid"] is False
     assert any("fair:measurementUnit2" in e for e in resp_strict_body.json()["schema_errors"])
 
     # Strict mode via URL query parameter (?strict=true): valid is false
-    resp_strict_query = client.post("/api/v1/validate?strict=true", json={"schema": schema_data})
+    resp_strict_query = client.post("/v1/validate?strict=true", json={"schema": schema_data})
     assert resp_strict_query.status_code == 200
     assert resp_strict_query.json()["valid"] is False
     assert any("fair:measurementUnit2" in e for e in resp_strict_query.json()["schema_errors"])
@@ -92,7 +92,7 @@ def test_validate_endpoint_with_valid_instance() -> None:
     instance_data = json.loads(data_path.read_text(encoding="utf-8"))
 
     response = client.post(
-        "/api/v1/validate",
+        "/v1/validate",
         json={"schema": schema_data, "instance": instance_data},
     )
     assert response.status_code == 200
@@ -104,7 +104,7 @@ def test_lint_endpoint() -> None:
     schema_path = Path("examples/simple-dataset.json")
     schema_data = json.loads(schema_path.read_text(encoding="utf-8"))
 
-    response = client.post("/api/v1/lint", json={"schema": schema_data})
+    response = client.post("/v1/lint", json={"schema": schema_data})
     assert response.status_code == 200
     data = response.json()
     assert "valid" in data
@@ -124,7 +124,7 @@ def test_lint_endpoint_detects_misspelled_fair_keyword() -> None:
         },
     }
 
-    response = client.post("/api/v1/lint", json={"schema": schema_data})
+    response = client.post("/v1/lint", json={"schema": schema_data})
     assert response.status_code == 200
     data = response.json()
     assert data["valid"] is False
@@ -135,7 +135,7 @@ def test_export_ro_crate_endpoint() -> None:
     schema_path = Path("examples/simple-dataset.json")
     schema_data = json.loads(schema_path.read_text(encoding="utf-8"))
 
-    response = client.post("/api/v1/export/ro-crate", json={"schema": schema_data})
+    response = client.post("/v1/export/ro-crate", json={"schema": schema_data})
     assert response.status_code == 200
     data = response.json()
     assert data["@context"] == "https://w3id.org/ro/crate/1.1/context"
@@ -146,7 +146,7 @@ def test_export_cdif_endpoint() -> None:
     schema_path = Path("examples/simple-dataset.json")
     schema_data = json.loads(schema_path.read_text(encoding="utf-8"))
 
-    response = client.post("/api/v1/export/cdif", json={"schema": schema_data})
+    response = client.post("/v1/export/cdif", json={"schema": schema_data})
     assert response.status_code == 200
     data = response.json()
     assert "@context" in data
@@ -157,7 +157,7 @@ def test_export_croissant_endpoint() -> None:
     schema_path = Path("examples/simple-dataset.json")
     schema_data = json.loads(schema_path.read_text(encoding="utf-8"))
 
-    response = client.post("/api/v1/export/croissant", json={"schema": schema_data})
+    response = client.post("/v1/export/croissant", json={"schema": schema_data})
     assert response.status_code == 200
     data = response.json()
     assert data["@type"] == "sc:Dataset"

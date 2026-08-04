@@ -18,14 +18,14 @@ The API includes native **OpenAPI 3.1.0** interactive documentation:
 ## 2. API Endpoints Overview
 
 | Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| `GET` | `/` | API Health Check and service metadata |
-| `GET` | `/api/v1/schemas` | List all registered FAIR Data JSON Schemas |
-| `POST` | `/api/v1/validate` | Validate a JSON Schema or dataset instance against FAIR meta-schemas |
-| `POST` | `/api/v1/lint` | Evaluate semantic metadata quality (missing license, unlinked variables, etc.) |
-| `POST` | `/api/v1/export/ro-crate` | Convert FAIR JSON Schema to **RO-Crate 1.1** metadata graph (`@graph`) |
-| `POST` | `/api/v1/export/cdif` | Convert FAIR JSON Schema to **CDIF v1.1** JSON-LD profiles |
-| `POST` | `/api/v1/export/croissant` | Convert FAIR JSON Schema to **MLCommons Croissant 1.1** JSON-LD |
+|---|---|---|
+| `GET` | `/status` | Health check endpoint returning server status, version, and build timestamp |
+| `GET` | `/v1/schemas` | List all registered FAIR Data JSON Schemas |
+| `POST` | `/v1/validate` | Validate a JSON Schema or dataset instance against FAIR meta-schemas |
+| `POST` | `/v1/lint` | Evaluate semantic metadata quality (missing license, unlinked variables, etc.) |
+| `POST` | `/v1/export/ro-crate` | Convert FAIR JSON Schema to **RO-Crate 1.1** metadata graph (`@graph`) |
+| `POST` | `/v1/export/cdif` | Convert FAIR JSON Schema to **CDIF v1.1** JSON-LD profiles |
+| `POST` | `/v1/export/croissant` | Convert FAIR JSON Schema to **MLCommons Croissant 1.1** JSON-LD |
 
 ---
 

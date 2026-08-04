@@ -49,31 +49,35 @@ fair-data-schema validate path/to/schema.json dataset.json
 
 ---
 
-## 2. REST API Validation (`/api/v1/validate` & `/api/v1/lint`)
+## 2. REST API Validation (`/v1/validate` & `/v1/lint`)
 
-The FAIR Data JSON Schema API provides dedicated endpoints for programmatic HTTP validation:
+When the API server is running (`fair-data-schema serve`), you can perform validation via HTTP POST requests:
 
-### Standard Validation
 ```bash
-curl -X POST http://localhost:8000/api/v1/validate \
+curl -X POST http://localhost:8000/v1/validate \
   -H "Content-Type: application/json" \
-  -d '{"schema": {...}, "instance": {...}}'
+  -d '{
+    "schema": {
+      "$schema": "https://highvaluedata.net/fair-data-schema/dev",
+      "title": "My Dataset"
+    }
+  }'
 ```
 
-### Strict Mode Validation (`?strict=true`)
-By default, standard JSON Schema validators treat unknown keywords as annotations. Enable **strict mode** to fail validation if any unrecognized or misspelled `fair:` keyword (e.g., `fair:measurementUnit2`) is found:
+To enable **strict mode** (failing on misspelled or unknown `fair:` keywords):
 
 ```bash
-curl -X POST "http://localhost:8000/api/v1/validate?strict=true" \
+curl -X POST "http://localhost:8000/v1/validate?strict=true" \
   -H "Content-Type: application/json" \
-  -d '{"schema": {...}}'
+  -d '{ ... }'
 ```
 
-### Semantic Quality Linting (`/api/v1/lint`)
+### Semantic Quality Linting (`/v1/lint`)
+
 ```bash
-curl -X POST http://localhost:8000/api/v1/lint \
+curl -X POST http://localhost:8000/v1/lint \
   -H "Content-Type: application/json" \
-  -d '{"schema": {...}}'
+  -d '{ ... }'
 ```
 
 ---
