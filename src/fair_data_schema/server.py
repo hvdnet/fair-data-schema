@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import os
+from datetime import UTC, datetime
 from typing import Any
 
 from fastapi import FastAPI, HTTPException, Query, status
@@ -18,6 +19,8 @@ from starlette.types import ASGIApp, Receive, Scope, Send
 
 from fair_data_schema.exporter import to_cdif, to_croissant, to_ro_crate
 from fair_data_schema.validator import validate
+
+STARTUP_TIME = datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 KNOWN_ROOT_ENDPOINTS = {"", "status", "docs", "redoc", "openapi.json", "api", "health"}
 
@@ -74,6 +77,10 @@ class HealthResponse(BaseModel):
     status: str = Field("ok", description="Server health status")
     name: str = Field("FAIR Data JSON Schema API", description="API Service Name")
     version: str = Field("0.1.0", description="API Version")
+    build: str = Field(
+        default_factory=lambda: STARTUP_TIME,
+        description="Server startup timestamp (ISO 8601 UTC)",
+    )
 
 
 class SchemaInfo(BaseModel):

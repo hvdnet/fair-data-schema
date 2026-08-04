@@ -21,6 +21,8 @@ def test_health_check() -> None:
     assert data["status"] == "ok"
     assert data["name"] == "FAIR Data JSON Schema API"
     assert data["version"] == "0.1.0"
+    assert "build" in data
+    assert len(data["build"]) > 0
 
 
 def test_landing_page() -> None:
